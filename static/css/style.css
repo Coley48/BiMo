@@ -13,15 +13,18 @@ html,
 body {
     height: 100%;
     width: 100%;
-    scroll-behavior: smooth;
+    /* scroll-behavior: smooth; */
 }
 
 body {
-    padding-left: 60px;
+    padding-left: 60px !important;
     background-color: #ecf0f1;
     overflow: hidden;
 }
 
+::-webkit-scrollbar{
+    display: none;
+}
 
 /** 
  * nav
@@ -121,7 +124,7 @@ body {
  }
 
  main section{
-    height: 100vh;
+    /* height: 100vh;
     width: 100%;
     position: absolute;
     top: 0;
@@ -137,34 +140,50 @@ body {
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
-	z-index: 1;
+	z-index: 1; */
 }
     
 /* section-1 guidance */
-#guidance{
+#section-1{
     position: relative;
     background-color: lightblue;
 }
 
-#guidance .jumbotron{
+
+#section-1 .jumbotron{
     width: 50%;
     height: 100%;
     margin: auto;
-    background: none;
+    /* background: light; */
 }
 
-.pt-moveToLeft-50{
-    animation: moveToLeft-50 2s ease both;
-    -webkit-animation: moveToLeft-50 2s ease both;
+#section-1 h1 span{
+    cursor: pointer;
+    display: inline-block;
 }
- 
+
+#section-1 span:hover{
+    animation-play-state: paused;
+}
+
+#section-1 span:active{
+    animation: none;
+}
+
 .letter {
     position: absolute;
     right: 0;
     top: 0;
     width: 50%;
     height: 100vh;
+    display: none;
     background-color: rgba(0, 0, 0, .5);
+    /* overflow: auto; */
+}
+
+.letter .card-text{
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
 }
 
 .letter .card-title{
@@ -172,29 +191,127 @@ body {
 }
 
 /* section-2 */
-#journey{
+#section-2{
     background-color: lightcoral;
 }
 
 /* section-3 */
-#ceremony{
+#section-3{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgray;
+    /* background-color: #fafad2; */
+}
+
+#section-3 .wrap {
+    perspective: 2000px;
+    perspective-origin: center;
+}
+
+#section-3 .cube {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
+    top: -50%;
+    /* transition: all .5s; */
+}
+
+#section-3 .cube div {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    line-height: 200px;
+    opacity: .8;
+    overflow: hidden;
+    border-radius: 2px;
+    /* transition: all 1s; */
+}
+
+#section-3 .back {
+    transform: translateZ(-100px) rotateY(180deg);
+    background-color: lightblue;
+}
+
+#section-3 .right {
+    transform: rotateY(-270deg) translateX(100px);
+    transform-origin: top right;
+    background-color: lightcoral;
+}
+
+#section-3 .left {
+    transform: rotateY(270deg) translateX(-100px);
+    transform-origin: center left;
     background-color: lightgoldenrodyellow;
 }
 
+#section-3 .top {
+    transform: rotateX(-90deg) translateY(100px) rotateZ(180deg);
+    transform-origin: top center;
+    background-color: lightseagreen;
+}
+
+#section-3 .bottom {
+    transform: rotateX(90deg) translateY(100px);
+    transform-origin: bottom center;
+    background-color: lightpink;
+}
+
+#section-3 .front {
+    transform: translateZ(100px);
+    background-color: lightcyan;
+}
+
+/* #section-3 .cube video {
+    transform: translate(-25%, 0);
+} */
+
+@keyframes spin {
+    from {
+        transform: rotateY(0) rotateX(0);
+    }
+
+    to {
+        transform: rotateY(360deg) rotateX(360deg);
+    }
+}
+
+@keyframes horizontal {
+    from {
+        transform: rotateY(0);
+    }
+
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+@keyframes vertical {
+    from {
+        transform: rotateX(0);
+    }
+
+    to {
+        transform: rotateX(360deg);
+    }
+}
+
+.cube {
+    animation: spin 8s infinite linear;
+}
+
 /* section-4 */
-#dictation{
+#section-4{
     background-color: lightseagreen;
 }
 
 /* section-5 */
-#sakumap{
+#section-5{
     background-color: lightpink;
-}
-
-
-.letter .card-text{
-    font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap;
 }
 
 /* section-2 journey */
@@ -223,20 +340,39 @@ body {
  * addition
  */
 
- /* bootstrap.css */
- .bg-none{
-     background: none !important;
- }
+/* bootstrap.css */
+.bg-none{
+    background: none !important;
+}
 
 
- /* animations.css */
- .pt-delay400 {
-	-webkit-animation-delay: .4s;
-	animation-delay: .4s;
+/* animations.css */
+
+.pt-delay400 {
+    -webkit-animation-delay: .4s;
+    animation-delay: .4s;
+}
+.pt-delay600 {
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s;
+}
+.pt-delay1500 {
+    -webkit-animation-delay: .6s;
+    animation-delay: .6s;
 }
 
 .pt-current{
     visibility: visible;
+}
+
+.pt-moveToLeft-50{
+    animation: moveToLeft-50 2s ease both;
+    -webkit-animation: moveToLeft-50 2s ease both;
+}
+
+.pt-moveToBottom-50{
+    animation: moveToBottom-50 2s ease both;
+    -webkit-animation: moveToBottom-50 2s ease both;
 }
 
 @-webkit-keyframes moveToLeft-50 {
@@ -247,7 +383,14 @@ body {
 	from { }
 	to { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
 } 
-
+@-webkit-keyframes moveToBottom-50 {
+	from { }
+	to { -webkit-transform: translateY(-50%); }
+}
+@keyframes moveToBottom-50 {
+	from { }
+	to { -webkit-transform: translateY(-50%); transform: translateX(-50%); }
+} 
 
 
 /**
