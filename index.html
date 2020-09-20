@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="./static/img/temp.ico" type="image/x-icon">
     <link rel="stylesheet" href="./static/bootstrap-4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/animate.css/animate.min.css">
-    <link rel="stylesheet" href="./static/css/animations.css">
+    <!-- <link rel="stylesheet" href="./static/css/animations.css"> -->
     <link rel="stylesheet" href="./static/fullpage.js/fullpage.min.css">
     <link rel="stylesheet" href="./static/css/style.css">
     <title>BiMo</title>
@@ -33,7 +33,7 @@
     </div>
 
     <!-- nav part -->
-    <nav class="nav bg-secondary">
+    <nav class="nav">
         <!-- nav top -->
         <div class="nav-top text-light">
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 612 612" role="img"
@@ -83,76 +83,119 @@
     <!-- main part -->
     <main class="container-fluid p-0">
 
-        <!-- section-1 guidance -->
-        <section data-anchor="guidance" class="section" id="section-1">
+        <!-- section-0 guidance -->
+        <section data-anchor="guidance" class="section" id="section-0">
 
-            <div>
+            <!-- cover -->
+            <div id="header" class="jumbotron animate__animated animate__slideInDown animate__delay-1s animate__slower">
+                <h1 id="header-title" class="display-4 mb-3 text-center">毕&nbsp;摩&nbsp;行</h1>
+                <div id="header-body">
+                    <p class="animate__animated animate__fadeIn animate__slower animate__delay-2s lead">This is a
+                        simple hero unit for calling extra attention to featured content or information.</p>
+                    <hr class="animate__animated animate__fadeIn animate__slower animate__delay-3s my-4 ">
+                    <p class="animate__animated animate__fadeIn animate__slower animate__delay-3s">It uses
+                        utility classes for typography and spacing to space content out within the larger container.
+                    </p>
+                </div>
+            </div>
 
-                <!-- cover -->
-                <div id="cover" class="jumbotron animate__animated animate__slideInDown animate__slower">
-                    <h1 id="cover-head" class="display-4 mb-3 text-center">毕摩行</h1>
-                    <div id="cover-body">
-                        <p class="lead animate__animated animate__fadeInLeft animate__slow animate__delay-1s">This is a
-                            simple
-                            hero unit for calling extra attention to featured content or information.</p>
-                        <hr class="my-4 animate__animated animate__fadeIn animate__delay-1s">
-                        <p class="animate__animated animate__fadeInRight animate__slow animate__delay-1s">It uses
-                            utility
-                            classes for
-                            typography and spacing to
-                            space content out within the larger container.
-                        </p>
+            <!-- invitation -->
+            <div id="letter" class="animate__animated animate__fadeInRight animate__slow">
+                <div class="card bg-none border-0 text-white">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">邀请信</h5>
+                        <span class="card-text typed"></span>
+
                     </div>
                 </div>
-
-                <!-- invitation -->
-                <div class="letter animate__animated animate__fadeInRight animate__slow">
-                    <div class="card bg-none border-0 text-white">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">邀请信</h5>
-                            <span class="card-text typed"></span>
-
-                            <!-- <a href="#" class="btn btn-info">go somewhere</a> -->
-                        </div>
-                    </div>
-                </div>
-
             </div>
 
             <!-- content -->
         </section>
 
-        <!-- section-2 journey -->
-        <section data-anchor="journey" class="section" id="section-2"></section>
+        <!-- section-1 journey -->
+        <section data-anchor="journey" class="section hide" id="section-1">
+            <div class="sec-1 bg-info triger">
+                <div class="layer">
+                    <h1>cover</h1>
 
-        <!-- section-3 ceremony -->
-        <section data-anchor="ceremony" class="section" id="section-3">
-            <div class="wrap">
-                <div class="cube">
-                    <div class="front">
-                        front
-                        <!-- <video src="./static/video/fisioterapia-loop.webm" width="auto" height="100%" autoplay loop></video> -->
-                    </div>
-                    <div class="back">back</div>
-                    <div class="top">
-                        top
-                        <!-- <video src="./static/video/intro-loop.webm" width="auto" height="100%" autoplay loop></video> -->
-                    </div>
-                    <div class="bottom">bottom</div>
-                    <div class="left">
-                        left
-                        <!-- <video src="./static/video/agopuntura-loop.webm" width="auto" height="100%" autoplay loop></video> -->
-                    </div>
-                    <div class="right">right</div>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
+                        veritatis, repellat itaque illo fugiat illum maiores perferendis vero, consectetur fugit cum
+                        sapiente? Rerum iste facere similique nostrum!</p>
+                </div>
+
+            </div>
+
+            <div class="sec-2 bg-warning triger">
+                <div class="layer">
+                    <h1>content</h1>
                 </div>
             </div>
+
         </section>
 
-        <!-- section-4 dictation -->
-        <section data-anchor="dictation" class="section" id="section-4"></section>
+        <!-- section-2 ceremony -->
+        <section data-anchor="ceremony" class="section hide" id="section-2">
+            <div class="sec-1 bg-secondary">
+                <div class="wrap triger">
+                    <div class="cube">
+                        <div class="front">
+                            front
+                            <!-- <video src="./static/video/fisioterapia-loop.webm" width="auto" height="100%" autoplay loop></video> -->
+                        </div>
+                        <div class="back">back</div>
+                        <div class="top">
+                            top
+                            <!-- <video src="./static/video/intro-loop.webm" width="auto" height="100%" autoplay loop></video> -->
+                        </div>
+                        <div class="bottom">bottom</div>
+                        <div class="left">
+                            left
+                            <!-- <video src="./static/video/agopuntura-loop.webm" width="auto" height="100%" autoplay loop></video> -->
+                        </div>
+                        <div class="right">right</div>
+                    </div>
+                </div>
+            </div>
 
-        <!-- section-5 sakumap -->
-        <section data-anchor="sakumap" class="section" id="section-5"></section>
+            <div class="sec-2 bg-warning">
+                <!-- <button class="triger btn btn-light fixed-top">back</button> -->
+                <div class="slide">
+                    <video autoplay muted data-autoplay loop>
+                        <source src="./static/video/flowers.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="layer triger">
+                    <h1>videos</h1>
+                </div>
+
+                <div class="slide">
+                    <div class="card-wrap">
+
+                        <div class="card-page">
+                            <div class="card-front card-item bg-danger">
+                            </div>
+
+                            <div class="card-back card-item bg-info">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="slide"></div>
+            </div>
+
+        </section>
+
+        <!-- <button class="btn btn-info triger">change</button> -->
+        <!-- section-3 dictation -->
+        <section data-anchor="dictation" class="section" id="section-3">
+
+        </section>
+
+        <!-- section-4 sakumap -->
+        <section data-anchor="sakumap" class="section" id="section-4"></section>
     </main>
 
     <script src="./static/js/jquery-3.5.1-development.js"></script>

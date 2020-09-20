@@ -13,7 +13,7 @@ html,
 body {
     height: 100%;
     width: 100%;
-    /* scroll-behavior: smooth; */
+    scroll-behavior: smooth;
 }
 
 body {
@@ -74,7 +74,8 @@ body {
     left: 0;
     height: 100%;
     width: 3.75rem;
-    background-color: #778899;
+    /* background-color: #778899; */
+    background-color: #6c757d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -118,19 +119,25 @@ body {
  * main
  */
 
- main.container-fluid{
+main.container-fluid{
     width: 100%;
     height: 100%;
- }
+}
 
- main section{
-    /* height: 100vh;
+main .section{
+    text-align: center;
+    overflow: hidden;
+}
+
+main .sec-1,
+main .sec-2{
+    height: 100%;
     width: 100%;
     position: absolute;
     top: 0;
     left: 0;
-    visibility: hidden;
     overflow: hidden;
+    visibility: visible;
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
@@ -140,37 +147,32 @@ body {
     -webkit-transform-style: preserve-3d;
     -moz-transform-style: preserve-3d;
     transform-style: preserve-3d;
-	z-index: 1; */
+    z-index: 1;
 }
-    
-/* section-1 guidance */
-#section-1{
+
+.section.hide .sec-1{
+    z-index: 2;
+}
+
+/* section-0 guidance */
+#section-0{
     position: relative;
     background-color: lightblue;
 }
 
 
-#section-1 .jumbotron{
+#section-0 .jumbotron{
     width: 50%;
     height: 100%;
     margin: auto;
     /* background: light; */
 }
 
-#section-1 h1 span{
+#section-0 h1{
     cursor: pointer;
-    display: inline-block;
 }
 
-#section-1 span:hover{
-    animation-play-state: paused;
-}
-
-#section-1 span:active{
-    animation: none;
-}
-
-.letter {
+#letter {
     position: absolute;
     right: 0;
     top: 0;
@@ -178,49 +180,63 @@ body {
     height: 100vh;
     display: none;
     background-color: rgba(0, 0, 0, .5);
-    /* overflow: auto; */
+    overflow: auto;
 }
 
-.letter .card-text{
+#letter .card-text{
     font-family: 'Courier New', Courier, monospace;
     white-space: pre-wrap;
 }
 
-.letter .card-title{
+#letter .card-title{
     color: whitesmoke;
+}
+
+#letter .card-body{
+    text-align: left;
+}
+
+/* section-1 */
+#section-1{
+    /* background-color: lightcoral; */
+    background-color: lightgray;
 }
 
 /* section-2 */
 #section-2{
-    background-color: lightcoral;
-}
-
-/* section-3 */
-#section-3{
     height: 100vh;
     width: 100%;
+    background-color: lightgray;
+}
+
+#section-2 .sec-1{
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: lightgray;
-    /* background-color: #fafad2; */
 }
 
-#section-3 .wrap {
+#section-2 .wrap {
     perspective: 2000px;
     perspective-origin: center;
 }
 
-#section-3 .cube {
+#section-2 .cube {
+    /* background-color: lightblue; */
     position: relative;
     width: 200px;
     height: 200px;
     transform-style: preserve-3d;
     top: -50%;
-    /* transition: all .5s; */
+    animation: spin 8s infinite linear;
+    cursor: pointer;
 }
 
-#section-3 .cube div {
+
+#section-2 .cube:hover{
+    animation-play-state: paused;
+}
+
+.cube div {
     position: absolute;
     width: 200px;
     height: 200px;
@@ -232,41 +248,45 @@ body {
     /* transition: all 1s; */
 }
 
-#section-3 .back {
+.cube div:hover{
+    opacity: 1;
+}
+
+.cube .back {
     transform: translateZ(-100px) rotateY(180deg);
     background-color: lightblue;
 }
 
-#section-3 .right {
+.cube .right {
     transform: rotateY(-270deg) translateX(100px);
     transform-origin: top right;
     background-color: lightcoral;
 }
 
-#section-3 .left {
+.cube .left {
     transform: rotateY(270deg) translateX(-100px);
     transform-origin: center left;
     background-color: lightgoldenrodyellow;
 }
 
-#section-3 .top {
+.cube .top {
     transform: rotateX(-90deg) translateY(100px) rotateZ(180deg);
     transform-origin: top center;
     background-color: lightseagreen;
 }
 
-#section-3 .bottom {
+.cube .bottom {
     transform: rotateX(90deg) translateY(100px);
     transform-origin: bottom center;
     background-color: lightpink;
 }
 
-#section-3 .front {
+.cube .front {
     transform: translateZ(100px);
     background-color: lightcyan;
 }
 
-/* #section-3 .cube video {
+/* .cube video {
     transform: translate(-25%, 0);
 } */
 
@@ -300,17 +320,104 @@ body {
     }
 }
 
-.cube {
-    animation: spin 8s infinite linear;
+.slide .fp-tableCell{
+    position: relative;
 }
 
-/* section-4 */
-#section-4{
+.slide video{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-color: white;
+    background-position: center center;
+    background-size: contain;
+    object-fit: cover; 
+    z-index:3;
+    /* background-image: ; */
+}
+
+video::-webkit-media-controls {
+    display:none !important;
+}
+
+.card-wrap {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    perspective: 2000px;
+    perspective-origin: center;
+}
+
+.card-page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    cursor: pointer;
+
+    animation: returnCard 1s ease both;
+}
+
+.reverse {
+    animation-name: reverseCard;
+}
+
+.card-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.card-back {
+    transform: rotateY(180deg);
+}
+
+@keyframes reverseCard {
+    from {}
+
+    to {
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes returnCard {
+    from {
+        transform: rotateY(180deg);
+    }
+
+    to {
+        transform: rotateY(0);
+    }
+}
+
+.layer{
+    width: 100%;
+    padding: 0 10%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    color: white;
+    cursor: pointer;
+
+}
+
+/* section-3 */
+#section-3{
     background-color: lightseagreen;
 }
 
-/* section-5 */
-#section-5{
+
+/* section-4 */
+#section-4{
     background-color: lightpink;
 }
 
@@ -361,9 +468,30 @@ body {
     animation-delay: .6s;
 }
 
-.pt-current{
-    visibility: visible;
+.pt-scaleUpDown {
+	-webkit-animation: scaleUpDown .5s ease both;
+	animation: scaleUpDown .5s ease both;
 }
+@-webkit-keyframes scaleUpDown {
+	from { opacity: 0; -webkit-transform: scale(1.2); }
+}
+@keyframes scaleUpDown {
+	from { opacity: 0; -webkit-transform: scale(1.2); transform: scale(1.2); }
+}
+
+.pt-scaleDown {
+	-webkit-animation: scaleDown .7s ease both;
+	animation: scaleDown .7s ease both;
+}
+@-webkit-keyframes scaleDown {
+	from { }
+	to { opacity: 0; -webkit-transform: scale(.8); }
+}
+@keyframes scaleDown {
+	from { }
+	to { opacity: 0; -webkit-transform: scale(.8); transform: scale(.8); }
+}
+
 
 .pt-moveToLeft-50{
     animation: moveToLeft-50 2s ease both;
@@ -394,12 +522,15 @@ body {
 
 
 /**
- * 响应式
+ * responsive
  */
 
 @media only screen and (max-width:992px){
-    #guidance .letter,
-    #guidance .jumbotron{
+    body{
+        /* padding-left: 0 !important; */
+    }
+    #section-0 #letter,
+    #section-0 #header{
         width: 100%;
     }
 }
