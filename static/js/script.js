@@ -1,9 +1,7 @@
 $(function () {
     'use scrict';
 
-    /**
-     * 变量定义
-     */
+    /** 变量定义 --------------------------------------- */
 
     new fullpage('main', {
         // scrollHorizontally: true,
@@ -24,22 +22,15 @@ $(function () {
         }
     });
 
-    // fullpage_api.moveSectionUp();
-    // fullpage_api.moveTo(3, 0);
-
-    /**
-     * 全局变量
-     */
     // 动画
     let animateIn = 'pt-scaleUpDown',
         animateOut = 'pt-scaleDown';
 
-    window.currentPart = 0;
-    let typer = null;
+    let currentPart = 0;
+    let trigger = $(".trigger");
 
-    /**
-     * 导航栏------------------------------------------
-     */
+
+    /** 导航栏 --------------------------------------- */
     let Mask = $(".mask"), // 阴影面板
         Menu = $("#menu"), // 菜单按钮
         menuBar = $(".menu-bar"), // 目录栏
@@ -50,36 +41,159 @@ $(function () {
     Menu.open = false;
     Volume.mute = true;
 
-    /**
-    * 引导页------------------------------------------
-    */
+    /** 引导页 --------------------------------------- */
     // 封面
     let headerTitle = $("#header-title"),
         headerBody = $("#header-body"),
         header = $("#header"),
-        letter = $("#letter");
+        letter = $("#letter"),
+        typer = null;
 
-    /**
-     * 毕摩仪式----------------------------------------
-     */
-    let wrap = $(".wrap");
+    /** 探索旅途 --------------------------------------- */
 
-
-
-    /**
-     * 事件监听
-     */
-    window.onmousemove = function (e) {
-        wrap.css("perspective-origin", `${e.clientX - window.innerWidth / 2}px ${e.clientY - window.innerHeight / 2}px`);
+    let rawData1 = [
+        [260, 260],
+        [255, 270],
+        [248, 285],
+        [244, 289],
+        [242, 296],
+        [240, 305],
+        [238, 310],
+        [234, 315],
+        [230, 320],
+        [229, 323],
+        [228, 329],
+        [225, 336],
+        [224, 338],
+        [223, 340],
+        [222, 342],
+        [221, 345],
+        [220, 348],
+        [220, 350],
+        [219, 352],
+        [217, 356],
+        [216, 358],
+        [215, 360],
+        [214, 362],
+        [213, 364],
+        [211, 369],
+        [210, 371],
+        [208, 373],
+        [205, 377],
+        [202, 381],
+        [201, 384],
+        [197, 389],
+        [195, 390],
+        [190, 397],
+        [188, 402],
+        [187, 403],
+        [185, 406],
+        [183, 409],
+        [180, 411],
+        [178, 416],
+        [176, 421],
+        [174, 422],
+        [173, 425],
+        [170, 429],
+        [168, 432],
+        [165, 434],
+        [164, 436],
+        [163, 438],
+        [162, 439],
+        [161, 442],
+        [158, 446],
+        [157, 448],
+        [156, 449],
+        [153, 451],
+        [151, 456],
+        [150, 457],
+        [149, 460],
+        [147, 462],
+        [146, 465],
+        [144, 467],
+        [143, 469],
+        [142, 470],
+        [141, 470],
+        [140, 471],
+        [139, 474],
+        [138, 475],
+        [137, 476],
+        [137, 478],
+        [135, 479],
+        [135, 480],
+        [133, 483],
+        [132, 485],
+        [131, 486],
+        [128, 489],
+        [127, 491],
+        [126, 493],
+        [125, 495],
+        [123, 497],
+        [122, 499],
+        [120, 501],
+        [118, 504],
+        [117, 506],
+        [116, 508],
+        [114, 510],
+        [112, 511],
+        [110, 516],
+        [108, 518],
+        [107, 520],
+        [106, 522],
+        [105, 524],
+        [104, 526],
+        [103, 528],
+        [102, 531],
+        [101, 532],
+        [100, 533],
+        [99, 534],
+        [98, 535],
+        [98, 536],
+        [98, 537],
+        [97, 538]
+    ];
+    let treatedData1 = [];
+    for (let i = 1; i < rawData1.length; i++) {
+        treatedData1.push(...lerp(rawData1[i], rawData1[i - 1], 3));
     }
+
+    let painter = new Painter("train-map", treatedData1);
+    // painter.start();
+
+    let trainDiv = $(".trip-intro-video.train");
+    let trainVideo = trainDiv.find("video").get(0);
+    painter.getCanvas().addEventListener("move", function (e) {
+        trainDiv.css({ left: e.data[0] + "px", top: e.data[1] + "px" });
+    });
+    trainDiv.click(() => {
+
+        if (trainVideo.paused) {
+            trainVideo.play();
+            painter.start();
+        } else {
+            trainVideo.pause();
+            painter.stop();
+        }
+    });
+
+    trainVideo.onpause = () => painter.stop();
+
+    /** 毕摩仪式 --------------------------------------- */
+    // 立方体
+    let cubeWrap = $(".cube-wrap");
+
+
+
+    /** 事件监听 --------------------------------------- */
+
+    window.onmousemove = (e) => cubeWrap.css("perspective-origin", `${e.clientX - window.innerWidth / 2}px ${e.clientY - window.innerHeight / 2}px`);
 
     // 导航栏
     Menu.click(toggleMenuBar);
     Mask.click(toggleMenuBar);
     Volume.click(toggleVolume);
 
-    let triger = $(".triger");
-    triger.click(function () {
+    trigger.click(function () {
         let section = $("#section-" + currentPart);
 
         if (section.hasClass("hide")) {
@@ -93,11 +207,13 @@ $(function () {
         }
     });
 
+    $('.nav-center a').popover({ boundary: 'window', placement: "right", trigger: "hover" });
+
+
     // 板块
     headerTitle.click(function () {
         letter.show();
         header.addClass("pt-moveToLeft-50");
-        // headerTitle.addClass(["pt-moveToBottom", "pt-delay2000", "animate__slower"]).find(".animate__animated").removeClass("animate__animated");
         headerBody.addClass(["animate__animated", "animate__fadeOut", "animate__slow"]);
         createTyper(1200);
     })
@@ -106,9 +222,26 @@ $(function () {
         $(this).toggleClass("reverse");
     })
 
-    /**
-     * 函数
-     */
+    $("#section-1 .sec-1").click(() => {
+        setTimeout(() => {
+            painter.restart();
+        }, 400);
+    })
+
+    let changer = $(".train.changer");
+    changer.click(function () {
+        let par = changer.parent(".trip-item");
+
+        // par.children(".sec-a").addClass("pt-flipInTop");
+        // par.children(".sec-b").addClass("pt-rotateRightSideFirst");
+        if (par.hasClass("show") || true) {
+            // par.removeClass("show");
+        } else {
+            // par.addClass("show").addClass(" pt-rotateRightSideFirst");
+        }
+    })
+
+    /** 函数定义 --------------------------------------- */
 
     // 板块切换效果
     function changeMenuItem(i) {
@@ -123,7 +256,7 @@ $(function () {
     //  目录按钮切换
     function toggleMenuBar() {
         toggleMask();
-
+        $('.nav-center a').popover('toggleEnabled').popover("hide");
         if (Menu.open) {
             menuBar.animate({ "left": "-12rem" }, 200);
             Menu.removeClass("active").open = false;

@@ -129,6 +129,8 @@ main .section{
     overflow: hidden;
 }
 
+main.sec-a,
+main.sec-b,
 main .sec-1,
 main .sec-2{
     height: 100%;
@@ -138,9 +140,9 @@ main .sec-2{
     left: 0;
     overflow: hidden;
     visibility: visible;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
+    -webkit-backface-visibility: visible;
+    -moz-backface-visibility: visible;
+    backface-visibility: visible;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
@@ -154,6 +156,10 @@ main .sec-2{
     z-index: 2;
 }
 
+.section.hide .fp-slidesNav{
+    display: none;
+}
+
 /* section-0 guidance */
 #section-0{
     position: relative;
@@ -165,7 +171,6 @@ main .sec-2{
     width: 50%;
     height: 100%;
     margin: auto;
-    /* background: light; */
 }
 
 #section-0 h1{
@@ -198,8 +203,63 @@ main .sec-2{
 
 /* section-1 */
 #section-1{
-    /* background-color: lightcoral; */
     background-color: lightgray;
+}
+
+.trip-wrap{
+    /* position: relative; */
+    width: 100%;
+    height: 100%;
+}
+
+.trip-wrap .trip-item{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.trip-item .sec-b{
+    background-color: #6c757d;
+    /* background-color: black; */
+}
+
+/* .trip-item.show .sec-a{
+    display: none;
+} */
+
+.trip-wrap canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: whitesmoke;
+    visibility: hidden;
+}
+
+.trip-intro-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-120%) translateX(-50%);
+    opacity: .8;
+    cursor: pointer;
+}
+
+.trip-full-video{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.trip-full-video video{
+    height: 100%;
+    width: auto;
+}
+
+.trip-wrap .btn{
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* section-2 */
@@ -215,7 +275,7 @@ main .sec-2{
     align-items: center;
 }
 
-#section-2 .wrap {
+#section-2 .cube-wrap {
     perspective: 2000px;
     perspective-origin: center;
 }
