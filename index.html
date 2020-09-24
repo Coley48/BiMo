@@ -8,7 +8,7 @@
     <link rel="shortcut icon" href="./static/img/temp.ico" type="image/x-icon">
     <link rel="stylesheet" href="./static/bootstrap-4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="./static/animate.css/animate.min.css">
-    <!-- <link rel="stylesheet" href="./static/css/animations.css"> -->
+    <link rel="stylesheet" href="./static/css/animations.css">
     <link rel="stylesheet" href="./static/fullpage.js/fullpage.min.css">
     <link rel="stylesheet" href="./static/css/style.css">
     <title>BiMo</title>
@@ -133,31 +133,74 @@
 
             <div class="sec-2">
                 <div class="trip-wrap">
-                    <div class="trip-item train show">
+
+                    <!-- train trip -->
+                    <div class="trip-item train hide current">
                         <div class="sec-a">
                             <canvas id="train-map">你的浏览器不支持canvas！</canvas>
 
-                            <div class="trip-intro-video train">
-                                <video width="300" height="auto" autoplay muted loop>
-                                    <source src="./static/video/test-1.webm" type="video/webm">
+                            <div class="trip-intro-video train show">
+                                <video width="300" height="auto">
+                                    <source src="./static/video/flowers.mp4" type="video/mp4">
                                 </video>
                             </div>
                         </div>
 
                         <div class="sec-b trip-full-video train">
-                            <video height="100%" width="auto" autoplay muted loop>
-                                <source src="./static/video/test-1.webm" type="video/webm">
+                            <video height="100%" width="auto">
+                                <source src="./static/video/P2 成都—西昌 预览  压缩.mp4" type="video/mp4">
                             </video>
                         </div>
 
-                        <button class="btn btn-danger train changer">Click to see full video.</button>
+                        <button class="btn btn-info train changer">Click to see full video.</button>
+                        <button class="btn btn-info train next" data-current="train">Click to see next one.</button>
                     </div>
-                    <!-- <div class="bus-map">
-                        <div class="bus"></div>
+
+                    <!-- bus trip -->
+                    <div class="trip-item bus">
+                        <div class="sec-a">
+                            <canvas id="bus-map">你的浏览器不支持canvas！</canvas>
+
+                            <div class="trip-intro-video bus">
+                                <video width="300" height="auto">
+                                    <source src="./static/video/flowers.mp4" type="video/mp4">
+                                </video>
+                            </div>
+
+                        </div>
+
+                        <div class="sec-b trip-full-video bus">
+                            <video height="100%" width="auto">
+                                <source src="./static/video/P2 西昌—美姑 预览 压缩.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <button class="btn btn-warning bus changer">Click to see full video.</button>
+                        <button class="btn btn-warning bus next" data-current="bus">Click to see next one.</button>
                     </div>
-                    <div class="car-map">
-                        <div class="car"></div>
-                    </div> -->
+
+                    <!-- car trip -->
+                    <div class="trip-item car">
+                        <div class="sec-a">
+                            <canvas id="car-map">你的浏览器不支持canvas！</canvas>
+
+                            <div class="trip-intro-video car">
+                                <video width="300" height="auto">
+                                    <source src="./static/video/flowers.mp4" type="video/mp4">
+                                </video>
+                            </div>
+
+                        </div>
+
+                        <div class="sec-b trip-full-video car">
+                            <video height="100%" width="auto">
+                                <source src="./static/video/P2 美姑—洒库 预览 压缩.mp4" type="video/mp4">
+                            </video>
+                        </div>
+
+                        <button class="btn btn-danger car changer">Click to see full video.</button>
+                        <button class="btn btn-danger car next" data-current="car">Click to see next one.</button>
+                    </div>
                 </div>
             </div>
 

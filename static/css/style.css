@@ -139,10 +139,10 @@ main .sec-2{
     top: 0;
     left: 0;
     overflow: hidden;
-    visibility: visible;
-    -webkit-backface-visibility: visible;
-    -moz-backface-visibility: visible;
-    backface-visibility: visible;
+    /* visibility: hidden; */
+    /* -webkit-backface-visibility: hidden; */
+    /* -moz-backface-visibility: hidden; */
+    backface-visibility: hidden;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
@@ -207,32 +207,35 @@ main .sec-2{
 }
 
 .trip-wrap{
-    /* position: relative; */
-    width: 100%;
-    height: 100%;
-}
-
-.trip-wrap .trip-item{
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.trip-item .sec-b{
-    background-color: #6c757d;
-    /* background-color: black; */
+.trip-wrap .trip-item{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
 }
-
-/* .trip-item.show .sec-a{
-    display: none;
-} */
 
 .trip-wrap canvas {
     position: absolute;
     top: 0;
     left: 0;
     background-color: whitesmoke;
-    visibility: hidden;
+    z-index: 1;
+    /* visibility: hidden; */
+}
+.trip-item.current{
+    visibility: visible;
+}
+
+.trip-item.current.hide canvas{
+    visibility: visible;
+    /* z-index: -1; */
 }
 
 .trip-intro-video {
@@ -248,6 +251,7 @@ main .sec-2{
     width: 100%;
     height: 100%;
     text-align: center;
+    background-color: rgba(0, 0, 0, .4);
 }
 
 .trip-full-video video{
@@ -255,11 +259,19 @@ main .sec-2{
     width: auto;
 }
 
-.trip-wrap .btn{
+.trip-wrap .changer.btn{
     position: absolute;
     top: 2%;
-    left: 50%;
+    left: 30%;
     transform: translateX(-50%);
+    z-index: 10;
+}
+.trip-wrap .next.btn{
+    position: absolute;
+    top: 2%;
+    left: 60%;
+    transform: translateX(-50%);
+    z-index: 10;
 }
 
 /* section-2 */
@@ -587,8 +599,14 @@ video::-webkit-media-controls {
 
 @media only screen and (max-width:992px){
     body{
-        /* padding-left: 0 !important; */
+        padding-left: 0 !important;
     }
+
+    .nav,
+    .nav *{
+        background-color: transparent !important;
+    }
+
     #section-0 #letter,
     #section-0 #header{
         width: 100%;

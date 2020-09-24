@@ -51,132 +51,34 @@ $(function () {
 
     /** 探索旅途 --------------------------------------- */
 
-    let rawData1 = [
-        [260, 260],
-        [255, 270],
-        [248, 285],
-        [244, 289],
-        [242, 296],
-        [240, 305],
-        [238, 310],
-        [234, 315],
-        [230, 320],
-        [229, 323],
-        [228, 329],
-        [225, 336],
-        [224, 338],
-        [223, 340],
-        [222, 342],
-        [221, 345],
-        [220, 348],
-        [220, 350],
-        [219, 352],
-        [217, 356],
-        [216, 358],
-        [215, 360],
-        [214, 362],
-        [213, 364],
-        [211, 369],
-        [210, 371],
-        [208, 373],
-        [205, 377],
-        [202, 381],
-        [201, 384],
-        [197, 389],
-        [195, 390],
-        [190, 397],
-        [188, 402],
-        [187, 403],
-        [185, 406],
-        [183, 409],
-        [180, 411],
-        [178, 416],
-        [176, 421],
-        [174, 422],
-        [173, 425],
-        [170, 429],
-        [168, 432],
-        [165, 434],
-        [164, 436],
-        [163, 438],
-        [162, 439],
-        [161, 442],
-        [158, 446],
-        [157, 448],
-        [156, 449],
-        [153, 451],
-        [151, 456],
-        [150, 457],
-        [149, 460],
-        [147, 462],
-        [146, 465],
-        [144, 467],
-        [143, 469],
-        [142, 470],
-        [141, 470],
-        [140, 471],
-        [139, 474],
-        [138, 475],
-        [137, 476],
-        [137, 478],
-        [135, 479],
-        [135, 480],
-        [133, 483],
-        [132, 485],
-        [131, 486],
-        [128, 489],
-        [127, 491],
-        [126, 493],
-        [125, 495],
-        [123, 497],
-        [122, 499],
-        [120, 501],
-        [118, 504],
-        [117, 506],
-        [116, 508],
-        [114, 510],
-        [112, 511],
-        [110, 516],
-        [108, 518],
-        [107, 520],
-        [106, 522],
-        [105, 524],
-        [104, 526],
-        [103, 528],
-        [102, 531],
-        [101, 532],
-        [100, 533],
-        [99, 534],
-        [98, 535],
-        [98, 536],
-        [98, 537],
-        [97, 538]
-    ];
+    let rawData1 = [[260, 260], [255, 270], [248, 285], [244, 289], [242, 296], [240, 305], [238, 310], [234, 315], [230, 320], [229, 323], [228, 329], [225, 336], [224, 338], [223, 340], [222, 342], [221, 345], [220, 348], [220, 350], [219, 352], [217, 356], [216, 358], [215, 360], [214, 362], [213, 364], [211, 369], [210, 371], [208, 373], [205, 377], [202, 381], [201, 384], [197, 389], [195, 390], [190, 397], [188, 402], [187, 403], [185, 406], [183, 409], [180, 411], [178, 416], [176, 421], [174, 422], [173, 425], [170, 429], [168, 432], [165, 434], [164, 436], [163, 438], [162, 439], [161, 442], [158, 446], [157, 448], [156, 449], [153, 451], [151, 456], [150, 457], [149, 460], [147, 462], [146, 465], [144, 467], [143, 469], [142, 470], [141, 470], [140, 471], [139, 474], [138, 475], [137, 476], [137, 478], [135, 479], [135, 480], [133, 483], [132, 485], [131, 486], [128, 489], [127, 491], [126, 493], [125, 495], [123, 497], [122, 499], [120, 501], [118, 504], [117, 506], [116, 508], [114, 510], [112, 511], [110, 516], [108, 518], [107, 520], [106, 522], [105, 524], [104, 526], [103, 528], [102, 531], [101, 532], [100, 533], [99, 534], [98, 535], [98, 536], [98, 537], [97, 538]];
     let treatedData1 = [];
     for (let i = 1; i < rawData1.length; i++) {
         treatedData1.push(...lerp(rawData1[i], rawData1[i - 1], 3));
     }
 
     let painter = new Painter("train-map", treatedData1);
+    let painter2 = new Painter("bus-map", treatedData1);
+    let painter3 = new Painter("car-map", treatedData1);
     // painter.start();
 
-    let trainDiv = $(".trip-intro-video.train");
-    let trainVideo = trainDiv.find("video").get(0);
-    painter.getCanvas().addEventListener("move", function (e) {
-        trainDiv.css({ left: e.data[0] + "px", top: e.data[1] + "px" });
-    });
-    trainDiv.click(() => {
+    // let trainDiv = $(".trip-intro-video.train");
+    // let trainVideo = trainDiv.find("video").get(0);
+    // painter.getCanvas().addEventListener("move", function (e) {
+    //     trainDiv.css({ left: e.data[0] + "px", top: e.data[1] + "px" });
+    // });
+    // trainDiv.click(() => {
 
-        if (trainVideo.paused) {
-            trainVideo.play();
-            painter.start();
-        } else {
-            trainVideo.pause();
-            painter.stop();
-        }
-    });
+    //     if (trainVideo.paused) {
+    //         trainVideo.play();
+    //         painter.start();
+    //     } else {
+    //         trainVideo.pause();
+    //         painter.stop();
+    //     }
+    // });
 
-    trainVideo.onpause = () => painter.stop();
+    // trainVideo.onpause = () => painter.stop();
 
     /** 毕摩仪式 --------------------------------------- */
     // 立方体
@@ -222,22 +124,48 @@ $(function () {
         $(this).toggleClass("reverse");
     })
 
-    $("#section-1 .sec-1").click(() => {
-        setTimeout(() => {
-            painter.restart();
-        }, 400);
+    // $("#section-1 .sec-1").click(() => {
+    //     setTimeout(() => {
+    //         painter.restart();
+    //     }, 400);
+    // })
+
+    let changer = $(".trip-item .changer");
+    changer.click(function () {
+        let parent = changer.parents(".trip-item");
+        if (parent.hasClass("hide")) {
+            changer.parents(".trip-item").removeClass("hide");
+            changer.siblings(".sec-a").removeClass("pt-flipInTop").addClass("pt-rotateRightSideFirst");
+            changer.siblings(".sec-b").removeClass("pt-rotateRightSideFirst").addClass("pt-flipInTop");
+        } else {
+            changer.parents(".trip-item").addClass("hide");
+            changer.siblings(".sec-a").removeClass("pt-rotateRightSideFirst").addClass("pt-flipInTop");
+            changer.siblings(".sec-b").removeClass("pt-flipInTop").addClass("pt-rotateRightSideFirst");
+        }
+
+
+
+        // changer.siblings(".sec-b").children()[1].play();
+
+        // ("pt-flipInTop");
+        // ("pt-rotateRightSideFirst");
     })
 
-    let changer = $(".train.changer");
-    changer.click(function () {
-        let par = changer.parent(".trip-item");
-
-        // par.children(".sec-a").addClass("pt-flipInTop");
-        // par.children(".sec-b").addClass("pt-rotateRightSideFirst");
-        if (par.hasClass("show") || true) {
-            // par.removeClass("show");
-        } else {
-            // par.addClass("show").addClass(" pt-rotateRightSideFirst");
+    let tripItem = $(".trip-item");
+    let next = $(".trip-item .next");
+    next.click(function (e) {
+        switch (e.target.getAttribute("data-current")) {
+            case "train":
+                tripItem.removeClass("current").filter(".bus").addClass("current");
+                break;
+            case "bus":
+                tripItem.removeClass("current").filter(".car").addClass("current");
+                break;
+            case "car":
+                tripItem.removeClass("current").filter(".train").addClass("current");
+                break;
+            default:
+                break;
         }
     })
 

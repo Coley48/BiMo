@@ -79,7 +79,8 @@ class Painter {
     init() {
         this._canvas.width = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
         this._canvas.height = document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight;
-        this._canvas.style.visibility = "visible";
+        // this._canvas.style.visibility = "visible";
+        // this._canvas.style.zIndex = "1";
 
         if (this._canvas.width < 992) {
             startPoint = { x: (this._canvas.width - 375) / 2, y: 0 };
