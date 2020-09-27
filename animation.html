@@ -238,10 +238,10 @@
             secB.toggleClass("current").addClass(b || animation[sec]);
             console.log(a || animation[fir], b || animation[sec]);
         };
-        transition("pt-flipInTop", "pt-rotateRightSideFirst");
+        // transition("pt-flipInTop", "pt-rotateRightSideFirst");
         // transition("pt-rotatePullRight", "pt-moveToBottomFade");
         // transition("pt-rotateFoldLeft", "pt-flipInTop");
-        // transition("pt-rotateOutNewspaper", "pt-rotateInNewspaper");
+        transition("pt-rotateOutNewspaper", "pt-rotateInNewspaper");
 
         btn.click(function () {
             secA.toggleClass("current").removeClass(animation[fir]);

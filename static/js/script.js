@@ -57,28 +57,26 @@ $(function () {
         treatedData1.push(...lerp(rawData1[i], rawData1[i - 1], 3));
     }
 
-    let painter = new Painter("train-map", treatedData1);
-    let painter2 = new Painter("bus-map", treatedData1);
-    let painter3 = new Painter("car-map", treatedData1);
+    let painter = new Painter("train-map", treatedData1, $(".trip-intro-video.train"));
+    let painter2 = new Painter("bus-map", treatedData1, $(".trip-intro-video.bus"));
+    let painter3 = new Painter("car-map", treatedData1, $(".trip-intro-video.car"));
     // painter.start();
 
-    // let trainDiv = $(".trip-intro-video.train");
-    // let trainVideo = trainDiv.find("video").get(0);
-    // painter.getCanvas().addEventListener("move", function (e) {
-    //     trainDiv.css({ left: e.data[0] + "px", top: e.data[1] + "px" });
-    // });
-    // trainDiv.click(() => {
+    let trainDiv = $(".trip-intro-video.train");
+    let trainVideo = trainDiv.find("video").get(0);
 
-    //     if (trainVideo.paused) {
-    //         trainVideo.play();
-    //         painter.start();
-    //     } else {
-    //         trainVideo.pause();
-    //         painter.stop();
-    //     }
-    // });
+    trainDiv.click(() => {
 
-    // trainVideo.onpause = () => painter.stop();
+        if (trainVideo.paused) {
+            trainVideo.play();
+            painter.start();
+        } else {
+            trainVideo.pause();
+            painter.stop();
+        }
+    });
+
+    trainVideo.onpause = () => painter.stop();
 
     /** 毕摩仪式 --------------------------------------- */
     // 立方体
@@ -90,7 +88,13 @@ $(function () {
 
     window.onmousemove = (e) => cubeWrap.css("perspective-origin", `${e.clientX - window.innerWidth / 2}px ${e.clientY - window.innerHeight / 2}px`);
 
-    // 导航栏
+    /**
+     * 导航栏
+     */
+    $(".logo").click(() => {
+        $(".nav").toggleClass("nav-show");
+    })
+
     Menu.click(toggleMenuBar);
     Mask.click(toggleMenuBar);
     Volume.click(toggleVolume);
@@ -109,13 +113,15 @@ $(function () {
         }
     });
 
-    $('.nav-center a').popover({ boundary: 'window', placement: "right", trigger: "hover" });
+    $('nav [data-toggle="popover"]').popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
 
-    // 板块
+    /**
+     * 引导页
+     */
     headerTitle.click(function () {
         letter.show();
-        header.addClass("pt-moveToLeft-50");
+        // header.addClass("pt-moveToLeft-50");
         headerBody.addClass(["animate__animated", "animate__fadeOut", "animate__slow"]);
         createTyper(1200);
     })
@@ -123,6 +129,10 @@ $(function () {
     $(".card-page").click(function () {
         $(this).toggleClass("reverse");
     })
+
+    /**
+     * 探索旅途
+     */
 
     // $("#section-1 .sec-1").click(() => {
     //     setTimeout(() => {
@@ -143,31 +153,81 @@ $(function () {
             changer.siblings(".sec-b").removeClass("pt-flipInTop").addClass("pt-rotateRightSideFirst");
         }
 
-
-
+        // transition("pt-rotateOutNewspaper", "pt-rotateInNewspaper");
         // changer.siblings(".sec-b").children()[1].play();
-
-        // ("pt-flipInTop");
-        // ("pt-rotateRightSideFirst");
     })
 
     let tripItem = $(".trip-item");
     let next = $(".trip-item .next");
+    let tripWays = ["train", "bus", "car"];
     next.click(function (e) {
-        switch (e.target.getAttribute("data-current")) {
-            case "train":
-                tripItem.removeClass("current").filter(".bus").addClass("current");
+        let cur = tripWays[e.target.getAttribute("data-current") % 3];
+        tripItem.removeClass("current").removeClass("pt-rotateInNewspaper").addClass("pt-rotateOutNewspaper");
+        tripItem.filter("." + cur).addClass("current").removeClass("pt-rotateOutNewspaper").addClass("pt-rotateInNewspaper");
+        // switch (e.target.getAttribute("data-current")) {
+        //     case "train":
+        //         tripItem.removeClass("current").filter(".bus").addClass("current");
+        //         break;
+        //     case "bus":
+        //         tripItem.removeClass("current").filter(".car").addClass("current");
+        //         break;
+        //     case "car":
+        //         tripItem.removeClass("current").filter(".train").addClass("current");
+        //         break;
+        //     default:
+        //         break;
+        // }
+    })
+
+
+    /**
+     * 毕摩口述
+     */
+    let frontPlayer = videojs("dictate-front", { controls: true });
+    let sidesPlayer = videojs("dictate-sides", { controls: false });
+    let globalVolume = 1;
+
+    sidesPlayer.on(frontPlayer, ["pause", "play", "seeking", "volumechange"], synchPlay)
+    frontPlayer.on(sidesPlayer, "click", togglePlay);
+
+    // 切换播放
+    function togglePlay(e) {
+        let target = videojs(e.target);
+        this.addClass("upward");
+        target.removeClass("upward");
+        target.off(this, ["pause", "play", "seeking", "volumechange"], synchPlay);
+        target.on(this, "click", togglePlay);
+        target.controls(true);
+        this.on(target, ["pause", "play", "seeking", "volumechange"], synchPlay);
+        this.off(target, "click", togglePlay);
+        this.controls(false);
+    }
+
+    // 同步播放
+    function synchPlay(e) {
+        switch (e.type) {
+            case "pause":
+                this.pause();
                 break;
-            case "bus":
-                tripItem.removeClass("current").filter(".car").addClass("current");
+
+            case "play":
+                this.play();
                 break;
-            case "car":
-                tripItem.removeClass("current").filter(".train").addClass("current");
+
+            case "seeking":
+                this.currentTime(videojs(e.target).currentTime());
                 break;
+
+            case "volumechange":
+                globalVolume = videojs(e.target).volume();
+                this.volume(globalVolume);
+                break;
+
             default:
                 break;
         }
-    })
+    }
+
 
     /** 函数定义 --------------------------------------- */
 

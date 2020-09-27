@@ -7,6 +7,7 @@
     -o-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    outline: none;
 }
 
 html,
@@ -17,7 +18,7 @@ body {
 }
 
 body {
-    padding-left: 60px !important;
+    /* padding-left: 60px !important; */
     background-color: #ecf0f1;
     overflow: hidden;
 }
@@ -68,26 +69,53 @@ body {
     color: white;
 }
 
+.logo{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 11;
+    text-align: center;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 1s ease-in-out;
+}
+
+.logo svg{
+    color:black;
+}
+
+.logo:hover{
+    background-color: #6c757d;
+    border-radius: .3rem;
+}
+
 .nav {
     position: fixed;
     top: 0;
     left: 0;
     height: 100%;
     width: 3.75rem;
-    /* background-color: #778899; */
     background-color: #6c757d;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 10;
+    transition: all .8s ease-in-out;
+    transform: translateY(-100%);
+    opacity: 0;
 }
+
+.nav-show{
+    transform: translateY(0);
+    opacity: 1;
+}
+
 
 .nav-top,
 .nav-bottom {
     height: 60px;
     line-height: 60px;
     text-align: center;
-    cursor: pointer;
 }
 
 .nav-bottom:hover{
@@ -111,6 +139,7 @@ body {
     background-color: lightgoldenrodyellow;
 }
 
+.nav-bottom,
 .nav-center a {
     cursor: pointer;
 }
@@ -225,7 +254,7 @@ main .sec-2{
     position: absolute;
     top: 0;
     left: 0;
-    background-color: whitesmoke;
+    background-color: #f7f2e8;
     z-index: 1;
     /* visibility: hidden; */
 }
@@ -245,6 +274,8 @@ main .sec-2{
     transform: translateY(-120%) translateX(-50%);
     opacity: .8;
     cursor: pointer;
+    z-index: 1;
+    /* visibility: hidden; */
 }
 
 .trip-full-video{
@@ -487,6 +518,14 @@ video::-webkit-media-controls {
     background-color: lightseagreen;
 }
 
+.vjs-fill.upward{
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    height: 135px !important;
+    width: 240px !important;
+    z-index: 2;
+}
 
 /* section-4 */
 #section-4{
@@ -600,6 +639,14 @@ video::-webkit-media-controls {
 @media only screen and (max-width:992px){
     body{
         padding-left: 0 !important;
+    }
+
+    .logo{
+        color: #1d2124;
+    }
+
+    .logo:hover{
+        background: none;
     }
 
     .nav,

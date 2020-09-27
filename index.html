@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="./static/animate.css/animate.min.css">
     <link rel="stylesheet" href="./static/css/animations.css">
     <link rel="stylesheet" href="./static/fullpage.js/fullpage.min.css">
+    <link rel="stylesheet" href="./static/videojs/video-js.min.css">
     <link rel="stylesheet" href="./static/css/style.css">
     <title>BiMo</title>
 
@@ -31,23 +32,23 @@
 
         <a href="#sakumap" class="list-group-item bg-dark">洒库地图</a>
     </div>
-
+    <div class="logo text-light trigger">
+        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 612 612" role="img"
+            focusable="false">
+            <path fill="currentColor"
+                d="M510 8a94.3 94.3 0 0 1 94 94v408a94.3 94.3 0 0 1-94 94H102a94.3 94.3 0 0 1-94-94V102a94.3 94.3 0 0 1 94-94h408m0-8H102C45.9 0 0 45.9 0 102v408c0 56.1 45.9 102 102 102h408c56.1 0 102-45.9 102-102V102C612 45.9 566.1 0 510 0z">
+            </path>
+            <path fill="currentColor"
+                d="M196.77 471.5V154.43h124.15c54.27 0 91 31.64 91 79.1 0 33-24.17 63.72-54.71 69.21v1.76c43.07 5.49 70.75 35.82 70.75 78 0 55.81-40 89-107.45 89zm39.55-180.4h63.28c46.8 0 72.29-18.68 72.29-53 0-31.42-21.53-48.78-60-48.78h-75.57zm78.22 145.46c47.68 0 72.73-19.34 72.73-56s-25.93-55.37-76.46-55.37h-74.49v111.4z">
+            </path>
+        </svg>
+    </div>
 
 
     <!-- nav part -->
     <nav class="nav">
         <!-- nav top -->
-        <div class="nav-top text-light trigger">
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 612 612" role="img"
-                focusable="false">
-                <path fill="currentColor"
-                    d="M510 8a94.3 94.3 0 0 1 94 94v408a94.3 94.3 0 0 1-94 94H102a94.3 94.3 0 0 1-94-94V102a94.3 94.3 0 0 1 94-94h408m0-8H102C45.9 0 0 45.9 0 102v408c0 56.1 45.9 102 102 102h408c56.1 0 102-45.9 102-102V102C612 45.9 566.1 0 510 0z">
-                </path>
-                <path fill="currentColor"
-                    d="M196.77 471.5V154.43h124.15c54.27 0 91 31.64 91 79.1 0 33-24.17 63.72-54.71 69.21v1.76c43.07 5.49 70.75 35.82 70.75 78 0 55.81-40 89-107.45 89zm39.55-180.4h63.28c46.8 0 72.29-18.68 72.29-53 0-31.42-21.53-48.78-60-48.78h-75.57zm78.22 145.46c47.68 0 72.73-19.34 72.73-56s-25.93-55.37-76.46-55.37h-74.49v111.4z">
-                </path>
-            </svg>
-        </div>
+        <div class="nav-top"></div>
 
         <!-- nav center -->
         <div class="nav-center list-group list-group-flush text-center">
@@ -76,11 +77,21 @@
                     <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                 </svg>
             </a>
+            <a id="album" class="list-group-item bg-secondary list-group-item-action px-0" data-toggle="popover"
+                data-content="album">
+                <svg width="36" height="22" viewBox="0 0 16 16" class="bi bi-images" fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd"
+                        d="M12.002 4h-10a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1zm-10-1a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-10zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
+                    <path fill-rule="evenodd"
+                        d="M4 2h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1z" />
+                </svg>
+            </a>
 
         </div>
 
         <!-- nav bottom -->
-        <div class="nav-bottom text-light volume-fill" id="volume"></div>
+        <div class="nav-bottom text-light volume-fill" id="volume" data-toggle="popover" data-content="volume"></div>
 
     </nav>
 
@@ -139,7 +150,7 @@
                         <div class="sec-a">
                             <canvas id="train-map">你的浏览器不支持canvas！</canvas>
 
-                            <div class="trip-intro-video train show">
+                            <div class="trip-intro-video train">
                                 <video width="300" height="auto">
                                     <source src="./static/video/flowers.mp4" type="video/mp4">
                                 </video>
@@ -153,7 +164,7 @@
                         </div>
 
                         <button class="btn btn-info train changer">Click to see full video.</button>
-                        <button class="btn btn-info train next" data-current="train">Click to see next one.</button>
+                        <button class="btn btn-info train next" data-current="1">Click to see next one.</button>
                     </div>
 
                     <!-- bus trip -->
@@ -176,7 +187,7 @@
                         </div>
 
                         <button class="btn btn-warning bus changer">Click to see full video.</button>
-                        <button class="btn btn-warning bus next" data-current="bus">Click to see next one.</button>
+                        <button class="btn btn-warning bus next" data-current="2">Click to see next one.</button>
                     </div>
 
                     <!-- car trip -->
@@ -199,7 +210,7 @@
                         </div>
 
                         <button class="btn btn-danger car changer">Click to see full video.</button>
-                        <button class="btn btn-danger car next" data-current="car">Click to see next one.</button>
+                        <button class="btn btn-danger car next" data-current="3">Click to see next one.</button>
                     </div>
                 </div>
             </div>
@@ -262,12 +273,33 @@
 
         <!-- <button class="btn btn-info trigger">change</button> -->
         <!-- section-3 dictation -->
-        <section data-anchor="dictation" class="section" id="section-3">
+        <section data-anchor="dictation" class="section hide" id="section-3">
+            <div class="sec-1 bg-secondary">
+                <div class="layer trigger">
+                    <h1>cover</h1>
 
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
+                        veritatis, repellat itaque illo fugiat illum maiores perferendis vero, consectetur fugit cum
+                        sapiente? Rerum iste facere similique nostrum!</p>
+                </div>
+            </div>
+
+            <div class="sec-2 bg-warning">
+                <video id="dictate-front" class="video-js vjs-fill vjs-big-play-centered">
+                    <source src="./static/video/test-1.webm" type="video/webm">
+                </video>
+
+                <video id="dictate-sides" class="video-js vjs-fill vjs-big-play-centered upward">
+                    <!-- <source src="./static/video/test-1.webm" type="video/webm"> -->
+                    <source src="./static/video/P2 成都—西昌 预览  压缩.mp4" type="video/mp4">
+                </video>
+            </div>
         </section>
 
         <!-- section-4 sakumap -->
-        <section data-anchor="sakumap" class="section" id="section-4"></section>
+        <section data-anchor="sakumap" class="section" id="section-4">
+
+        </section>
     </main>
 
     <script src="./static/js/jquery-3.5.1-development.js"></script>
@@ -280,10 +312,9 @@
 
     <script src="./static/js/canvas.js"></script>
 
+    <script src="./static/videojs/video.min.js"></script>
+
     <script src="./static/js/script.js"></script>
-
-
-    <!-- <script src="./static/js/bideo.js"></script> -->
 
 </body>
 

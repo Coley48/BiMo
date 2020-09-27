@@ -1,5 +1,5 @@
-let startPoint;
 let moveEvent = new Event("move", { data: [] });
+let startPoint;
 let timer;
 
 class Painter {
@@ -9,12 +9,18 @@ class Painter {
      * @param {string} selector id选择器
      * @param {Array} treatedData 二维坐标数组
      */
-    constructor(selector, treatedData) {
+    constructor(selector, treatedData, videoContainer) {
         this._canvas = document.getElementById(selector);
         this._context = this._canvas.getContext("2d");
         this._treatedData = treatedData;
         this._computedData = [];
         this._i = 0;
+
+        if (videoContainer) {
+            this._canvas.addEventListener("move", (e) => {
+                videoContainer.css({ left: e.data[0] + "px", top: e.data[1] + "px" });
+            })
+        }
         this.init();
     }
 
@@ -80,7 +86,6 @@ class Painter {
         this._canvas.width = document.documentElement.clientWidth || document.body.clientWidth || window.innerWidth;
         this._canvas.height = document.documentElement.clientHeight || document.body.clientHeight || window.innerHeight;
         // this._canvas.style.visibility = "visible";
-        // this._canvas.style.zIndex = "1";
 
         if (this._canvas.width < 992) {
             startPoint = { x: (this._canvas.width - 375) / 2, y: 0 };
@@ -92,7 +97,8 @@ class Painter {
             return [value[0] + startPoint.x, value[1] + startPoint.y];
         });
 
-        return this;
+        return this.drawRoad().drawVehicle();
+        // return this;
     }
 }
 
