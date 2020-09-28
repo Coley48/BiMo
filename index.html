@@ -52,41 +52,17 @@
 
         <!-- nav center -->
         <div class="nav-center list-group list-group-flush text-center">
-            <a id="menu" class="list-group-item bg-secondary list-group-item-action px-0" data-toggle="popover"
-                data-content="menu">
-                <svg width="36" height="30" viewBox="0 0 16 16" class="bi bi-list" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M2.5 11.5A.5.5 0 0 1 3 11h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4A.5.5 0 0 1 3 3h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
-                </svg>
-            </a>
-            <a id="share" class="list-group-item bg-secondary list-group-item-action px-0" data-toggle="popover"
-                data-content="share">
-                <svg width="36" height="22" viewBox="0 0 16 16" class="bi bi-share" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" />
-                </svg>
-            </a>
-            <a id="more" class="list-group-item bg-secondary list-group-item-action px-0" data-toggle="popover"
-                data-content="more">
-                <svg width="36" height="22" viewBox="0 0 16 16" class="bi bi-geo-alt" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
-                    <path fill-rule="evenodd" d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-            </a>
-            <a id="album" class="list-group-item bg-secondary list-group-item-action px-0" data-toggle="popover"
-                data-content="album">
-                <svg width="36" height="22" viewBox="0 0 16 16" class="bi bi-images" fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                        d="M12.002 4h-10a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1zm-10-1a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-10zm4 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
-                    <path fill-rule="evenodd"
-                        d="M4 2h10a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1v1a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2h1a1 1 0 0 1 1-1z" />
-                </svg>
-            </a>
+            <a id="menu" class="list-group-item bg-secondary list-group-item-action px-0 menu-icon"
+                data-toggle="popover" data-content="menu"></a>
+
+            <a id="share" class="list-group-item bg-secondary list-group-item-action px-0 share-icon"
+                data-toggle="popover" data-content="share"></a>
+
+            <a id="more" class="list-group-item bg-secondary list-group-item-action px-0 position-icon"
+                data-toggle="popover" data-content="more"></a>
+
+            <a id="album" class="list-group-item bg-secondary list-group-item-action px-0 album-icon"
+                data-toggle="popover" data-content="album"></a>
 
         </div>
 
@@ -297,7 +273,37 @@
         </section>
 
         <!-- section-4 sakumap -->
-        <section data-anchor="sakumap" class="section" id="section-4">
+        <section data-anchor="sakumap" class="section hide" id="section-4">
+
+            <!-- <div class="sec-1 bg-secondary">
+                <div class="layer trigger">
+                    <h1>cover</h1>
+
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
+                        veritatis, repellat itaque illo fugiat illum maiores perferendis vero, consectetur fugit cum
+                        sapiente? Rerum iste facere similique nostrum!</p>
+                </div>
+            </div> -->
+
+            <div class="sec-2">
+                <div class="map-wrapper">
+                    <!-- trigger modal -->
+                    <div class="modal-launcher geo-alt-red-icon" data-toggle="tooltip" data-index="0"></div>
+
+                    <div class="modal-launcher geo-alt-red-icon" data-toggle="tooltip" data-index="1"></div>
+
+                    <div class="modal-launcher geo-alt-red-icon" data-toggle="tooltip" data-index="2"></div>
+
+                    <div class="modal-launcher geo-alt-red-icon" data-toggle="tooltip" data-index="3"></div>
+
+                    <!-- modal -->
+                    <div class="modal-container"></div>
+
+                    <!-- shade -->
+                    <div class="modal-shelter"></div>
+
+                </div>
+            </div>
 
         </section>
     </main>

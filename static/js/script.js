@@ -113,7 +113,8 @@ $(function () {
         }
     });
 
-    $('nav [data-toggle="popover"]').popover({ boundary: 'window', placement: "right", trigger: "hover" });
+    let navPopover = $('nav [data-toggle="popover"]');
+    navPopover.popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
 
     /**
@@ -228,6 +229,96 @@ $(function () {
         }
     }
 
+    /**
+     * 洒库地图
+     */
+
+    let modalContainer = $(".modal-container");
+    let modalLauncher = $(".modal-launcher");
+    let modalShelter = $(".modal-shelter");
+
+    let mediaInfo = [
+        {
+            type: "image",
+            source: "./static/img/成都-西昌.png",
+            title: "Hello, Boy.",
+            area: 'A',
+            left: 214,
+            top: 146,
+        }, {
+            type: "image",
+            source: "./static/img/成都-西昌.png",
+            title: "Hello, Coley.",
+            area: 'B',
+            left: 702,
+            top: 105,
+        }, {
+            type: "video",
+            source: "./static/video/flowers.mp4",
+            title: "Hey, guys.",
+            area: 'C',
+            left: 240,
+            top: 388,
+        }, {
+            type: "video",
+            source: "./static/video/flowers.mp4",
+            title: "Hi, Bro.",
+            area: 'D',
+            left: 822,
+            top: 391,
+        },
+    ];
+
+    modalLauncher.each((i, el) => {
+        $(el).css({ top: mediaInfo[i].top, left: mediaInfo[i].left }).attr("data-title", mediaInfo[i].title);
+    })
+
+    modalLauncher.click((e) => {
+        modalContainer.fadeIn(200);
+        modalShelter.fadeIn(200);
+        let i = e.target.getAttribute("data-index");
+        let item = mediaInfo[i];
+        switch (item.area) {
+            case 'A':
+                modalContainer.css({ left: item.left, top: item.top, transform: "translate(0,0)" })
+                break;
+
+            case 'B':
+                modalContainer.css({ left: item.left, top: item.top, transform: "translate(-100%,0)" })
+                break;
+
+            case 'C':
+                modalContainer.css({ left: item.left, top: item.top, transform: "translate(0,-100%)" })
+                break;
+
+            case 'D':
+                modalContainer.css({ left: item.left, top: item.top, transform: "translate(-100%,-100%)" })
+                break;
+
+            default:
+                break;
+        }
+
+        switch (item.type) {
+            case "image":
+                modalContainer.html(`<img src="${item.source}" alt=''>`);
+                break;
+
+            case "video":
+                modalContainer.html(`<video src="${item.source}" autoplay></video>`);
+                break;
+
+            default:
+                break;
+        }
+    })
+
+    modalShelter.click(() => {
+        modalContainer.fadeOut(200);
+        modalShelter.fadeOut(200);
+    })
+
+    $(".map-wrapper [data-toggle='tooltip']").tooltip({ boundary: 'window', placement: "top", trigger: "hover" });
 
     /** 函数定义 --------------------------------------- */
 
@@ -244,7 +335,7 @@ $(function () {
     //  目录按钮切换
     function toggleMenuBar() {
         toggleMask();
-        $('.nav-center a').popover('toggleEnabled').popover("hide");
+        navPopover.popover('toggleEnabled').popover("hide");
         if (Menu.open) {
             menuBar.animate({ "left": "-12rem" }, 200);
             Menu.removeClass("active").open = false;

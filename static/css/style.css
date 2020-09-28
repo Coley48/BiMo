@@ -73,7 +73,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 11;
+    z-index: 10000;
     text-align: center;
     padding: 12px;
     cursor: pointer;
@@ -82,6 +82,7 @@ body {
 
 .logo svg{
     color:black;
+    /* color:white; */
 }
 
 .logo:hover{
@@ -99,7 +100,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 10;
+    z-index: 9999;
     transition: all .8s ease-in-out;
     transform: translateY(-100%);
     opacity: 0;
@@ -118,20 +119,45 @@ body {
     text-align: center;
 }
 
+.nav-center a{
+    display: block;
+    height: 60px;
+}
+
 .nav-bottom:hover{
     background-color: #545b62;
 }
 
 .volume-mute{
-    background-image: url("../img/icon/volume-mute.svg");
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url("../img/icon/volume-mute.svg") no-repeat center;
 }
 
 .volume-fill{
-    background-image: url("../img/icon/volume-fill.svg");
-    background-repeat: no-repeat;
-    background-position: center;
+    background: url("../img/icon/volume-fill.svg") no-repeat center;
+}
+
+.menu-icon{
+    background: url("../img/icon/menu-icon.svg") no-repeat center;
+}
+
+.share-icon{
+    background: url("../img/icon/share-icon.svg") no-repeat center;
+}
+
+.position-icon{
+    background: url("../img/icon/position-icon.svg") no-repeat center;
+}
+
+.geo-alt-red-icon{
+    background: url("../img/icon/geo-alt-red.svg") no-repeat center;
+}
+
+.geo-fill-red-icon{
+    background: url("../img/icon/geo-fill-red.svg") no-repeat center;
+}
+
+.album-icon{
+    background: url("../img/icon/album-icon.svg") no-repeat center;
 }
 
 .nav-center {
@@ -230,7 +256,8 @@ main .sec-2{
     text-align: left;
 }
 
-/* section-1 */
+/* section-1 journey */
+
 #section-1{
     background-color: lightgray;
 }
@@ -305,7 +332,8 @@ main .sec-2{
     z-index: 10;
 }
 
-/* section-2 */
+/* section-2 ceremony */
+
 #section-2{
     height: 100vh;
     width: 100%;
@@ -513,10 +541,7 @@ video::-webkit-media-controls {
 
 }
 
-/* section-3 */
-#section-3{
-    background-color: lightseagreen;
-}
+/* section-3 dictation */
 
 .vjs-fill.upward{
     position: fixed;
@@ -527,13 +552,66 @@ video::-webkit-media-controls {
     z-index: 2;
 }
 
-/* section-4 */
-#section-4{
-    background-color: lightpink;
+/* section-4 sakumap */
+
+.map-wrapper{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/地图.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-/* section-2 journey */
+.modal-container {
+    display: none;
+    position: absolute;
+    left: -100%;
+    top: -100%;
+    width: 400px;
+    height: auto;
+    border: none;
+    padding: .8rem;
+    border-radius: .5rem;
+    align-items: center;
+    background-color: whitesmoke;
+    /* background: rgba(219, 202, 189,.3); */
+    /* box-shadow: inset -0.5rem -0.5rem 0.5rem #ddcdc0, inset 0.5rem 0.5rem 0.5rem #ddcdc0; */
+    opacity: .95;
+    z-index: 3;
+}
 
+.modal-container * {
+    width: 100%;
+    height: auto;
+    z-index: 3;
+}
+
+.modal-launcher {
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%,-50%);
+    /* background-color: lightcoral; */
+}
+
+.modal-shelter{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .3);
+    display: none;
+    z-index: 2;
+}
+
+/* .map-wrapper.show .modal-shelter{
+    display: block;
+} */
 /**
  * plugin
  */
