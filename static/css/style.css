@@ -7,6 +7,7 @@
     -o-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+    list-style: none;
     outline: none;
 }
 
@@ -27,27 +28,53 @@ body {
     display: none;
 }
 
+.vertical-center{
+    width: 100%;
+    padding: 0 10%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 4;
+    color: white;
+    cursor: pointer;
+
+}
+
 /** 
  * nav
  */
 
 .mask {
     position: fixed;
-    z-index: -1;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
+    z-index: -1;
     opacity: 0;
     background-color: rgba(0, 0, 0, .4);
+    transition: all .2s ease-in-out .1s;
+}
+
+.mask.show{
+    opacity: 1;
+    z-index: 9997;
 }
 
 .menu-bar {
     position: fixed;
     top: 0;
     left: -12rem;
-    height: 100%;
     width: 12rem;
-    z-index: 10;
+    height: 100%;
+    z-index: 9998;
     background: lightseagreen;
+    transition: all .2s ease-in-out .1s;
+}
+
+.menu-bar.show{
+    left: 60px;
 }
 
 .menu-bar a {
@@ -78,6 +105,7 @@ body {
     padding: 12px;
     cursor: pointer;
     transition: all 1s ease-in-out;
+    background-color: lightblue;
 }
 
 .logo svg{
@@ -180,12 +208,11 @@ main.container-fluid{
 }
 
 main .section{
-    text-align: center;
     overflow: hidden;
 }
 
-main.sec-a,
-main.sec-b,
+main .sec-a,
+main .sec-b,
 main .sec-1,
 main .sec-2{
     height: 100%;
@@ -195,8 +222,8 @@ main .sec-2{
     left: 0;
     overflow: hidden;
     /* visibility: hidden; */
-    /* -webkit-backface-visibility: hidden; */
-    /* -moz-backface-visibility: hidden; */
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
     backface-visibility: hidden;
     -webkit-transform: translate3d(0, 0, 0);
     -moz-transform: translate3d(0, 0, 0);
@@ -209,10 +236,6 @@ main .sec-2{
 
 .section.hide .sec-1{
     z-index: 2;
-}
-
-.section.hide .fp-slidesNav{
-    display: none;
 }
 
 /* section-0 guidance */
@@ -252,84 +275,45 @@ main .sec-2{
     color: whitesmoke;
 }
 
-#letter .card-body{
-    text-align: left;
-}
-
 /* section-1 journey */
 
 #section-1{
-    background-color: lightgray;
+    background-color: lightgoldenrodyellow;
 }
 
-.trip-wrap{
-    position: relative;
-    width: 100%;
+.intro-video-list {
+    font-size: 0;
+    margin: 0;
+    padding: 0;
     height: 100%;
-}
-
-.trip-wrap .trip-item{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    visibility: hidden;
-}
-
-.trip-wrap canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: #f7f2e8;
-    z-index: 1;
-    /* visibility: hidden; */
-}
-.trip-item.current{
-    visibility: visible;
-}
-
-.trip-item.current.hide canvas{
-    visibility: visible;
-    /* z-index: -1; */
-}
-
-.trip-intro-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translateY(-120%) translateX(-50%);
-    opacity: .8;
     cursor: pointer;
-    z-index: 1;
-    /* visibility: hidden; */
+    overflow: hidden;
 }
 
-.trip-full-video{
-    width: 100%;
+.intro-video-list li {
+    position: relative;
+    display: inline-block;
+    width: calc(100%/3);
     height: 100%;
-    text-align: center;
-    background-color: rgba(0, 0, 0, .4);
+    transition: width 1s ease-in-out;
 }
 
-.trip-full-video video{
-    height: 100%;
+.intro-video-list li video {
+    position: absolute;
+    top: 0;
+    /* left: -10%; */
+    left: 0;
+    max-width: none;
     width: auto;
+    height: 100%;
 }
 
-.trip-wrap .changer.btn{
-    position: absolute;
-    top: 2%;
-    left: 30%;
-    transform: translateX(-50%);
-    z-index: 10;
+.intro-video-list:hover li:not(:hover) {
+    width: 20%;
 }
-.trip-wrap .next.btn{
-    position: absolute;
-    top: 2%;
-    left: 60%;
-    transform: translateX(-50%);
-    z-index: 10;
+
+.intro-video-list li:hover {
+    width: 60%;
 }
 
 /* section-2 ceremony */
@@ -421,6 +405,136 @@ main .sec-2{
     transform: translate(-25%, 0);
 } */
 
+.ceremony-wrap{
+    position:relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* left-part */
+.ceremony-wrap .ceremony-segment{
+    position: absolute;
+    top: 0;
+    left: -180px;
+    width: 180px;
+    height: 100%;
+    transition: all .5s ease-in-out;
+    z-index: 5;
+    overflow: scroll;
+}
+
+.ceremony-segment .handle-bar{
+    position: fixed;
+    width: 60px;
+    height: 50px;
+    transition: all .5s ease-in-out;
+    z-index: 5;
+    top: 50%;
+    left: 0;
+    background-color: thistle;
+    opacity: .5;
+    transform: translateY(-50%);
+}
+
+.ceremony-segment.show{
+    left: 0;
+}
+
+.ceremony-segment.show .handle-bar{
+    left: 180px;
+}
+
+.ceremony-segment .title {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 6;
+}
+
+.ceremony-segment a:not([href]){
+    cursor: pointer;
+    color: rgba(255, 255, 255, .5);
+}
+
+.ceremony-segment a.active,
+.ceremony-segment a:not([href]):hover{
+    color: white;
+}
+
+/* right-part */
+.ceremony-wrap .ceremony-element{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    justify-content: space-around;
+    border-radius: 100% 0 0 100%;
+}
+
+.right-slider {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.right-slider img {
+    position: absolute;
+    right: 2%;
+    height: auto;
+    transition: all .8s ease-in-out;
+    transform-style: preserve-3d;
+    opacity: 0;
+    width: 0;
+    top: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.right-slider :nth-child(1),
+.right-slider :nth-child(2) {
+    top: -20%;
+}
+
+.right-slider :nth-child(3) {
+    top: 10%;
+    width: 70%;
+    opacity: .5;
+    transform: translate(10%, -50%) scale(.8);
+}
+
+.right-slider :nth-child(4) {
+    top: 25%;
+    width: 70%;
+    opacity: .8;
+    z-index: 2;
+    transform: translate(0, -30%);
+}
+
+.right-slider :nth-child(5) {
+    top: 50%;
+    width: 70%;
+    opacity: 1;
+    z-index: 3;
+    transform: translate(-10%, -50%) scale(1.2);
+}
+
+.right-slider :nth-child(6) {
+    top: 75%;
+    width: 70%;
+    opacity: .8;
+    z-index: 2;
+    transform: translate(0, -70%);
+}
+
+.right-slider :nth-child(7) {
+    top: 90%;
+    width: 70%;
+    opacity: .5;
+    transform: translate(10%, -50%) scale(.8);
+}
+
 @keyframes spin {
     from {
         transform: rotateY(0) rotateX(0);
@@ -451,34 +565,13 @@ main .sec-2{
     }
 }
 
-.slide .fp-tableCell{
-    position: relative;
-}
-
-.slide video{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    background-size: 100% 100%;
-    background-color: white;
-    background-position: center center;
-    background-size: contain;
-    object-fit: cover; 
-    z-index:3;
-    /* background-image: ; */
-}
-
 video::-webkit-media-controls {
     display:none !important;
 }
 
 .card-wrap {
-    width: 300px;
-    height: 300px;
+    width: auto;
+    height: 80%;
     margin: 0 auto;
     perspective: 2000px;
     perspective-origin: center;
@@ -486,11 +579,10 @@ video::-webkit-media-controls {
 
 .card-page {
     position: relative;
-    width: 100%;
+    width: auto;
     height: 100%;
     transform-style: preserve-3d;
     cursor: pointer;
-
     animation: returnCard 1s ease both;
 }
 
@@ -498,16 +590,21 @@ video::-webkit-media-controls {
     animation-name: reverseCard;
 }
 
-.card-item {
+.card-front,
+.card-back {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: auto;
     height: 100%;
 }
-
 .card-back {
     transform: rotateY(180deg);
+}
+
+.card-page img{
+    height: 100%;
+    width: auto;
 }
 
 @keyframes reverseCard {
@@ -528,18 +625,6 @@ video::-webkit-media-controls {
     }
 }
 
-.layer{
-    width: 100%;
-    padding: 0 10%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 4;
-    color: white;
-    cursor: pointer;
-
-}
 
 /* section-3 dictation */
 
@@ -644,19 +729,6 @@ video::-webkit-media-controls {
 
 /* animations.css */
 
-.pt-delay400 {
-    -webkit-animation-delay: .4s;
-    animation-delay: .4s;
-}
-.pt-delay600 {
-    -webkit-animation-delay: .6s;
-    animation-delay: .6s;
-}
-.pt-delay1500 {
-    -webkit-animation-delay: .6s;
-    animation-delay: .6s;
-}
-
 .pt-scaleUpDown {
 	-webkit-animation: scaleUpDown .5s ease both;
 	animation: scaleUpDown .5s ease both;
@@ -680,34 +752,6 @@ video::-webkit-media-controls {
 	from { }
 	to { opacity: 0; -webkit-transform: scale(.8); transform: scale(.8); }
 }
-
-
-.pt-moveToLeft-50{
-    animation: moveToLeft-50 2s ease both;
-    -webkit-animation: moveToLeft-50 2s ease both;
-}
-
-.pt-moveToBottom-50{
-    animation: moveToBottom-50 2s ease both;
-    -webkit-animation: moveToBottom-50 2s ease both;
-}
-
-@-webkit-keyframes moveToLeft-50 {
-	from { }
-	to { -webkit-transform: translateX(-50%); }
-}
-@keyframes moveToLeft-50 {
-	from { }
-	to { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
-} 
-@-webkit-keyframes moveToBottom-50 {
-	from { }
-	to { -webkit-transform: translateY(-50%); }
-}
-@keyframes moveToBottom-50 {
-	from { }
-	to { -webkit-transform: translateY(-50%); transform: translateX(-50%); }
-} 
 
 
 /**

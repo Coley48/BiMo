@@ -6,11 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="./static/img/temp.ico" type="image/x-icon">
+
     <link rel="stylesheet" href="./static/bootstrap-4.5.0/css/bootstrap.min.css">
+
     <link rel="stylesheet" href="./static/animate.css/animate.min.css">
-    <link rel="stylesheet" href="./static/css/animations.css">
+
+    <!-- <link rel="stylesheet" href="./static/css/animations.css"> -->
+
     <link rel="stylesheet" href="./static/fullpage.js/fullpage.min.css">
+
     <link rel="stylesheet" href="./static/videojs/video-js.min.css">
+
     <link rel="stylesheet" href="./static/css/style.css">
     <title>BiMo</title>
 
@@ -32,7 +38,9 @@
 
         <a href="#sakumap" class="list-group-item bg-dark">洒库地图</a>
     </div>
-    <div class="logo text-light trigger">
+
+    <!-- logo -->
+    <div class="logo text-light">
         <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 612 612" role="img"
             focusable="false">
             <path fill="currentColor"
@@ -47,7 +55,7 @@
 
     <!-- nav part -->
     <nav class="nav">
-        <!-- nav top -->
+        <!-- nav top: placehoder -->
         <div class="nav-top"></div>
 
         <!-- nav center -->
@@ -55,14 +63,14 @@
             <a id="menu" class="list-group-item bg-secondary list-group-item-action px-0 menu-icon"
                 data-toggle="popover" data-content="menu"></a>
 
+            <a id="album" class="list-group-item bg-secondary list-group-item-action px-0 album-icon"
+                data-toggle="popover" data-content="album"></a>
+
             <a id="share" class="list-group-item bg-secondary list-group-item-action px-0 share-icon"
                 data-toggle="popover" data-content="share"></a>
 
             <a id="more" class="list-group-item bg-secondary list-group-item-action px-0 position-icon"
                 data-toggle="popover" data-content="more"></a>
-
-            <a id="album" class="list-group-item bg-secondary list-group-item-action px-0 album-icon"
-                data-toggle="popover" data-content="album"></a>
 
         </div>
 
@@ -94,7 +102,7 @@
             <!-- invitation -->
             <div id="letter" class="animate__animated animate__fadeInRight animate__slow">
                 <div class="card bg-none border-0 text-white">
-                    <div class="card-body">
+                    <div class="card-body text-left">
                         <h5 class="card-title text-center">邀请信</h5>
                         <span class="card-text typed"></span>
 
@@ -106,143 +114,93 @@
         </section>
 
         <!-- section-1 journey -->
-        <section data-anchor="journey" class="section hide" id="section-1">
-            <div class="sec-1 bg-info trigger">
-                <div class="layer">
+        <section data-anchor="journey" class="section" id="section-1">
+            <!-- <div class="sec-1 bg-warning trigger">
+                <div class="vertical-center">
                     <h1>cover</h1>
 
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
                         veritatis, repellat itaque illo fugiat illum maiores perferendis vero, consectetur fugit cum
                         sapiente? Rerum iste facere similique nostrum!</p>
                 </div>
-
-            </div>
+            </div> -->
 
             <div class="sec-2">
-                <div class="trip-wrap">
-
-                    <!-- train trip -->
-                    <div class="trip-item train hide current">
-                        <div class="sec-a">
-                            <canvas id="train-map">你的浏览器不支持canvas！</canvas>
-
-                            <div class="trip-intro-video train">
-                                <video width="300" height="auto">
-                                    <source src="./static/video/flowers.mp4" type="video/mp4">
-                                </video>
-                            </div>
-                        </div>
-
-                        <div class="sec-b trip-full-video train">
-                            <video height="100%" width="auto">
-                                <source src="./static/video/P2 成都—西昌 预览  压缩.mp4" type="video/mp4">
-                            </video>
-                        </div>
-
-                        <button class="btn btn-info train changer">Click to see full video.</button>
-                        <button class="btn btn-info train next" data-current="1">Click to see next one.</button>
-                    </div>
-
-                    <!-- bus trip -->
-                    <div class="trip-item bus">
-                        <div class="sec-a">
-                            <canvas id="bus-map">你的浏览器不支持canvas！</canvas>
-
-                            <div class="trip-intro-video bus">
-                                <video width="300" height="auto">
-                                    <source src="./static/video/flowers.mp4" type="video/mp4">
-                                </video>
-                            </div>
-
-                        </div>
-
-                        <div class="sec-b trip-full-video bus">
-                            <video height="100%" width="auto">
-                                <source src="./static/video/P2 西昌—美姑 预览 压缩.mp4" type="video/mp4">
-                            </video>
-                        </div>
-
-                        <button class="btn btn-warning bus changer">Click to see full video.</button>
-                        <button class="btn btn-warning bus next" data-current="2">Click to see next one.</button>
-                    </div>
-
-                    <!-- car trip -->
-                    <div class="trip-item car">
-                        <div class="sec-a">
-                            <canvas id="car-map">你的浏览器不支持canvas！</canvas>
-
-                            <div class="trip-intro-video car">
-                                <video width="300" height="auto">
-                                    <source src="./static/video/flowers.mp4" type="video/mp4">
-                                </video>
-                            </div>
-
-                        </div>
-
-                        <div class="sec-b trip-full-video car">
-                            <video height="100%" width="auto">
-                                <source src="./static/video/P2 美姑—洒库 预览 压缩.mp4" type="video/mp4">
-                            </video>
-                        </div>
-
-                        <button class="btn btn-danger car changer">Click to see full video.</button>
-                        <button class="btn btn-danger car next" data-current="3">Click to see next one.</button>
-                    </div>
-                </div>
+                <ul class="intro-video-list">
+                    <li class="intro-video-item bg-danger">
+                        <!-- <img src="" alt=""> -->
+                    </li>
+                    <li class="intro-video-item bg-info">
+                        <!-- <img src="" alt=""> -->
+                    </li>
+                    <li class="intro-video-item bg-warning">
+                        <!-- <img src="" alt=""> -->
+                    </li>
+                </ul>
             </div>
 
         </section>
 
         <!-- section-2 ceremony -->
         <section data-anchor="ceremony" class="section hide" id="section-2">
-            <div class="sec-1 bg-secondary">
+            <!-- <div class="sec-1 bg-secondary">
                 <div class="cube-wrap trigger">
                     <div class="cube">
                         <div class="front">
                             front
-                            <!-- <video src="./static/video/fisioterapia-loop.webm" width="auto" height="100%" autoplay loop></video> -->
                         </div>
                         <div class="back">back</div>
                         <div class="top">
                             top
-                            <!-- <video src="./static/video/intro-loop.webm" width="auto" height="100%" autoplay loop></video> -->
                         </div>
                         <div class="bottom">bottom</div>
                         <div class="left">
                             left
-                            <!-- <video src="./static/video/agopuntura-loop.webm" width="auto" height="100%" autoplay loop></video> -->
                         </div>
                         <div class="right">right</div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="sec-2 bg-warning">
-                <!-- <button class="trigger btn btn-light fixed-top">back</button> -->
                 <div class="slide">
-                    <video autoplay muted data-autoplay loop>
-                        <source src="./static/video/flowers.mp4" type="video/mp4">
-                    </video>
-                </div>
-                <div class="layer trigger">
-                    <h1>videos</h1>
+                    <!-- 
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-11.5.5a.5.5 0 0 1 0-1h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5z"/>
+                    </svg>
+                     -->
+
+                    <!-- relative -->
+                    <div class="ceremony-wrap">
+
+                        <!-- absolute -->
+                        <div class="ceremony-segment list-group list-group-flush bg-dark show"></div>
+
+
+                        <video class="video-js vjs-fill vjs-big-play-centered" id="ceremony-video" controls>
+                            <source src="./static/video/test-1.webm" type="video/webm">
+                        </video>
+
+                        <div class="ceremony-element">
+                            <div class="handle-bar"></div>
+
+                            <div class="right-slider"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="slide">
                     <div class="card-wrap">
 
                         <div class="card-page">
-                            <div class="card-front card-item bg-danger">
-                            </div>
+                            <div class="card-front bg-danger"></div>
 
-                            <div class="card-back card-item bg-info">
-                            </div>
+                            <div class="card-back bg-info"></div>
                         </div>
-
                     </div>
+
                 </div>
 
-                <div class="slide"></div>
             </div>
 
         </section>
@@ -250,8 +208,8 @@
         <!-- <button class="btn btn-info trigger">change</button> -->
         <!-- section-3 dictation -->
         <section data-anchor="dictation" class="section hide" id="section-3">
-            <div class="sec-1 bg-secondary">
-                <div class="layer trigger">
+            <div class="sec-1 bg-info">
+                <div class="vertical-center trigger">
                     <h1>cover</h1>
 
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
@@ -275,15 +233,15 @@
         <!-- section-4 sakumap -->
         <section data-anchor="sakumap" class="section hide" id="section-4">
 
-            <!-- <div class="sec-1 bg-secondary">
-                <div class="layer trigger">
+            <div class="sec-1 bg-secondary">
+                <div class="vertical-center trigger">
                     <h1>cover</h1>
 
                     <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, provident. Non velit
                         veritatis, repellat itaque illo fugiat illum maiores perferendis vero, consectetur fugit cum
                         sapiente? Rerum iste facere similique nostrum!</p>
                 </div>
-            </div> -->
+            </div>
 
             <div class="sec-2">
                 <div class="map-wrapper">
@@ -316,7 +274,7 @@
 
     <script src="./static/js/typed.min.js"></script>
 
-    <script src="./static/js/canvas.js"></script>
+    <script src="./static/js/jquery.mousewheel.min.js"></script>
 
     <script src="./static/videojs/video.min.js"></script>
 
