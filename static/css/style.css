@@ -45,57 +45,6 @@ body {
  * nav
  */
 
-.mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0;
-    background-color: rgba(0, 0, 0, .4);
-    transition: all .2s ease-in-out .1s;
-}
-
-.mask.show{
-    opacity: 1;
-    z-index: 9997;
-}
-
-.menu-bar {
-    position: fixed;
-    top: 0;
-    left: -12rem;
-    width: 12rem;
-    height: 100%;
-    z-index: 9998;
-    background: lightseagreen;
-    transition: all .2s ease-in-out .1s;
-}
-
-.menu-bar.show{
-    left: 60px;
-}
-
-.menu-bar a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgba(255, 255, 255, .5);
-    cursor: pointer;
-    text-decoration: none;
-}
-
-.menu-bar a:hover {
-    color: white;
-}
-
-.list-group-item.active {
-    background-color: #1d2124 !important;
-    border-color: #1d2124;
-    color: white;
-}
-
 .logo{
     position: fixed;
     top: 0;
@@ -105,7 +54,7 @@ body {
     padding: 12px;
     cursor: pointer;
     transition: all 1s ease-in-out;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 }
 
 .logo svg{
@@ -128,79 +77,278 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    z-index: 9999;
+    z-index: 9990;
     transition: all .8s ease-in-out;
     transform: translateY(-100%);
     opacity: 0;
 }
 
-.nav-show{
+.nav.nav-show{
     transform: translateY(0);
     opacity: 1;
 }
 
-
 .nav-top,
-.nav-bottom {
+.nav-item{
+    width: 100%;
     height: 60px;
     line-height: 60px;
     text-align: center;
 }
 
-.nav-center a{
+.nav-item{
+    cursor: pointer;
     display: block;
-    height: 60px;
+    width: 100%;
 }
 
-.nav-bottom:hover{
+.nav-item:hover{
     background-color: #545b62;
 }
 
-.volume-mute{
-    background: url("../img/icon/volume-mute.svg") no-repeat center;
+.nav-item.active{
+    background-color: #343a40 !important;
 }
 
-.volume-fill{
-    background: url("../img/icon/volume-fill.svg") no-repeat center;
+.icon{
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-.menu-icon{
-    background: url("../img/icon/menu-icon.svg") no-repeat center;
+#menu-btn.icon{
+    background-image: url("../img/icon/menu-icon.svg");
 }
 
-.share-icon{
-    background: url("../img/icon/share-icon.svg") no-repeat center;
+#earth-btn.icon{
+    background-image: url("../img/icon/earth-icon.svg");
 }
 
-.position-icon{
-    background: url("../img/icon/position-icon.svg") no-repeat center;
+#album-btn.icon{
+    background-image: url("../img/icon/album-icon.svg");
 }
 
-.geo-alt-red-icon{
+#share-btn.icon{
+    background-image: url("../img/icon/share-icon.svg");
+}
+
+#about-btn.icon{
+    background-image: url("../img/icon/about-icon.svg");
+}
+
+.location-icon{
     background: url("../img/icon/geo-alt-red.svg") no-repeat center;
 }
 
-.geo-fill-red-icon{
-    background: url("../img/icon/geo-fill-red.svg") no-repeat center;
+/**
+ * addition
+**/
+
+.backspace-icon{
+    background: url("../img/icon/backspace-icon.svg") no-repeat center;
 }
 
-.album-icon{
-    background: url("../img/icon/album-icon.svg") no-repeat center;
+.close-btn{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 60px;
+    width: 60px;
+    z-index: 100;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+    display: none;
 }
 
-.nav-center {
+.addition{
+    position: fixed;
+    top: 0;
+    left: -100%;
     width: 100%;
-    background-color: lightgoldenrodyellow;
+    height: 100%;
+    text-align: center;
+    transition: all .5s ease-in-out;
+    z-index: -1;
 }
 
-.nav-bottom,
-.nav-center a {
+.addition.show{
+    z-index: 20;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+/* menu part */
+
+.menu.show{
+    left: 0;
+}
+
+.menu-container{
+    margin-left: 60px;
+    width: 12rem;
+    height: 100%;
+}
+
+.menu a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgba(255, 255, 255, .5);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: white;
+}
+
+.list-group-item.active {
+    background-color: #1d2124 !important;
+    border-color: #1d2124;
+    color: white;
+}
+
+
+/* earth-part */
+
+.earth.show{
+    left: 0;
+}
+
+.earth video{
+    width: auto;
+    height: 100%;
+}
+
+/* album-part */
+
+.album.show{
+    left: 0;
+}
+
+.album-container{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.album-container-a,
+.album-container-b{
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+}
+
+.album-container-a{
+    left: 30%;
+    transform: translate(-50%,100vh);
+}
+.album-container img{
+    width: 100%;
+    height: auto;
+}
+
+.album-container-a img:not(:first-child),
+.album-container-b img:not(:first-child){
+    margin: 5% 0 0 0;
+}
+
+.album-container-b{
+    left: 70%;
+    transform: translate(-50%,-100%);
+}
+
+/* share */
+
+.share.show{
+    left: 0;
+}
+
+.share .share-container{
+    margin-top: 15%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    height: 300px;
+    transition: all .5s ease-in-out;
+    background-color: whitesmoke;
+    font-weight: lighter;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.share-header{
+    position: relative;
+    width: 100%;
+    height: 24%;
+}
+.share-header svg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: lightcoral;
+    transform: translateY(-30%);
+}
+.share-header p{
+    line-height: calc(300px*.24);
+}
+
+.share-icons{
+    width: 100%;
+    height: 28%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: .8rem;
+}
+.share-icons div{
     cursor: pointer;
 }
 
+.share-cancel{
+    height: 14%;
+    margin-top: 5%;
+    padding: 2% 0;
+    border-radius: 5px;
+    cursor: pointer;
+    border-top: .5px solid lightgray;
+    transition: all .5s ease-in-out;
+}
+
+.share-cancel:hover{
+    color: lightcoral;
+    /* background-color: lightblue; */
+}
+
+/* about */
+.about.show{
+    left: 0;
+}
+
+.about-container{
+    margin-left: 25%;
+    width: 50%;
+    height: 100%;
+    overflow: scroll;
+    background-color: lightgoldenrodyellow;
+}
+
+.about-container h3{
+    padding: 20px 0;
+}
+
+.about-container p{
+    padding: 0 10px;
+}
+
+
 /**
  * main
- */
+**/
 
 main.container-fluid{
     width: 100%;
@@ -246,7 +394,7 @@ main .sec-2{
 
 
 #section-0 .jumbotron{
-    width: 50%;
+    width: 60%;
     height: 100%;
     margin: auto;
 }
@@ -281,7 +429,7 @@ main .sec-2{
     background-color: lightgoldenrodyellow;
 }
 
-.intro-video-list {
+.intro-list {
     font-size: 0;
     margin: 0;
     padding: 0;
@@ -290,29 +438,27 @@ main .sec-2{
     overflow: hidden;
 }
 
-.intro-video-list li {
+.intro-list li {
     position: relative;
     display: inline-block;
     width: calc(100%/3);
     height: 100%;
-    transition: width 1s ease-in-out;
+    transition: width 1s ease-in-out .2s;
 }
 
-.intro-video-list li video {
+.intro-list li img {
     position: absolute;
     top: 0;
-    /* left: -10%; */
     left: 0;
-    max-width: none;
     width: auto;
     height: 100%;
 }
 
-.intro-video-list:hover li:not(:hover) {
+.intro-list:hover li:not(:hover) {
     width: 20%;
 }
 
-.intro-video-list li:hover {
+.intro-list li:hover {
     width: 60%;
 }
 
@@ -405,135 +551,6 @@ main .sec-2{
     transform: translate(-25%, 0);
 } */
 
-.ceremony-wrap{
-    position:relative;
-    width: 100%;
-    height: 100%;
-}
-
-/* left-part */
-.ceremony-wrap .ceremony-segment{
-    position: absolute;
-    top: 0;
-    left: -180px;
-    width: 180px;
-    height: 100%;
-    transition: all .5s ease-in-out;
-    z-index: 5;
-    overflow: scroll;
-}
-
-.ceremony-segment .handle-bar{
-    position: fixed;
-    width: 60px;
-    height: 50px;
-    transition: all .5s ease-in-out;
-    z-index: 5;
-    top: 50%;
-    left: 0;
-    background-color: thistle;
-    opacity: .5;
-    transform: translateY(-50%);
-}
-
-.ceremony-segment.show{
-    left: 0;
-}
-
-.ceremony-segment.show .handle-bar{
-    left: 180px;
-}
-
-.ceremony-segment .title {
-    position: sticky;
-    top: 0;
-    left: 0;
-    z-index: 6;
-}
-
-.ceremony-segment a:not([href]){
-    cursor: pointer;
-    color: rgba(255, 255, 255, .5);
-}
-
-.ceremony-segment a.active,
-.ceremony-segment a:not([href]):hover{
-    color: white;
-}
-
-/* right-part */
-.ceremony-wrap .ceremony-element{
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 200px;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .6);
-    justify-content: space-around;
-    border-radius: 100% 0 0 100%;
-}
-
-.right-slider {
-    position: relative;
-    height: 100%;
-    width: 100%;
-}
-
-.right-slider img {
-    position: absolute;
-    right: 2%;
-    height: auto;
-    transition: all .8s ease-in-out;
-    transform-style: preserve-3d;
-    opacity: 0;
-    width: 0;
-    top: 100%;
-    z-index: 1;
-    cursor: pointer;
-}
-
-.right-slider :nth-child(1),
-.right-slider :nth-child(2) {
-    top: -20%;
-}
-
-.right-slider :nth-child(3) {
-    top: 10%;
-    width: 70%;
-    opacity: .5;
-    transform: translate(10%, -50%) scale(.8);
-}
-
-.right-slider :nth-child(4) {
-    top: 25%;
-    width: 70%;
-    opacity: .8;
-    z-index: 2;
-    transform: translate(0, -30%);
-}
-
-.right-slider :nth-child(5) {
-    top: 50%;
-    width: 70%;
-    opacity: 1;
-    z-index: 3;
-    transform: translate(-10%, -50%) scale(1.2);
-}
-
-.right-slider :nth-child(6) {
-    top: 75%;
-    width: 70%;
-    opacity: .8;
-    z-index: 2;
-    transform: translate(0, -70%);
-}
-
-.right-slider :nth-child(7) {
-    top: 90%;
-    width: 70%;
-    opacity: .5;
-    transform: translate(10%, -50%) scale(.8);
-}
 
 @keyframes spin {
     from {
@@ -569,42 +586,229 @@ video::-webkit-media-controls {
     display:none !important;
 }
 
-.card-wrap {
-    width: auto;
-    height: 80%;
-    margin: 0 auto;
-    perspective: 2000px;
-    perspective-origin: center;
-}
-
-.card-page {
-    position: relative;
-    width: auto;
+.ceremony-wrap{
+    position:relative;
+    width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
+}
+
+/* left-part */
+.ceremony-wrap .ceremony-segment{
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+.ceremony-segment .left-list{
+    position: absolute;
+    top: 0;
+    left: -180px;
+    width: 180px;
+    height: 100%;
+    transition: all .5s ease-in-out;
+    overflow: scroll;
+    z-index: 5;
+}
+
+.ceremony-segment .handle-bar{
+    position: absolute;
+    width: 50px;
+    height: 40px;
+    transition: all .5s ease-in-out;
+    z-index: 6;
+    top: 50%;
+    left: 0;
+    background-color: thistle;
+    opacity: .5;
+    transform: translateY(-50%);
+}
+
+.ceremony-segment.show .handle-bar{
+    left: -100%;
+}
+
+.ceremony-segment.show .left-list{
+    left: 0;
+}
+
+.left-list :first-child {
+    position: sticky;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    border-color: 1px solid rgba(0,0,0,.125);
+    color: white;
+    /* color: #6c757d; */
+    /* pointer-events: none; */
+    z-index: 6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-list :first-child span:last-child{
+    font-weight: bold;
+    font-size: x-large;
+    color: lightgray;
     cursor: pointer;
-    animation: returnCard 1s ease both;
 }
 
-.reverse {
-    animation-name: reverseCard;
+.left-list a:not([href]){
+    cursor: pointer;
+    color: rgba(255, 255, 255, .5);
 }
 
-.card-front,
-.card-back {
+.left-list a.active,
+.left-list a:not([href]):hover{
+    color: white;
+}
+
+/* center-part */
+.center-player{
     position: absolute;
     top: 0;
     left: 0;
-    width: auto;
     height: 100%;
-}
-.card-back {
-    transform: rotateY(180deg);
+    width: 100%;
 }
 
-.card-page img{
+/* right-part */
+.ceremony-wrap .ceremony-element{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height:50%;
+    background-color: rgba(0, 0, 0, .6);
+    border-radius: 100% 0 0 100%;
+    z-index: 5;
+    transform: translateY(200%);
+    transition: all .4s ease-in-out;
+}
+
+.ceremony-element.show{
     height: 100%;
+    transform: translateY(0);
+}
+
+.ceremony-element .handle-bar{
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    transition: all .5s ease-in-out;
+    z-index: 6;
+    top: 0;
+    right: 0;
+    background-color: black;
+    border-radius: 50%;
+    transform: translate(-10%,-100px);
+    text-align: center;
+    line-height: 50px;
+    color: white;
+    cursor: pointer;
+}
+
+.ceremony-element.show .handle-bar{
+    transform: translate(0,0);
+    top: 1%;
+    right: 10%;
+}
+
+.right-slider {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.right-slider img {
+    position: absolute;
+    right: 2%;
+    height: auto;
+    transition: all .8s ease-in-out;
+    transform-style: preserve-3d;
+    opacity: 0;
+    width: 0;
+    top: 100%;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.right-slider :nth-child(1),
+.right-slider :nth-child(2) {
+    top: 0;
+    transform: translateY(-100%);
+}
+
+.right-slider :nth-child(3) {
+    top: 15%;
+    width: 70%;
+    opacity: .5;
+    transform: translate(10%, -50%) scale(.8);
+}
+
+.right-slider :nth-child(4) {
+    top: 28%;
+    width: 70%;
+    opacity: .8;
+    z-index: 2;
+    transform: translate(0, -30%);
+}
+
+.right-slider :nth-child(5) {
+    top: 50%;
+    width: 70%;
+    opacity: 1;
+    z-index: 3;
+    transform: translate(-10%, -50%) scale(1.2);
+}
+
+.right-slider :nth-child(6) {
+    top: 72%;
+    width: 70%;
+    opacity: .8;
+    z-index: 2;
+    transform: translate(0, -70%);
+}
+
+.right-slider :nth-child(7) {
+    top: 85%;
+    width: 70%;
+    opacity: .5;
+    transform: translate(10%, -50%) scale(.8);
+}
+
+/* element-detail */
+
+.card-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    animation: returnCard 1s ease both;
+}
+
+.card-wrap.reverse {
+    animation-name: reverseCard;
+}
+
+.card-front img,
+.card-back img{
+    position: absolute;
+    top:10%;
+    left: 50%;
+    cursor: pointer;
     width: auto;
+    height: 80%;
+    backface-visibility: hidden;
+    transform: translateX(-50%);
+}
+
+.card-back img{
+    transform:translateX(-50%) rotateY(180deg);
+}
+
+.card-front .cover{
+    animation: blink 1.5s linear infinite both;
 }
 
 @keyframes reverseCard {
@@ -623,6 +827,32 @@ video::-webkit-media-controls {
     to {
         transform: rotateY(0);
     }
+}
+
+@keyframes blink {
+    40% {
+        transform: scale(.995);
+    }
+
+    50% {
+        opacity: .6;
+    }
+
+    60% {
+        transform: scale(1.005);
+    }
+}
+
+
+.back-to-video{
+    position: absolute;
+    top:50%;
+    left: 100%;
+    transform: translateY(-50%);
+    width:100px;
+    height: 40px;
+    background-color: lightcoral;
+    z-index: 5;
 }
 
 
@@ -651,8 +881,8 @@ video::-webkit-media-controls {
 .modal-container {
     display: none;
     position: absolute;
-    left: -100%;
-    top: -100%;
+    left: 50%;
+    top: 50%;
     width: 400px;
     height: auto;
     border: none;
@@ -776,8 +1006,109 @@ video::-webkit-media-controls {
         background-color: transparent !important;
     }
 
-    #section-0 #letter,
-    #section-0 #header{
+    .nav-item:hover{
+        background-color: rgba(84, 91, 98,.5);
+    }
+
+    .nav-item.active{
+        background-color: rgba(52, 58, 64,.5) !important;
+    }
+
+    .share .share-container{
+        margin-top: 30px;
+    }
+
+    .about-container{
+        margin-left: 20%;
+        width: 60%;
+    }
+
+    #letter,
+    #header{
         width: 100%;
+    }
+
+    .ceremony-wrap .ceremony-element{
+        width: 180px;
+    }
+
+    .card-front img,
+    .card-back img{
+        top: 50%;
+        left: 5%;
+        width: 90%;
+        height: auto;
+        transform: translateY(-50%);
+    }
+
+    .card-back img{
+        transform:translateY(-50%) rotateY(180deg);
+    }
+
+    .modal-container{
+        width: 80%;
+        transform: translate(-50%,-50%);
+    }
+
+}
+
+@media only screen and (max-width:578px){
+    .share .share-container{
+        margin-top: 160px;
+    }
+
+    .album-container-a,
+    .album-container-b{
+        /* width: 100%; */
+        height: 30%;
+        flex-direction: row;
+        left: 0;
+    }
+
+    .album-container-a{
+        top: 70%;
+        transform: translate(100vw,-50%);
+    }
+    .album-container-b{
+        top: 30%;
+        transform: translate(-100%,-50%);
+    }
+
+    .album-container img{
+        width: auto;
+        height: 100%;
+    }
+
+    .album-container-a img:not(:first-child),
+    .album-container-b img:not(:first-child){
+        margin: 0 10% 0 0;
+    }
+
+    .about-container{
+        margin-left: 10%;
+        width: 80%;
+    }
+
+    .intro-list li{
+        width: 100%;
+        height: calc(100%/3);
+        display: block;
+    }
+
+    .intro-list li img{
+        width: 100%;
+        height: auto;
+    }
+
+    .intro-list:hover li:not(:hover){
+        width: auto;
+    }
+
+    .intro-list li:hover{
+        width: auto;
+    }
+
+    .modal-container{
+        width: 95%;
     }
 }

@@ -28,16 +28,17 @@ $(function () {
         }
     });
 
-    // FP.setAllowScrolling(false);
-
+    FP.navigator = $("#fp-nav");
+    FP.toggleNavigator = () => { FP.navigator.toggleClass("d-none"); };
+    FP.hideNavigator = () => { FP.navigator.fadeOut(200); };
+    FP.showNavigator = () => { FP.navigator.fadeIn(200); };
 
     let animateIn = 'pt-scaleUpDown',
         animateOut = 'pt-scaleDown';
 
     let currentPart = 0;
     let trigger = $(".trigger");
-
-    trigger.click(function () {
+    trigger.handler = function () {
         let section = $("#section-" + currentPart);
 
         if (section.hasClass("hide")) {
@@ -49,41 +50,90 @@ $(function () {
             section.find(".sec-1").removeClass(animateOut).addClass(animateIn);
             section.find(".sec-2").removeClass(animateIn).addClass(animateOut);
         }
-    });
+    }
+
+    trigger.click(trigger.handler);
 
 
     /**
      * 导航栏
      */
 
-    let Mask = $(".mask"), // 阴影面板
-        Menu = $("#menu"), // 菜单按钮
-        Volume = $("#volume"), // 声音控制
-        navBar = $(".nav"),
-        menuBar = $(".menu-bar"), // 目录栏
-        chapter = $(".menu-bar [href]"); // 章节项
 
     $(".logo").click(() => {
         navBar.toggleClass("nav-show");
-        menuBar.removeClass("show");
-        Mask.removeClass("show");
-        Menu.removeClass("active");
+        navBtn.removeClass("active");
+        addition.removeClass("show");
+        closeBtn.fadeOut(200);
+        FP.showNavigator();
     })
 
-    Menu.click(toggleMenuBar);
-    Mask.click(toggleMenuBar);
-    Volume.click(() => Volume.toggleClass(["volume-mute", "volume-fill"]));
+    let navBar = $(".nav"),
+        chapter = $(".menu [href]"); // 章节项
+    let navBtn = $('nav [data-toggle]').popover({ boundary: 'window', placement: "right", trigger: "hover" });
+    let addition = $(".addition");
+    let closeBtn = $(".close-btn");
 
-    let navPopover = $('nav [data-toggle="popover"]').popover({ boundary: 'window', placement: "right", trigger: "hover" });
+    navBtn.click((e) => {
+        let target = navBtn.filter(e.target);
+        if (target.hasClass("active")) {
+            target.removeClass("active");
+            addition.filter(e.target.getAttribute("data-className")).removeClass("show");
+            FP.showNavigator();
+            closeBtn.fadeOut(200);
+            navBtn.popover("enable");
+        } else {
+            navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
+            addition.removeClass("show").filter(e.target.getAttribute("data-className")).toggleClass("show");
+            FP.hideNavigator();
+            closeBtn.fadeIn(200);
+        }
+    })
 
-    //  目录按钮切换
-    function toggleMenuBar() {
-        navPopover.popover('toggleEnabled').popover("hide");
+    closeBtn.click(closeBar);
+    $(".share-cancel").click(closeBar);
+    $(".about").on("mousewheel", (e) => e.stopPropagation());
 
-        menuBar.toggleClass("show");
-        Mask.toggleClass("show");
-        Menu.toggleClass("active");
+    function closeBar(e) {
+        addition.removeClass("show");
+        navBtn.removeClass("active");
+        FP.showNavigator();
+        closeBtn.fadeOut(200);
     }
+
+
+    let albumImagesA = ["./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg"]
+    let albumImagesB = ["./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg"]
+    let albumPage = $(".album");
+    let albumContainerA = albumPage.find(".album-container-a");
+    let albumContainerB = albumPage.find(".album-container-b");
+
+    albumImagesA.forEach((value, index) => {
+        albumContainerA.append(`<img src="${value}" alt="" />`);
+    })
+    albumImagesB.forEach((value, index) => {
+        albumContainerB.append(`<img src="${value}" alt="" />`);
+    })
+
+
+    let count = 0;
+    albumPage.on("mousewheel", (e) => {
+        e.stopPropagation();
+        count += e.deltaY * e.deltaFactor;
+
+        if (winWidth < 578) {
+            albumContainerA.offset({ left: winWidth + count });
+            albumContainerB.offset({ left: -albumContainerB.width() - count });
+
+        } else {
+            // albumContainerB.css({ transform: `translate(-50%,${578 - albumContainerA.offset().top - albumContainerB.height()}px` })
+            // albumContainerB.offset({ top: -albumContainerB.height() + (578 - albumContainerA.offset().top) })
+
+            albumContainerA.offset({ top: winHeight + count });
+            albumContainerB.offset({ top: -albumContainerB.height() - count });
+        }
+
+    });
 
     /**
      * 引导页
@@ -120,10 +170,20 @@ $(function () {
      * 探索旅途
      */
 
-    let introVideos = $(".intro-video-item");
-    introVideos.on("mouseover", (e) => {
-        // $(e.target).css("width", "60%").siblings().css("width", "20%");
+    let introList = $(".intro-list");
+    let journeyVideoList = ["./video/test-1.mp4", "./video/test-2.mp4", "./video/test-3.mp4"];
+    let journeyVideoPlayer = videojs("journey-video", { controls: true });
+
+    introList.click((e) => {
+        trigger.handler();
+
+        let index = e.target.getAttribute("data-index");
+        // console.log(journeyVideoList[index], journeyVideoPlayer.currentSource())
+        if (journeyVideoList[index] !== journeyVideoPlayer.currentSource().src) {
+            journeyVideoPlayer.src(journeyVideoList[index]);
+        }
     })
+
 
     // "pt-flipInTop"
     // "pt-rotateRightSideFirst"
@@ -136,96 +196,361 @@ $(function () {
     let cubeWrap = $(".cube-wrap");
     window.onmousemove = (e) => cubeWrap.css("perspective-origin", `${e.clientX - window.innerWidth / 2}px ${e.clientY - window.innerHeight / 2}px`);
 
-    let ceremony = "purify",
-        Segment = {
-            purify: {
-                names: ["鸡蛋占卜", "生烟", "读经文", "烧圆石", "浇石头", "跨圣枝"],
-                times: [5, 20, 40, 60, 80, 100,],
-            },
-            bename: {
-                names: ["生烟", "头顶转猪", "宰杀", "割猪肉", "制护灵符", "鸡蛋占卜", "物品绕头", "圣枝", "起名", "剪头发", "喂酒", "穿衣",],
-                times: [1, 20, 40, 50, 55, 70, 80, 90, 100, 120, 140, 160]
-            },
-            pray: {
-                names: ["生烟", "绕头", "淋鸡血", "吹鸡", "摆祭品", "挽魂", "转草偶", "传木板", "割草绳", "送次切",],
-                times: [5, 40, 60, 80, 100, 110, 120, 130, 140, 150,]
-            },
+    // element-detail
 
-            getCurrentNames: function () {
-                return this[ceremony].names;
-            },
+    let cardWrap = $(".card-wrap");
+    cardWrap.click(function () {
+        $(this).toggleClass("reverse");
+    });
 
-            getCurrentTimes: function () {
-                return this[ceremony].times;
-            }
+    cardWrap.setImage = function (i) {
+        this.find(".card-front img.origin").attr("src", elementData[i].file);
+        this.find(".card-front img.cover").attr("src", elementData[i].factor);
+        this.find(".card-back img").attr("src", elementData[i].paint);
+    };
+
+    let Ceremony = {
+        current: 0,
+        path: ["./image/test/", "./image/test/", "./image/test/"],// 三个仪式图片地址
+        video: ["./video/test-1.mp4", "./video/test-2.mp4", "./video/test-3.mp4",],
+        poster: null,
+        segment:
+            [
+                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 5 },],
+                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 55 },],
+                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 55 },],
+            ],
+        element: [
+            [{
+                file: "t (1).png",// 图片名
+                time: 0, // 出现时间
+                factor: "t (1)-1.png",// 重点要素 
+                paint: "t (1)-2.png",// 版画
+                info: "",// 文字
+            },
+            {
+                file: "t (2).png",
+                time: 15,
+                factor: "t (2)-1.png",
+                paint: "t (2)-2.png",
+                info: "",
+            },
+            {
+                file: "t (3).png",
+                time: 30,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (4).png",
+                time: 40,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (5).png",
+                time: 50,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (6).png",
+                time: 60,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (7).png",
+                time: 70,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (8).png",
+                time: 80,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (9).png",
+                time: 90,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (10).png",
+                time: 100,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },],
+            [{
+                file: "t (1).png",// 图片名
+                time: 0, // 出现时间
+                factor: "t (1)-1.png",// 重点要素 
+                paint: "t (1)-2.png",// 版画
+                info: "",// 文字
+            },
+            {
+                file: "t (2).png",
+                time: 15,
+                factor: "t (2)-1.png",
+                paint: "t (2)-2.png",
+                info: "",
+            },
+            {
+                file: "t (3).png",
+                time: 30,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (4).png",
+                time: 40,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (5).png",
+                time: 50,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (6).png",
+                time: 60,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (7).png",
+                time: 70,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (8).png",
+                time: 80,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (9).png",
+                time: 90,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (10).png",
+                time: 100,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },],
+            [{
+                file: "t (1).png",// 图片名
+                time: 0, // 出现时间
+                factor: "t (1)-1.png",// 重点要素 
+                paint: "t (1)-2.png",// 版画
+                info: "",// 文字
+            },
+            {
+                file: "t (2).png",
+                time: 15,
+                factor: "t (2)-1.png",
+                paint: "t (2)-2.png",
+                info: "",
+            },
+            {
+                file: "t (3).png",
+                time: 30,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (4).png",
+                time: 40,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (5).png",
+                time: 50,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (6).png",
+                time: 60,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (7).png",
+                time: 70,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (8).png",
+                time: 80,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (9).png",
+                time: 90,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },
+            {
+                file: "t (10).png",
+                time: 100,
+                factor: "t (1)-1.png",
+                paint: "t (1)-2.png",
+                info: "",
+            },],
+        ],
+        getSegment() {
+            return this.segment[this.current];
         },
-        Element = {
-            path: "./static/img/",
-            purify: {
-                sources: ["t (1).png", "t (2).png", "t (3).png", "t (4).png", "t (5).png", "t (6).png", "t (7).png", "t (8).png", "t (9).png", "t (10).png"],
-                times: [5, 10, 20, 30, 50, 60, 80, 100, 130, 150],
-            },
-            bename: {
-                sources: ["生烟", "头顶转猪", "宰杀", "割猪肉", "制护灵符", "鸡蛋占卜", "物品绕头", "圣枝", "起名", "剪头发", "喂酒", "穿衣",],
-                times: [1, 20, 40, 50, 55, 70, 80, 90, 100, 120, 140, 160]
-            },
-            pray: {
-                sources: ["生烟", "绕头", "淋鸡血", "吹鸡", "摆祭品", "挽魂", "转草偶", "传木板", "割草绳", "送次切",],
-                times: [5, 40, 60, 80, 100, 110, 120, 130, 140, 150,]
-            },
 
-            getCurrentSources: function () {
-                return this[ceremony].sources.map((value) => this.path + value);
-            },
+        getElement() {
+            return this.element[this.current];
+        },
 
-            getCurrentTimes: function () {
-                return this[ceremony].times;
-            }
-        };
+        getVideoSrc() {
+            return this.video[this.current];
+        }
+    };// 当前仪式
+    Ceremony.element.forEach((array) => {
+        array.forEach((value) => {
+            value.factor = Ceremony.path[Ceremony.current] + value.factor;
+            value.file = Ceremony.path[Ceremony.current] + value.file;
+            value.paint = Ceremony.path[Ceremony.current] + value.paint;
+        });
+    });
 
     // left-list
 
-    let segmentList = $(".ceremony-segment");
-    segmentList.reset = function () {
-        this.html(`<div class="handle-bar"></div>
-        <div class="list-group-item bg-dark disabled title">环节</div>`);
-    }
+    let leftList = $(".ceremony-segment .left-list");
+    let segmentData, segmentTimePoints, leftListItem;
+    leftList.init = function () {
+        this.html(`<div class="list-group-item bg-dark"><span>环节</span><span>&times;</span></div>`)
 
-    segmentList.init = function () {
-        this.reset();
-        let times = Segment.getCurrentTimes();
-        let names = Segment.getCurrentNames();
-        for (let i = 0; i < times.length; i++) {
-            this.append(`<a class="list-group-item bg-dark" data-time="${times[i]}">${names[i]}</a>`);
+        segmentData = Ceremony.getSegment();
+        segmentTimePoints = segmentData.map((value) => value.time);
+
+        for (let i = 0; i < segmentData.length; i++) {
+            this.append(`<a class="list-group-item bg-dark" data-time="${segmentData[i].time}">${segmentData[i].name}</a>`);
         }
 
-        return times;
+        $(".left-list span:last-child").click((e) => {
+            leftList.parent().toggleClass("show");
+        })
+
+        leftListItem = leftList.find("a");
+        leftListItem.click((e) => {
+            leftListItem.removeClass("active");
+            let target = $(e.target).addClass("active");
+            centerVideo.currentTime(target.attr("data-time"));
+        })
+
     }
-    segmentList.on("mousewheel", (e) => e.stopPropagation());
-    let timePoints = segmentList.init();
 
+    leftList.on("mousewheel", (e) => e.stopPropagation());
 
-    let segmentHandlebar = $(".ceremony-segment .handle-bar");
-    segmentHandlebar.click((e) => {
-        segmentList.toggleClass("show");
+    let leftHandlebar = $(".ceremony-segment .handle-bar");
+    leftHandlebar.click((e) => {
+        leftList.parent().toggleClass("show");
     })
 
-    let segmentItem = segmentList.find("a");
-    segmentItem.click((e) => {
-        segmentItem.removeClass("active");
-        let target = $(e.target).addClass("active");
-        ceremonyVideo.currentTime(target.attr("data-time"));
+
+    // right-slider
+
+    let rightSlider = $(".ceremony-element .right-slider");
+    let elementData, elementTimePoints, rightSliderItem;
+
+
+    rightSlider.slide = function (n) {
+        if (n < 0) {
+            while (n++ < 0)
+                this.prepend(this.children(":last"));
+        } else {
+            while (n-- > 0)
+                this.append(this.children(":first"));
+        }
+
+        cardWrap.setImage($(this).find(":nth-child(5)").attr("data-index"));
+    }
+
+    rightSlider.init = function () {
+        elementData = Ceremony.getElement();
+        this.empty();
+
+        for (let i = 0; i < elementData.length; i++) {
+            this.append(`<img src="${elementData[i].file}" alt=""  data-index="${i}" >`);
+        }
+
+        elementTimePoints = elementData.map((value) => value.time);
+
+        rightSliderItem = $(".right-slider img");
+        rightSliderItem.click((e) => {
+            let jump = $(".right-slider img").index(e.target) - 4;
+            console.log(jump);
+            if (jump === 0) {
+                fullpage_api.moveSlideRight();
+            } else {
+                rightSlider.slide(jump);
+            }
+        });
+    }
+
+
+    let rightHandlebar = $(".ceremony-element .handle-bar");
+    rightHandlebar.click((e) => {
+        FP.toggleNavigator();
+        rightHandlebar.parent().toggleClass("show");
     })
 
-    let ceremonyVideo = videojs("ceremony-video", { controls: true });
-    ceremonyVideo.on("timeupdate", debounce(handler, 950))
 
-    function handler(e) {
+    // center-video
+
+    let centerVideo = videojs("center-video", { controls: true });
+    centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
+
+    function timeUpdateHandler(e) {
         let currentTime = Math.floor(this.currentTime());
-        let index = timePoints.indexOf(currentTime);
+        let segIndex = segmentTimePoints.indexOf(currentTime);
+        let eleIndex = elementTimePoints.indexOf(currentTime);
 
-        if (index != -1) {
-            segmentItem.removeClass("active").eq(index).addClass("active");
+        if (segIndex !== -1) {
+            leftListItem.removeClass("active").eq(segIndex).addClass("active");
+        }
+        if (eleIndex !== -1) {
+            rightSlider.slide(eleIndex - $(".right-slider img:nth-child(5)").attr("data-index"));
+            cardWrap.setImage(eleIndex);
         }
     }
 
@@ -243,53 +568,46 @@ $(function () {
         }
     }
 
-    // right-slider
+    $(".cube").click((e) => {
+        let index;
+        switch (e.target.className) {
+            case "left":
+            case "top":
+                index = 0;
+                break;
+            case "right":
+            case "bottom":
+                index = 1
+                break;
+            case "front":
+            case "back":
+                index = 2
+                break;
 
-    let rightSlider = $(".right-slider");
-    rightSlider.init = function () {
-        let sources = Element.getCurrentSources();
-        for (let i = 0; i < sources.length; i++) {
-            this.append(`<img src="${sources[i]}" alt="">`);
+            default:
+                break;
         }
 
-        return Element.getCurrentTimes();;
-    }
+        if (index !== Ceremony.current) {
+            Ceremony.current = index;
+            centerVideo.src(Ceremony.getVideoSrc());
 
-    rightSlider.init();
-    let rightSliderItem = $(".right-slider img");
-
-    rightSlider.slide = function (n) {
-        if (n < 0) {
-            while (n++ < 0)
-                this.prepend(this.children(":last"));
-        } else {
-            while (n-- > 0)
-                this.append(this.children(":first"));
+            // 初始化
+            leftList.init();
+            rightSlider.init();
         }
-    }
-    rightSliderItem.click(clickHandler)
-
-    let cardPage = $(".card-page");
-    cardPage.click(function () {
-        $(this).toggleClass("reverse");
     })
 
-    function clickHandler(e) {
-        let jump = $(".right-slider img").index(e.target) - 4;
-        if (jump === 0) {
-            fullpage_api.moveSlideRight();
-            console.log(e.target.src);
-            cardPage.find(".card-front").html(`<img src="${e.target.src}" alt="" >`);
-        } else {
-            rightSlider.slide(jump);
-        }
-    }
+    // 初始化
+    leftList.init();
+    rightSlider.init();
+
 
     /**
      * 毕摩口述
      */
     let mainPlayer = videojs("dictate-front", { controls: true });
-    let subPlayer = videojs("dictate-sides", { controls: false });
+    let subPlayer = videojs("dictate-sides", { controls: false, muted: true });
     let globalVolume = 1;
 
     subPlayer.on(mainPlayer, ["pause", "play", "seeking", "volumechange"], synchPlay)
@@ -300,12 +618,14 @@ $(function () {
         let target = videojs(e.target);
         this.addClass("upward");
         target.removeClass("upward");
+        target.muted(false);
         target.off(this, ["pause", "play", "seeking", "volumechange"], synchPlay);
         target.on(this, "click", togglePlay);
         target.controls(true);
         this.on(target, ["pause", "play", "seeking", "volumechange"], synchPlay);
         this.off(target, "click", togglePlay);
         this.controls(false);
+        this.muted(true);
     }
 
     // 同步播放
@@ -337,78 +657,93 @@ $(function () {
      * 洒库地图
      */
 
-    let modalContainer = $(".modal-container");
-    let modalLauncher = $(".modal-launcher");
-    let modalShelter = $(".modal-shelter");
+    let mapWrapper = $(".map-wrapper");
+    let modalContainer = mapWrapper.find(".modal-container");
+    let modalShelter = mapWrapper.find(".modal-shelter");
+    let modalLauncherHolder = mapWrapper.find(".modal-launcher-holder");
     let mediaInfo = [
         {
             type: "image",
-            source: "./static/img/成都-西昌.png",
+            source: "./image/test/t (1).png",
             title: "Hello, Boy.",
             area: 'A',
-            left: 214,
-            top: 146,
+            left: .18,
+            top: .2,
         }, {
             type: "image",
-            source: "./static/img/成都-西昌.png",
+            source: "./image/test/t (2).png",
             title: "Hello, Coley.",
             area: 'B',
-            left: 702,
-            top: 105,
+            left: .6,
+            top: .3,
         }, {
             type: "video",
-            source: "./static/video/flowers.mp4",
+            source: "./video/flowers.mp4",
             title: "Hey, guys.",
             area: 'C',
-            left: 240,
-            top: 388,
+            left: .25,
+            top: .7,
         }, {
             type: "video",
-            source: "./static/video/flowers.mp4",
+            source: "./video/flowers.mp4",
             title: "Hi, Bro.",
             area: 'D',
-            left: 822,
-            top: 391,
+            left: .8,
+            top: .68,
         },
     ];
 
-    modalLauncher.each((i, el) => {
-        $(el).css({ top: mediaInfo[i].top, left: mediaInfo[i].left }).attr("data-title", mediaInfo[i].title);
+    mediaInfo.forEach((value, index) => {
+        let item = $(`<div class="modal-launcher location-icon" data-toggle="tooltip" data-index="${index}" data-area="${value.area}" data-title="${value.title}" ></div>`).css({ top: value.top * winHeight, left: value.left * winWidth });
+
+        if (winWidth > 992) {
+            item.tooltip({ boundary: 'window', placement: "top", trigger: "hover" });
+        }
+
+        modalLauncherHolder.append(item);
     })
 
+
+    let modalLauncher = $(".modal-launcher");
     modalLauncher.click((e) => {
         modalContainer.fadeIn(200);
         modalShelter.fadeIn(200);
 
         let i = e.target.getAttribute("data-index");
         let item = mediaInfo[i];
-        let options = { left: item.left, top: item.top }
-        switch (item.area) {
-            case 'A':
-                options.transform = "translate(0,0)";
-                break;
 
-            case 'B':
-                options.transform = "translate(-100%,0)";
-                break;
+        if (winWidth > 992) {
+            let options = { left: item.left * winWidth, top: item.top * winHeight };
 
-            case 'C':
-                options.transform = "translate(0,-100%)";
-                break;
+            switch (item.area) {
+                case 'A':
+                    options.transform = "translate(0,0)";
+                    break;
 
-            case 'D':
-                options.transform = "translate(-100%,-100%)";
-                break;
+                case 'B':
+                    options.transform = "translate(-100%,0)";
+                    break;
 
-            default:
-                break;
+                case 'C':
+                    options.transform = "translate(0,-100%)";
+                    break;
+
+                case 'D':
+                    options.transform = "translate(-100%,-100%)";
+                    break;
+
+                default:
+                    break;
+            }
+            modalContainer.css(options);
+
         }
-        modalContainer.css(options);
+
 
         if (item.type === "image") {
             modalContainer.html(`<img src="${item.source}" alt=''>`);
         } else {
-            modalContainer.html(`<video src="${item.source}" autoplay></video>`);
+            modalContainer.html(`<video src="${item.source}" autoplay muted></video>`);
         }
     })
 
@@ -416,7 +751,5 @@ $(function () {
         modalContainer.fadeOut(200);
         modalShelter.fadeOut(200);
     })
-
-    $(".map-wrapper [data-toggle='tooltip']").tooltip({ boundary: 'window', placement: "top", trigger: "hover" });
 
 })
