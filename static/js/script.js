@@ -11,31 +11,33 @@ $(function () {
     let FP = new fullpage('main', {
         // scrollHorizontally: true,
         // continuousVertical: true,
+        // touchSensitivity: 1,
         css3: false,
         navigation: true,
         autoScrolling: true,
         verticalCentered: true,
         slidesNavigation: false,
         controlArrows: false,
-        anchors: ["guidance", "journey", "ceremony", "dictation", "sakumap"],
+        recordHistory: false,
+        anchors: ["journey", "ceremony", "dictation", "sakumap", "ending"],
+        menu: '.menu-container',
 
         onLeave: function (origin, destination, direction) {
             currentPart = destination.index;
-
-            chapter.filter(".active").removeClass("active");
-            chapter.eq(destination.index).addClass("active");
-
         }
     });
+
 
     FP.navigator = $("#fp-nav");
     FP.toggleNavigator = () => { FP.navigator.toggleClass("d-none"); };
     FP.hideNavigator = () => { FP.navigator.fadeOut(200); };
     FP.showNavigator = () => { FP.navigator.fadeIn(200); };
+    FP.setAllowScrolling(false);
 
     let animateIn = 'pt-scaleUpDown',
         animateOut = 'pt-scaleDown';
 
+    let loaded = [false, false, false, false, false];
     let currentPart = 0;
     let trigger = $(".trigger");
     trigger.handler = function () {
@@ -51,55 +53,64 @@ $(function () {
             section.find(".sec-2").removeClass(animateIn).addClass(animateOut);
         }
     }
-
     trigger.click(trigger.handler);
 
 
-    /**
-     * 导航栏
-     */
+
+    /** 导航栏
+     *------------------------------------------------------------*/
+    function initNavigation() {
+        $(".logo").click(() => {
+            navBar.toggleClass("nav-show");
+            // closeBar();
+            // closeMenuBar();
+        })
+
+        let navBar = $(".nav");
+        let navBtn = $('nav [data-toggle]');
+        let addition = $(".addition");
+        let closeBtn = $(".close-btn");
+        let navMask = $(".nav-mask");
+
+        navBtn.popover({ boundary: 'window', placement: "right", trigger: "hover" });
+        navBtn.click((e) => {
+            let target = navBtn.filter(e.target);
+            if (target.hasClass("active")) {
+                target.removeClass("active");// 隐藏bar
+                addition.filter(e.target.getAttribute("data-className")).removeClass("show");
+                FP.showNavigator();// 显示.小圆点
+                closeBtn.fadeOut(200);// 隐藏x按钮
+                navBtn.popover("enable");// 显示popover
+                navMask.removeClass("show");// 隐藏mask
+            } else {
+                navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
+                addition.removeClass("show").filter(e.target.getAttribute("data-className")).toggleClass("show");
+                FP.hideNavigator();
+                closeBtn.fadeIn(200);
+                navMask.addClass("show");
+            }
+        })
 
 
-    $(".logo").click(() => {
-        navBar.toggleClass("nav-show");
-        navBtn.removeClass("active");
-        addition.removeClass("show");
-        closeBtn.fadeOut(200);
-        FP.showNavigator();
-    })
+        navMask.click(closeBar);
+        closeBtn.click(closeBar);
+        $(".share-cancel").click(closeBar);
+        $(".about").on("mousewheel", (e) => e.stopPropagation());
 
-    let navBar = $(".nav"),
-        chapter = $(".menu [href]"); // 章节项
-    let navBtn = $('nav [data-toggle]').popover({ boundary: 'window', placement: "right", trigger: "hover" });
-    let addition = $(".addition");
-    let closeBtn = $(".close-btn");
-
-    navBtn.click((e) => {
-        let target = navBtn.filter(e.target);
-        if (target.hasClass("active")) {
-            target.removeClass("active");
-            addition.filter(e.target.getAttribute("data-className")).removeClass("show");
+        function closeBar(e) {
+            addition.removeClass("show");
+            navBtn.removeClass("active");
+            navMask.removeClass("show");
             FP.showNavigator();
             closeBtn.fadeOut(200);
-            navBtn.popover("enable");
-        } else {
-            navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
-            addition.removeClass("show").filter(e.target.getAttribute("data-className")).toggleClass("show");
-            FP.hideNavigator();
-            closeBtn.fadeIn(200);
+            copyLink.tooltip("hide");
         }
-    })
 
-    closeBtn.click(closeBar);
-    $(".share-cancel").click(closeBar);
-    $(".about").on("mousewheel", (e) => e.stopPropagation());
-
-    function closeBar(e) {
-        addition.removeClass("show");
-        navBtn.removeClass("active");
-        FP.showNavigator();
-        closeBtn.fadeOut(200);
     }
+
+    initNavigation();
+
+
 
 
     let albumImagesA = ["./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg"]
@@ -107,6 +118,7 @@ $(function () {
     let albumPage = $(".album");
     let albumContainerA = albumPage.find(".album-container-a");
     let albumContainerB = albumPage.find(".album-container-b");
+    let albumText = albumPage.find(".album-text");
 
     albumImagesA.forEach((value, index) => {
         albumContainerA.append(`<img src="${value}" alt="" />`);
@@ -115,8 +127,19 @@ $(function () {
         albumContainerB.append(`<img src="${value}" alt="" />`);
     })
 
+    let albumImages = $(".album img");
+    let albumDisplayImg = $(".album-display img");
+    albumImages.click((e) => {
+        albumDisplayImg.attr("src", e.target.src).show();
+    });
+
+    albumDisplayImg.click((e) => {
+        albumDisplayImg.hide();
+    })
+
 
     let count = 0;
+    let fontSize = 40;
     albumPage.on("mousewheel", (e) => {
         e.stopPropagation();
         count += e.deltaY * e.deltaFactor;
@@ -135,36 +158,28 @@ $(function () {
 
     });
 
-    /**
-     * 引导页
-     */
+    new ClipboardJS("#copy-link");
+    copyLink = $("#copy-link");
+    copyLink.tooltip({ boundary: 'window', placement: "right", trigger: "click" });
+
+    /** 引导页
+     *------------------------------------------------------------*/
 
     // 封面
-    let headerTitle = $("#header-title"),
-        headerBody = $("#header-body"),
-        header = $("#header"),
-        letter = $("#letter"),
-        typer = null;
+    let letterWrap = $(".letter-wrap"),
+        letterIcon = $(".letter-icon"),
+        starter = $(".starter");
 
-    headerTitle.click(function () {
-        letter.show();
-        headerBody.addClass(["animate__animated", "animate__fadeOut", "animate__slow"]);
-        createTyper(1200);
+    letterIcon.click(function () {
+        letterWrap.css({ transform: "translate(-50%,0)" });
     })
 
-    // 打字效果
-    function createTyper(delay) {
-        if (typer != null) {
-            typer.destroy();
-        }
-        typer = new Typed('.typed', {
-            strings: [`远方的贵客：\n   ^50你好。我名叫立里达哈，出身于毕摩世家。毕摩文化在我家传承了500余年，我的父亲——立里机门已经是第17代传承人。\n   在彝族，毕摩是彝族传统文化的传承者，是也被视为神灵的使者。所以我的父亲在乡亲的心中也拥有很高的地位。\n   彝族是我国民族大家庭中的一分子，有着悠久的历史和多彩的文化。漆器、服饰、彝族年、火把节等都是为全国人民熟知的彝族文化符号。而毕摩作为彝族文化的核心，至今还笼罩着一层神秘的面纱。\n   也许你听说过大型的毕摩仪式——尼木措毕（送灵归祖仪式），这是彝族民间最为重要，也是最隆重的仪式，一个家庭一代人才能举行一次。但毕摩仪式其实也跟彝族人民的日常生活息息相关。\n   今天，我代表我的父亲，诚挚地邀请你来到彝族文化核心地区之一，我的家乡——凉山州美姑县洒库乡。我和我父亲将一起带你走近三个彝族家庭，参与最常见的几种毕摩仪式。\n   你能在接下来的几天里，了解到你身边朋友所不知的彝族文化，体验到你从未感受过的彝族风情。\n   期待同你见面，并欢迎你的到来。`],
-            loop: false,
-            startDelay: delay || 50,
-            typeSpeed: 50,
-            backSpeed: 30,
-        });
-    }
+    letterWrap.on("mousewheel", (e) => { e.stopPropagation() });
+
+    starter.click((e) => {
+        $("#guidance").fadeOut(1500);
+        FP.setAllowScrolling(true);
+    })
 
     /**
      * 探索旅途
@@ -198,16 +213,16 @@ $(function () {
 
     // element-detail
 
-    let cardWrap = $(".card-wrap");
-    cardWrap.click(function () {
-        $(this).toggleClass("reverse");
-    });
+    // let cardWrap = $(".card-wrap");
+    // cardWrap.click(function () {
+    //     $(this).toggleClass("reverse");
+    // });
 
-    cardWrap.setImage = function (i) {
-        this.find(".card-front img.origin").attr("src", elementData[i].file);
-        this.find(".card-front img.cover").attr("src", elementData[i].factor);
-        this.find(".card-back img").attr("src", elementData[i].paint);
-    };
+    // cardWrap.setImage = function (i) {
+    //     this.find(".card-front img.origin").attr("src", elementData[i].file);
+    //     this.find(".card-front img.cover").attr("src", elementData[i].factor);
+    //     this.find(".card-back img").attr("src", elementData[i].paint);
+    // };
 
     let Ceremony = {
         current: 0,
@@ -457,7 +472,7 @@ $(function () {
     let leftList = $(".ceremony-segment .left-list");
     let segmentData, segmentTimePoints, leftListItem;
     leftList.init = function () {
-        this.html(`<div class="list-group-item bg-dark"><span>环节</span><span>&times;</span></div>`)
+        this.empty();
 
         segmentData = Ceremony.getSegment();
         segmentTimePoints = segmentData.map((value) => value.time);
@@ -502,7 +517,7 @@ $(function () {
                 this.append(this.children(":first"));
         }
 
-        cardWrap.setImage($(this).find(":nth-child(5)").attr("data-index"));
+        // cardWrap.setImage($(this).find(":nth-child(5)").attr("data-index"));
     }
 
     rightSlider.init = function () {
@@ -550,7 +565,7 @@ $(function () {
         }
         if (eleIndex !== -1) {
             rightSlider.slide(eleIndex - $(".right-slider img:nth-child(5)").attr("data-index"));
-            cardWrap.setImage(eleIndex);
+            // cardWrap.setImage(eleIndex);
         }
     }
 
