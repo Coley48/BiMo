@@ -113,6 +113,13 @@ body {
     -moz-transition: all 1s ease-in-out .3s;
     -o-transition: all 1s ease-in-out .3s;
     transition: all 1s ease-in-out .3s;
+    /* display: none; */
+    opacity: 0;
+}
+
+.letter-wrap.show{
+    transform: translate(-50%,0);
+    opacity: 1;
 }
 
 .letter-content {
@@ -368,8 +375,8 @@ body {
     font-size: 2.5rem;
 }
 
-.album-container-a,
-.album-container-b{
+.album-first-set,
+.album-second-set{
     position: absolute;
     top: 0;
     display: flex;
@@ -379,12 +386,12 @@ body {
     width: 30%;
 }
 
-.album-container-a{
+.album-first-set{
     left: 30%;
     transform: translate(-50%,100vh);
 }
-.album-container-a img,
-.album-container-b img{
+.album-first-set img,
+.album-second-set img{
     width: 100%;
     height: auto;
     cursor: zoom-in;
@@ -410,12 +417,12 @@ body {
 }
 
 
-.album-container-a img:not(:first-child),
-.album-container-b img:not(:first-child){
+.album-first-set img:not(:first-child),
+.album-second-set img:not(:first-child){
     margin: 5% 0 0 0;
 }
 
-.album-container-b{
+.album-second-set{
     left: 70%;
     transform: translate(-50%,-100%);
 }
@@ -585,20 +592,43 @@ main .sec-2{
     width: 20%;
 }
 
-.intro-list li:hover {
+.intro-item .intro-text{
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 1s linear .2s;
+    transform: translateY(0);
+}
+
+.intro-item:hover {
     width: 60%;
 }
+
+.intro-item:hover .intro-text{
+    transform: translateY(-50%);
+    top: 50%;
+    opacity: 1;
+}
+
 
 .back.trigger{
     position: absolute;
     top: 2%;
-    right: 4%;
-    width: 40px;
-    height: 40px;
-    /* background-color: lightcoral; */
+    right: 1%;
+    width: 50px;
+    height: 50px;
+    background-color: black;
     cursor: pointer;
     z-index: 10;
-    text-align: center;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 150%;
 }
 
 .back.trigger svg{
@@ -734,9 +764,10 @@ video::-webkit-media-controls {
     height: 100%;
 }
 
+
 /* left-part */
 .ceremony-wrap .ceremony-segment{
-    position: fixed;
+    position: absolute;
     top: 0;
     left: -180px;
     width: 180px;
@@ -758,14 +789,28 @@ video::-webkit-media-controls {
     z-index: 5;
     background-color: #343a40;
 }
-
+.left-list::before {
+    content: "环节仪式";
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #343a40;
+    color: white;
+    z-index: 6;
+    width: 180px;
+    height: 60px;
+    pointer-events: none;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    line-height: 60px;
+    transition: all .5s ease-in-out;
+}
 .ceremony-segment .handle-bar{
-    position: fixed;
+    position: absolute;
     width: 60px;
     height: 40px;
     z-index: 6;
     top: 50%;
-    left: 0;
+    left: 100%;
     background-color: black;
     opacity: .5;
     transform: translateY(-50%);
@@ -777,34 +822,15 @@ video::-webkit-media-controls {
     cursor: pointer;
 }
 .ceremony-segment .handle-bar svg{
+    transform: rotateZ(180deg);
     transition: all .3s ease-in-out;
     color: white;
 }
 
-.list-header {
-    position: fixed;
-    top: 0;
-    left: -180px;
-    background-color: #343a40;
-    border-color: 1px solid rgba(0,0,0,.125);
-    color: white;
-    z-index: 6;
-    width: 180px;
-    height: 60px;
-    pointer-events: none;
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    line-height: 60px;
-    transition: all .5s ease-in-out;
-}
-.show .list-header{
-    left: 0;
-}
-.ceremony-segment.show .handle-bar{
-    left: 180px;
-}
 .ceremony-segment.show .handle-bar svg{
     color: white;
-    transform: rotateZ(180deg);
+    /* transform: rotateZ(180deg); */
+    transform: rotateZ(0);
 }
 
 
@@ -874,6 +900,12 @@ video::-webkit-media-controls {
     font-size: 100%;
 }
 
+.ceremony-element .trigger{
+    top: -196%;
+    right: 0;
+    transform: translateX(-10%);
+}
+
 .right-slider {
     position: relative;
     height: 100%;
@@ -940,48 +972,75 @@ video::-webkit-media-controls {
 /* element-detail */
 
 .card-wrap {
-    width: auto;
-    height: 80%;
-    margin: 10% auto;
     position: relative;
-    transform-style: preserve-3d;
-    animation: returnCard 1s ease both;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
+    transform-style: preserve-3d;
+    animation: returnCard 1s ease both;
+    text-align: center;
+    vertical-align: middle;
+    /* overflow: hidden; */
 }
 
-.card-wrap.reverse {
-    animation-name: reverseCard;
-}
-
-.card-front img,
-.card-back img{
-    position: absolute;
-    cursor: pointer;
+.card-wrap img{
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     backface-visibility: hidden;
 }
 
-.card-front .origin{
-    top: 0;
-    left: 50%;
+.card-wrap .card-front{
+    display: inline-block;
+    position: relative;
+    height: 80vh;
+    /* max-height: 80%; */
     width: auto;
-    height: 100%;
-    transform: translateX(-50%);
+    transition: all .5s linear;
 }
-.card-front .cover{
-    top: 38.3%;
-    left: 32.5%;
-    /* width: 48.63%; */
+.card-front .origin{
+    height: 100%;
     width: auto;
-    height: 53.23%;
-    /* animation: blink 1.5s linear infinite both; */
+}
+.card-front .factor{
+    position: absolute;
+    animation: blink 1.5s linear infinite both;
+    cursor: pointer;
 }
 
-.card-back img{
-    transform:translateX(-50%) rotateY(180deg);
+.card-wrap .card-back{
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    transform: rotateY(180deg);
+    width: auto;
+    height: 80%;
+    transition: all .5s linear;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+}
+.card-back .paint{
+    cursor: pointer;
+    height: 100%;
+    width: auto;
+}
+
+.card-wrap.reverse {
+    animation-name: reverseCard;
+}
+.card-wrap.reverse .card-back{
+    opacity: 1;
+    visibility: visible;
+}
+.card-wrap.reverse .card-front{
+    opacity: 0.3;
+    visibility: hidden;
 }
 
 
@@ -1016,7 +1075,6 @@ video::-webkit-media-controls {
         transform: scale(1.005);
     }
 }
-
 
 .back-to-video{
     position: absolute;
@@ -1197,17 +1255,12 @@ video::-webkit-media-controls {
         width: 180px;
     }
 
-    .card-front img,
-    .card-back img{
-        top: 50%;
-        left: 5%;
-        width: 90%;
-        height: auto;
-        transform: translateY(-50%);
+    .card-wrap .card-front {
+        max-height: 350px;
     }
 
-    .card-back img{
-        transform:translateY(-50%) rotateY(180deg);
+    .card-wrap .card-back{
+        max-height: 350px;
     }
 
     .modal-container{
@@ -1222,31 +1275,31 @@ video::-webkit-media-controls {
         margin-top: 160px;
     }
 
-    .album-container-a,
-    .album-container-b{
+    .album-first-set,
+    .album-second-set{
         /* width: 100%; */
         height: 30%;
         flex-direction: row;
         left: 0;
     }
 
-    .album-container-a{
+    .album-first-set{
         top: 70%;
         transform: translate(100vw,-50%);
     }
-    .album-container-b{
+    .album-second-set{
         top: 30%;
         transform: translate(-100%,-50%);
     }
 
-    .album-container-a img,
-    .album-container-b img{
+    .album-first-set img,
+    .album-second-set img{
         width: auto;
         height: 100%;
     }
 
-    .album-container-a img:not(:first-child),
-    .album-container-b img:not(:first-child){
+    .album-first-set img:not(:first-child),
+    .album-second-set img:not(:first-child){
         margin: 0 10% 0 0;
     }
 

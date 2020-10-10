@@ -23,8 +23,9 @@ $(function () {
         menu: '.menu-container',
 
         onLeave: function (origin, destination, direction) {
+            // let loaded = [false, false, false, false, false];
             currentPart = destination.index;
-        }
+        },
     });
 
 
@@ -37,8 +38,8 @@ $(function () {
     let animateIn = 'pt-scaleUpDown',
         animateOut = 'pt-scaleDown';
 
-    let loaded = [false, false, false, false, false];
     let currentPart = 0;
+
     let trigger = $(".trigger");
     trigger.handler = function () {
         let section = $("#section-" + currentPart);
@@ -58,121 +59,147 @@ $(function () {
 
 
     /** 导航栏
-     *------------------------------------------------------------*/
-    function initNavigation() {
-        $(".logo").click(() => {
-            navBar.toggleClass("nav-show");
-            // closeBar();
-            // closeMenuBar();
-        })
+    ------------------------------------------------------------*/
 
-        let navBar = $(".nav");
-        let navBtn = $('nav [data-toggle]');
-        let addition = $(".addition");
-        let closeBtn = $(".close-btn");
-        let navMask = $(".nav-mask");
+    let Navigation = {
+        navBar: $(".nav"),
+        navBtn: $('nav [data-toggle]'),
+        addition: $(".addition"),
+        closeBtn: $(".close-btn"),
+        navMask: $(".nav-mask"),
 
-        navBtn.popover({ boundary: 'window', placement: "right", trigger: "hover" });
-        navBtn.click((e) => {
-            let target = navBtn.filter(e.target);
-            if (target.hasClass("active")) {
-                target.removeClass("active");// 隐藏bar
-                addition.filter(e.target.getAttribute("data-className")).removeClass("show");
-                FP.showNavigator();// 显示.小圆点
-                closeBtn.fadeOut(200);// 隐藏x按钮
-                navBtn.popover("enable");// 显示popover
-                navMask.removeClass("show");// 隐藏mask
-            } else {
-                navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
-                addition.removeClass("show").filter(e.target.getAttribute("data-className")).toggleClass("show");
-                FP.hideNavigator();
-                closeBtn.fadeIn(200);
-                navMask.addClass("show");
+        Earth: {
+            earthPage: $(""),
+            init() {
+                this.video = videojs("earth-video", { controls: true, controlBar: { pictureInPictureToggle: false } });
+
             }
-        })
+        },
+
+        Album: {
+            albumPage: $(".album"),
+            imageSource: null,
+            albumDisplayImg: $(".album-display img"),
+            distance: 0,
+
+            init() {
+                this.firstContainer = this.albumPage.find(".album-first-set");
+                this.secondContainer = this.albumPage.find(".album-second-set");
+                // this.albumText = thsi.albumPage.find(".album-text");
+
+                if (this.imageSource) {
+                    this.imageSource.firstSet.forEach((value, index) => {
+                        this.firstContainer.append(`<img src="${value}" alt="" />`);
+                    })
+                    this.imageSource.secondSet.forEach((value, index) => {
+                        this.secondContainer.append(`<img src="${value}" alt="" />`);
+                    })
+                }
+
+                $(".album img").click((e) => {
+                    this.albumDisplayImg.attr("src", e.target.src).show();
+                });
+
+                this.albumDisplayImg.click((e) => {
+                    Navigation.Album.albumDisplayImg.hide();
+                })
 
 
-        navMask.click(closeBar);
-        closeBtn.click(closeBar);
-        $(".share-cancel").click(closeBar);
-        $(".about").on("mousewheel", (e) => e.stopPropagation());
+                this.albumPage.on("mousewheel", (e) => {
+                    e.stopPropagation();
+                    Navigation.Album.distance += e.deltaY * e.deltaFactor;
 
-        function closeBar(e) {
-            addition.removeClass("show");
-            navBtn.removeClass("active");
-            navMask.removeClass("show");
+                    if (winWidth < 578) {
+                        Navigation.Album.firstContainer.offset({ left: winWidth + Navigation.Album.distance });
+                        Navigation.Album.secondContainer.offset({ left: -Navigation.Album.secondContainer.width() - Navigation.Album.distance });
+
+                    } else {
+                        // secondContainer.css({ transform: `translate(-50%,${578 - firstContainer.offset().top - secondContainer.height()}px` })
+                        // secondContainer.offset({ top: -secondContainer.height() + (578 - firstContainer.offset().top) })
+
+                        Navigation.Album.firstContainer.offset({ top: winHeight + Navigation.Album.distance });
+                        Navigation.Album.secondContainer.offset({ top: -Navigation.Album.secondContainer.height() - Navigation.Album.distance });
+                    }
+
+                });
+            }
+        },
+
+        Share: {
+            copyBtn: $("#copy-link"),
+            init() {
+                $(".share-cancel").click(Navigation.closeBar);
+                new ClipboardJS("#copy-link");
+                this.copyBtn.tooltip({ boundary: 'window', placement: "right", trigger: "click" });
+            }
+
+        },
+
+        About: {
+            init() {
+                $(".about").on("mousewheel", (e) => e.stopPropagation());
+            }
+        },
+
+
+        init() {
+            $(".logo").click(() => {
+                Navigation.navBar.toggleClass("nav-show");
+                // closeBar();
+                // closeMenuBar();
+            })
+
+
+            this.navBtn.popover({ boundary: 'window', placement: "right", trigger: "hover" });
+
+            this.navBtn.click((e) => {
+                let target = Navigation.navBtn.filter(e.target);
+                if (target.hasClass("active")) {
+                    target.removeClass("active");// 隐藏bar
+                    Navigation.addition.filter(e.target.getAttribute("data-className")).removeClass("show");
+                    Navigation.closeBtn.fadeOut(200);// 隐藏x按钮
+                    Navigation.navBtn.popover("enable");// 显示popover
+                    Navigation.navMask.removeClass("show");// 隐藏mask
+                    FP.showNavigator();// 显示.小圆点
+                } else {
+                    Navigation.navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
+                    Navigation.addition.removeClass("show").filter(e.target.getAttribute("data-className")).toggleClass("show");
+                    Navigation.closeBtn.fadeIn(200);
+                    Navigation.navMask.addClass("show");
+                    FP.hideNavigator();
+                }
+            })
+
+
+            this.navMask.click(this.closeBar);
+            this.closeBtn.click(this.closeBar);
+
+            this.Earth.init();
+        },
+
+        closeBar(e) {
+            Navigation.addition.removeClass("show");
+            Navigation.navBtn.removeClass("active");
+            Navigation.navMask.removeClass("show");
             FP.showNavigator();
-            closeBtn.fadeOut(200);
-            copyLink.tooltip("hide");
+            Navigation.closeBtn.fadeOut(200);
+            Navigation.Share.copyBtn.tooltip("hide");
         }
-
     }
 
-    initNavigation();
+    Navigation.init();
 
 
-
-
-    let albumImagesA = ["./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg"]
-    let albumImagesB = ["./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg", "./image/album/album (1).jpg"]
-    let albumPage = $(".album");
-    let albumContainerA = albumPage.find(".album-container-a");
-    let albumContainerB = albumPage.find(".album-container-b");
-    let albumText = albumPage.find(".album-text");
-
-    albumImagesA.forEach((value, index) => {
-        albumContainerA.append(`<img src="${value}" alt="" />`);
-    })
-    albumImagesB.forEach((value, index) => {
-        albumContainerB.append(`<img src="${value}" alt="" />`);
-    })
-
-    let albumImages = $(".album img");
-    let albumDisplayImg = $(".album-display img");
-    albumImages.click((e) => {
-        albumDisplayImg.attr("src", e.target.src).show();
-    });
-
-    albumDisplayImg.click((e) => {
-        albumDisplayImg.hide();
-    })
-
-
-    let count = 0;
-    let fontSize = 40;
-    albumPage.on("mousewheel", (e) => {
-        e.stopPropagation();
-        count += e.deltaY * e.deltaFactor;
-
-        if (winWidth < 578) {
-            albumContainerA.offset({ left: winWidth + count });
-            albumContainerB.offset({ left: -albumContainerB.width() - count });
-
-        } else {
-            // albumContainerB.css({ transform: `translate(-50%,${578 - albumContainerA.offset().top - albumContainerB.height()}px` })
-            // albumContainerB.offset({ top: -albumContainerB.height() + (578 - albumContainerA.offset().top) })
-
-            albumContainerA.offset({ top: winHeight + count });
-            albumContainerB.offset({ top: -albumContainerB.height() - count });
-        }
-
-    });
-
-    new ClipboardJS("#copy-link");
-    copyLink = $("#copy-link");
-    copyLink.tooltip({ boundary: 'window', placement: "right", trigger: "click" });
 
     /** 引导页
-     *------------------------------------------------------------*/
+    ----------------------------------------------------------------*/
 
     // 封面
     let letterWrap = $(".letter-wrap"),
         letterIcon = $(".letter-icon"),
         starter = $(".starter");
 
-    letterIcon.click(function () {
-        letterWrap.css({ transform: "translate(-50%,0)" });
-    })
+    letterIcon.click((e) => letterWrap.addClass("show"))
 
     letterWrap.on("mousewheel", (e) => { e.stopPropagation() });
 
@@ -181,23 +208,30 @@ $(function () {
         FP.setAllowScrolling(true);
     })
 
-    /**
-     * 探索旅途
-     */
+    /** 探索旅途
+    -----------------------------------------------------------------*/
 
-    let introList = $(".intro-list");
-    let journeyVideoList = ["./video/test-1.mp4", "./video/test-2.mp4", "./video/test-3.mp4"];
-    let journeyVideoPlayer = videojs("journey-video", { controls: true });
+    let Journey = {
+        preview: $(".intro-list"),
+        source: ["/video/test-1.mp4", "/video/test-2.mp4", "/video/test-3.mp4"],
+        player: videojs("journey-video", { controls: true }),
 
-    introList.click((e) => {
-        trigger.handler();
+        init() {
+            console.log("Journey init.")
+            this.preview.click((e) => {
+                trigger.handler();
 
-        let index = e.target.getAttribute("data-index");
-        // console.log(journeyVideoList[index], journeyVideoPlayer.currentSource())
-        if (journeyVideoList[index] !== journeyVideoPlayer.currentSource().src) {
-            journeyVideoPlayer.src(journeyVideoList[index]);
+                this.reset(e.target.getAttribute("data-index"));
+
+            })
+        },
+
+        reset(index) {
+            this.player.src(this.source[index]);
         }
-    })
+    }
+
+    Journey.init();
 
 
     // "pt-flipInTop"
@@ -205,368 +239,200 @@ $(function () {
     // "pt-rotateOutNewspaper"
     // "pt-rotateInNewspaper"
 
-    /**
-     * 毕摩仪式
-     */
-    let cubeWrap = $(".cube-wrap");
-    window.onmousemove = (e) => cubeWrap.css("perspective-origin", `${e.clientX - window.innerWidth / 2}px ${e.clientY - window.innerHeight / 2}px`);
-
-    // element-detail
-
-    // let cardWrap = $(".card-wrap");
-    // cardWrap.click(function () {
-    //     $(this).toggleClass("reverse");
-    // });
-
-    // cardWrap.setImage = function (i) {
-    //     this.find(".card-front img.origin").attr("src", elementData[i].file);
-    //     this.find(".card-front img.cover").attr("src", elementData[i].factor);
-    //     this.find(".card-back img").attr("src", elementData[i].paint);
-    // };
+    /** 毕摩仪式
+    -------------------------------------------------------- */
+    let segmentData, segmentTimePoints = [], leftListItem;
+    let elementData, elementTimePoints = [], rightSliderItem;
 
     let Ceremony = {
         current: 0,
-        path: ["./image/test/", "./image/test/", "./image/test/"],// 三个仪式图片地址
-        video: ["./video/test-1.mp4", "./video/test-2.mp4", "./video/test-3.mp4",],
-        poster: null,
-        segment:
-            [
-                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 5 },],
-                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 55 },],
-                [{ name: "鸡蛋占卜", time: 5 }, { name: "生烟", time: 15 }, { name: "读经文", time: 25 }, { name: "烧圆石", time: 35 }, { name: "浇石头", time: 45 }, { name: "跨圣枝", time: 55 },],
-            ],
-        element: [
-            [{
-                file: "t (1).png",// 图片名
-                time: 0, // 出现时间
-                factor: "t (1)-1.png",// 重点要素 
-                paint: "t (1)-2.png",// 版画
-                info: "",// 文字
-            },
-            {
-                file: "t (2).png",
-                time: 15,
-                factor: "t (2)-1.png",
-                paint: "t (2)-2.png",
-                info: "",
-            },
-            {
-                file: "t (3).png",
-                time: 30,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (4).png",
-                time: 40,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (5).png",
-                time: 50,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (6).png",
-                time: 60,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (7).png",
-                time: 70,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (8).png",
-                time: 80,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (9).png",
-                time: 90,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (10).png",
-                time: 100,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },],
-            [{
-                file: "t (1).png",// 图片名
-                time: 0, // 出现时间
-                factor: "t (1)-1.png",// 重点要素 
-                paint: "t (1)-2.png",// 版画
-                info: "",// 文字
-            },
-            {
-                file: "t (2).png",
-                time: 15,
-                factor: "t (2)-1.png",
-                paint: "t (2)-2.png",
-                info: "",
-            },
-            {
-                file: "t (3).png",
-                time: 30,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (4).png",
-                time: 40,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (5).png",
-                time: 50,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (6).png",
-                time: 60,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (7).png",
-                time: 70,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (8).png",
-                time: 80,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (9).png",
-                time: 90,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (10).png",
-                time: 100,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },],
-            [{
-                file: "t (1).png",// 图片名
-                time: 0, // 出现时间
-                factor: "t (1)-1.png",// 重点要素 
-                paint: "t (1)-2.png",// 版画
-                info: "",// 文字
-            },
-            {
-                file: "t (2).png",
-                time: 15,
-                factor: "t (2)-1.png",
-                paint: "t (2)-2.png",
-                info: "",
-            },
-            {
-                file: "t (3).png",
-                time: 30,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (4).png",
-                time: 40,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (5).png",
-                time: 50,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (6).png",
-                time: 60,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (7).png",
-                time: 70,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (8).png",
-                time: 80,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (9).png",
-                time: 90,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },
-            {
-                file: "t (10).png",
-                time: 100,
-                factor: "t (1)-1.png",
-                paint: "t (1)-2.png",
-                info: "",
-            },],
-        ],
-        getSegment() {
-            return this.segment[this.current];
+
+        // cube
+        cube: $(".cube"),
+        cubeWrap: $(".cube-wrap"),
+
+        // left-list
+        leftList: $(".ceremony-segment .left-list"),
+        leftHandlebar: $(".ceremony-segment .handle-bar"),
+
+        // right-slide
+        rightSlider: $(".ceremony-element .right-slider"),
+        rightHandlebar: $(".ceremony-element .handle-bar"),
+
+        // card
+        cardWrap: $(".card-wrap"),
+        cardFlip: $(".card-wrap .flip"),
+
+        origin: $(".card-wrap .origin"),
+        factor: $(".card-wrap .factor"),
+        paint: $(".card-wrap .paint"),
+
+
+        setCardImage(index) {
+            this.origin.attr("src", elementData[index].origin);
+            this.factor.attr("src", elementData[index].factor).css({ top: elementData[index].place.top, left: elementData[index].place.left, height: elementData[index].ratio.height, width: elementData[index].ratio.width });
+            this.paint.attr("src", elementData[index].paint);
+
         },
 
-        getElement() {
-            return this.element[this.current];
-        },
+        init() {
+            console.log("Ceremony init.")
+            this.init = null;
 
-        getVideoSrc() {
-            return this.video[this.current];
-        }
-    };// 当前仪式
-    Ceremony.element.forEach((array) => {
-        array.forEach((value) => {
-            value.factor = Ceremony.path[Ceremony.current] + value.factor;
-            value.file = Ceremony.path[Ceremony.current] + value.file;
-            value.paint = Ceremony.path[Ceremony.current] + value.paint;
-        });
-    });
-
-    // left-list
-
-    let leftList = $(".ceremony-segment .left-list");
-    let segmentData, segmentTimePoints, leftListItem;
-    leftList.init = function () {
-        this.empty();
-
-        segmentData = Ceremony.getSegment();
-        segmentTimePoints = segmentData.map((value) => value.time);
-
-        for (let i = 0; i < segmentData.length; i++) {
-            this.append(`<a class="list-group-item bg-dark" data-time="${segmentData[i].time}">${segmentData[i].name}</a>`);
-        }
-
-        $(".left-list span:last-child").click((e) => {
-            leftList.parent().toggleClass("show");
-        })
-
-        leftListItem = leftList.find("a");
-        leftListItem.click((e) => {
-            leftListItem.removeClass("active");
-            let target = $(e.target).addClass("active");
-            centerVideo.currentTime(target.attr("data-time"));
-        })
-
-    }
-
-    leftList.on("mousewheel", (e) => e.stopPropagation());
-
-    let leftHandlebar = $(".ceremony-segment .handle-bar");
-    leftHandlebar.click((e) => {
-        leftList.parent().toggleClass("show");
-    })
+            // cube
+            window.onmousemove = (e) => this.cubeWrap.css("perspective-origin", `${e.clientX - winWidth / 2}px ${e.clientY - winHeight / 2}px`);
 
 
-    // right-slider
+            // card
+            this.cardFlip.click((e) => {
+                Ceremony.cardWrap.toggleClass("reverse");
+                console.log("flip");
+            });
 
-    let rightSlider = $(".ceremony-element .right-slider");
-    let elementData, elementTimePoints, rightSliderItem;
 
+            // left-list
+            this.leftList.init = function () {
+                this.empty();
 
-    rightSlider.slide = function (n) {
-        if (n < 0) {
-            while (n++ < 0)
-                this.prepend(this.children(":last"));
-        } else {
-            while (n-- > 0)
-                this.append(this.children(":first"));
-        }
+                segmentData = Ceremony.getSegments();
+                segmentTimePoints = segmentData.map((value) => value.time);
 
-        // cardWrap.setImage($(this).find(":nth-child(5)").attr("data-index"));
-    }
+                for (let i = 0; i < segmentData.length; i++) {
+                    this.append(`<a class="list-group-item bg-dark" data-time="${segmentData[i].time}">${segmentData[i].name}</a>`);
+                }
 
-    rightSlider.init = function () {
-        elementData = Ceremony.getElement();
-        this.empty();
-
-        for (let i = 0; i < elementData.length; i++) {
-            this.append(`<img src="${elementData[i].file}" alt=""  data-index="${i}" >`);
-        }
-
-        elementTimePoints = elementData.map((value) => value.time);
-
-        rightSliderItem = $(".right-slider img");
-        rightSliderItem.click((e) => {
-            let jump = $(".right-slider img").index(e.target) - 4;
-            console.log(jump);
-            if (jump === 0) {
-                fullpage_api.moveSlideRight();
-            } else {
-                rightSlider.slide(jump);
+                leftListItem = Ceremony.leftList.find("a");
+                leftListItem.click((e) => {
+                    leftListItem.removeClass("active");
+                    let target = $(e.target).addClass("active");
+                    Ceremony.centerVideo.currentTime(target.attr("data-time"));
+                })
             }
-        });
-    }
 
 
-    let rightHandlebar = $(".ceremony-element .handle-bar");
-    rightHandlebar.click((e) => {
-        FP.toggleNavigator();
-        rightHandlebar.parent().toggleClass("show");
-    })
+            this.leftList.on("mousewheel", (e) => e.stopPropagation());
+            this.leftHandlebar.click((e) => {
+                this.leftList.parent().toggleClass("show");
+            })
 
 
-    // center-video
+            // right-slider
+            this.rightSlider.slide = function (n) {
+                if (n < 0) {
+                    while (n++ < 0)
+                        this.prepend(this.children(":last"));
+                } else {
+                    while (n-- > 0)
+                        this.append(this.children(":first"));
+                }
 
-    let centerVideo = videojs("center-video", { controls: true });
-    centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
+                Ceremony.cardWrap.removeClass("reverse");
+            }
 
-    function timeUpdateHandler(e) {
-        let currentTime = Math.floor(this.currentTime());
-        let segIndex = segmentTimePoints.indexOf(currentTime);
-        let eleIndex = elementTimePoints.indexOf(currentTime);
 
-        if (segIndex !== -1) {
-            leftListItem.removeClass("active").eq(segIndex).addClass("active");
+            this.rightSlider.init = function () {
+                this.empty();
+
+                elementData = Ceremony.getElements();
+
+                for (let i = 0; i < elementData.length; i++) {
+                    this.append(`<img src="${elementData[i].origin}" alt=""  data-index="${i}" >`);
+                }
+
+                elementTimePoints = elementData.map((value) => value.time);
+
+                rightSliderItem = $(".right-slider img");
+                rightSliderItem.click((e) => {
+                    let dist = $(".right-slider img").index(e.target) - 4;
+
+                    if (dist === 0) {
+                        fullpage_api.moveSlideRight();
+                    } else {
+                        Ceremony.rightSlider.slide(dist);
+                    }
+
+                    Ceremony.setCardImage($(this).find(":nth-child(5)").attr("data-index"));
+                });
+            }
+
+            this.rightHandlebar.click((e) => {
+                FP.toggleNavigator();
+                Ceremony.rightHandlebar.parent().toggleClass("show");
+            })
+
+
+            // center-video
+            this.centerVideo = videojs("center-video", { controls: true });
+            this.centerVideo.one("play", (e) => {
+                Ceremony.centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
+            })
+
+            function timeUpdateHandler(e) {
+                let currentTime = Math.floor(this.currentTime());
+                let segIndex = segmentTimePoints.indexOf(currentTime);
+                let eleIndex = elementTimePoints.indexOf(currentTime);
+
+                if (segIndex !== -1) {
+                    leftListItem.removeClass("active").eq(segIndex).addClass("active");
+                }
+
+                if (eleIndex !== -1) {
+                    Ceremony.rightSlider.slide(eleIndex - $(".right-slider img:nth-child(5)").attr("data-index"));
+                }
+            }
+
+            this.cube.click((e) => {
+                let index;
+                switch (e.target.className) {
+                    case "left":
+                    case "top":
+                        index = 0;
+                        break;
+                    case "right":
+                    case "bottom":
+                        index = 1
+                        break;
+                    case "front":
+                    case "back":
+                        index = 2
+                        break;
+
+                    default:
+                        break;
+                }
+
+                Ceremony.reset(index);
+            })
+        },
+
+        reset(n) {
+            this.current = n;
+            this.centerVideo.src(Ceremony.getVideoSrc());
+
+            this.leftList.init();
+            this.rightSlider.init();
         }
-        if (eleIndex !== -1) {
-            rightSlider.slide(eleIndex - $(".right-slider img:nth-child(5)").attr("data-index"));
-            // cardWrap.setImage(eleIndex);
-        }
+
+    };
+
+    getData();
+
+    function getData() {
+        $.get("/data/data.json", function (data) {
+            Navigation.Album.imageSource = data.album;
+            Navigation.Album.init();
+
+            Ceremony.data = data.ceremony;
+            Ceremony.getSegments = () => Ceremony.data.segment[Ceremony.current];
+            Ceremony.getElements = () => Ceremony.data.element[Ceremony.current];
+            Ceremony.getVideoSrc = () => Ceremony.data.videoSource[Ceremony.current];
+
+            Ceremony.init();
+
+            // sakumap
+            Sakumap.data = data.sakumap;
+            Sakumap.init();
+        })
     }
 
     function debounce(func, delay) {
@@ -583,68 +449,42 @@ $(function () {
         }
     }
 
-    $(".cube").click((e) => {
-        let index;
-        switch (e.target.className) {
-            case "left":
-            case "top":
-                index = 0;
-                break;
-            case "right":
-            case "bottom":
-                index = 1
-                break;
-            case "front":
-            case "back":
-                index = 2
-                break;
 
-            default:
-                break;
+    /** 毕摩口述
+    ---------------------------------------------------------------*/
+
+    let Dictation = {
+        primary: videojs("primary-player", { controls: true }),
+        secondary: videojs("secondary-player", { controls: false, muted: true }),
+
+        init() {
+            console.log("Dictation init.")
+            this.primary.on(this.secondary, "click", togglePlay);
+            this.secondary.on(this.primary, ["pause", "play", "seeking", "volumechange"], syncPlay)
         }
 
-        if (index !== Ceremony.current) {
-            Ceremony.current = index;
-            centerVideo.src(Ceremony.getVideoSrc());
+    }
 
-            // 初始化
-            leftList.init();
-            rightSlider.init();
-        }
-    })
-
-    // 初始化
-    leftList.init();
-    rightSlider.init();
-
-
-    /**
-     * 毕摩口述
-     */
-    let mainPlayer = videojs("dictate-front", { controls: true });
-    let subPlayer = videojs("dictate-sides", { controls: false, muted: true });
-    let globalVolume = 1;
-
-    subPlayer.on(mainPlayer, ["pause", "play", "seeking", "volumechange"], synchPlay)
-    mainPlayer.on(subPlayer, "click", togglePlay);
+    Dictation.init();
 
     // 切换播放
     function togglePlay(e) {
         let target = videojs(e.target);
-        this.addClass("upward");
         target.removeClass("upward");
+        this.addClass("upward");
+
         target.muted(false);
-        target.off(this, ["pause", "play", "seeking", "volumechange"], synchPlay);
-        target.on(this, "click", togglePlay);
         target.controls(true);
-        this.on(target, ["pause", "play", "seeking", "volumechange"], synchPlay);
-        this.off(target, "click", togglePlay);
-        this.controls(false);
+        target.on(this, "click", togglePlay);
+        target.off(this, ["pause", "play", "seeking"], syncPlay);
         this.muted(true);
+        this.controls(false);
+        this.off(target, "click", togglePlay);
+        this.on(target, ["pause", "play", "seeking"], syncPlay);
     }
 
     // 同步播放
-    function synchPlay(e) {
+    function syncPlay(e) {
         switch (e.type) {
             case "pause":
                 this.pause();
@@ -658,113 +498,94 @@ $(function () {
                 this.currentTime(videojs(e.target).currentTime());
                 break;
 
-            case "volumechange":
-                globalVolume = videojs(e.target).volume();
-                this.volume(globalVolume);
-                break;
-
             default:
                 break;
         }
     }
 
-    /**
-     * 洒库地图
-     */
+    /** 洒库全景
+    ----------------------------------------------------------------------*/
 
-    let mapWrapper = $(".map-wrapper");
-    let modalContainer = mapWrapper.find(".modal-container");
-    let modalShelter = mapWrapper.find(".modal-shelter");
-    let modalLauncherHolder = mapWrapper.find(".modal-launcher-holder");
-    let mediaInfo = [
-        {
-            type: "image",
-            source: "./image/test/t (1).png",
-            title: "Hello, Boy.",
-            area: 'A',
-            left: .18,
-            top: .2,
-        }, {
-            type: "image",
-            source: "./image/test/t (2).png",
-            title: "Hello, Coley.",
-            area: 'B',
-            left: .6,
-            top: .3,
-        }, {
-            type: "video",
-            source: "./video/flowers.mp4",
-            title: "Hey, guys.",
-            area: 'C',
-            left: .25,
-            top: .7,
-        }, {
-            type: "video",
-            source: "./video/flowers.mp4",
-            title: "Hi, Bro.",
-            area: 'D',
-            left: .8,
-            top: .68,
-        },
-    ];
+    let Sakumap = {
+        mapWrapper: $(".map-wrapper"),
 
-    mediaInfo.forEach((value, index) => {
-        let item = $(`<div class="modal-launcher location-icon" data-toggle="tooltip" data-index="${index}" data-area="${value.area}" data-title="${value.title}" ></div>`).css({ top: value.top * winHeight, left: value.left * winWidth });
+        init() {
+            console.log("Sakumap init.")
 
-        if (winWidth > 992) {
-            item.tooltip({ boundary: 'window', placement: "top", trigger: "hover" });
+            this.modalContainer = this.mapWrapper.find(".modal-container");
+            this.modalShelter = this.mapWrapper.find(".modal-shelter");
+            this.modalLauncherHolder = this.mapWrapper.find(".modal-launcher-holder");
+
+            this.data.forEach((value, index) => {
+                let item = $(`<div class="modal-launcher location-icon" data-toggle="tooltip" data-index="${index}" data-area="${value.area}" data-title="${value.title}" ></div>`).css({ top: value.top * winHeight + "px", left: value.left * winWidth + "px" });
+                this.modalLauncherHolder.append(item);
+
+                if (winWidth > 992) {
+                    item.tooltip({ boundary: 'window', placement: "top", trigger: "hover" });
+                }
+
+            })
+
+            $(".modal-launcher").click((e) => {
+                Sakumap.modalContainer.fadeIn(200);
+                Sakumap.modalShelter.fadeIn(200);
+
+                let i = e.target.getAttribute("data-index");
+                let item = Sakumap.data[i];
+
+                if (winWidth > 992) {
+                    let options = { left: item.left * winWidth + "px", top: item.top * winHeight + "px" };
+
+                    switch (item.area) {
+                        case 'A':
+                            options.transform = "translate(0,0)";
+                            break;
+
+                        case 'B':
+                            options.transform = "translate(-100%,0)";
+                            break;
+
+                        case 'C':
+                            options.transform = "translate(0,-100%)";
+                            break;
+
+                        case 'D':
+                            options.transform = "translate(-100%,-100%)";
+                            break;
+
+                        default:
+                            break;
+                    }
+
+                    Sakumap.modalContainer.css(options);
+                }
+
+
+                if (item.type === "image") {
+                    Sakumap.modalContainer.html(`<img src="${item.source}" alt=''>`);
+                } else {
+                    Sakumap.modalContainer.html(`<video src="${item.source}" autoplay muted></video>`);
+                }
+            })
+
+            Sakumap.modalShelter.click(() => {
+                Sakumap.modalContainer.fadeOut(200);
+                Sakumap.modalShelter.fadeOut(200);
+            })
         }
-
-        modalLauncherHolder.append(item);
-    })
+    }
 
 
-    let modalLauncher = $(".modal-launcher");
-    modalLauncher.click((e) => {
-        modalContainer.fadeIn(200);
-        modalShelter.fadeIn(200);
+    /** 终章
+    ----------------------------------------------------------------------*/
 
-        let i = e.target.getAttribute("data-index");
-        let item = mediaInfo[i];
-
-        if (winWidth > 992) {
-            let options = { left: item.left * winWidth, top: item.top * winHeight };
-
-            switch (item.area) {
-                case 'A':
-                    options.transform = "translate(0,0)";
-                    break;
-
-                case 'B':
-                    options.transform = "translate(-100%,0)";
-                    break;
-
-                case 'C':
-                    options.transform = "translate(0,-100%)";
-                    break;
-
-                case 'D':
-                    options.transform = "translate(-100%,-100%)";
-                    break;
-
-                default:
-                    break;
-            }
-            modalContainer.css(options);
-
+    let Ending = {
+        init() {
+            console.log("Ending init.")
+            videojs("ending-video", { controls: true });
         }
+    }
 
-
-        if (item.type === "image") {
-            modalContainer.html(`<img src="${item.source}" alt=''>`);
-        } else {
-            modalContainer.html(`<video src="${item.source}" autoplay muted></video>`);
-        }
-    })
-
-    modalShelter.click(() => {
-        modalContainer.fadeOut(200);
-        modalShelter.fadeOut(200);
-    })
+    Ending.init();
 
 })

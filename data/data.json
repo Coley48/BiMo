@@ -1,0 +1,519 @@
+{
+    "album": {
+        "firstSet": [
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg"
+        ],
+        "secondSet": [
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg",
+            "/image/album/album (1).jpg"
+        ]
+    },
+    "ceremony": {
+        "videoSource": [
+            "/video/test-1.mp4",
+            "/video/test-2.mp4",
+            "/video/test-3.mp4"
+        ],
+        "videoPoster": null,
+        "segment": [
+            [
+                {
+                    "name": "鸡蛋占卜",
+                    "time": 5
+                },
+                {
+                    "name": "生烟",
+                    "time": 15
+                },
+                {
+                    "name": "读经文",
+                    "time": 25
+                },
+                {
+                    "name": "烧圆石",
+                    "time": 35
+                },
+                {
+                    "name": "浇石头",
+                    "time": 45
+                },
+                {
+                    "name": "跨圣枝",
+                    "time": 5
+                }
+            ],
+            [
+                {
+                    "name": "鸡蛋占卜",
+                    "time": 5
+                },
+                {
+                    "name": "生烟",
+                    "time": 15
+                },
+                {
+                    "name": "读经文",
+                    "time": 25
+                },
+                {
+                    "name": "烧圆石",
+                    "time": 35
+                },
+                {
+                    "name": "浇石头",
+                    "time": 45
+                },
+                {
+                    "name": "跨圣枝",
+                    "time": 5
+                }
+            ],
+            [
+                {
+                    "name": "鸡蛋占卜",
+                    "time": 5
+                },
+                {
+                    "name": "生烟",
+                    "time": 15
+                },
+                {
+                    "name": "读经文",
+                    "time": 25
+                },
+                {
+                    "name": "烧圆石",
+                    "time": 35
+                },
+                {
+                    "name": "浇石头",
+                    "time": 45
+                },
+                {
+                    "name": "跨圣枝",
+                    "time": 5
+                }
+            ]
+        ],
+        "element": [
+            [
+                {
+                    "name": "鸡蛋占卜",
+                    "origin": "/image/ceremony/purify/1-1.1.png",
+                    "factor": "/image/ceremony/purify/1-1.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 10,
+                    "place": {
+                        "left": "34.75%",
+                        "top": "32.7%"
+                    },
+                    "ratio": {
+                        "width": "56.98%",
+                        "height": "98.25%"
+                    }
+                },
+                {
+                    "name": "彝语频道",
+                    "origin": "/image/ceremony/purify/1-2.1.png",
+                    "factor": "/image/ceremony/purify/1-2.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 100,
+                    "place": {
+                        "left": "29.3%",
+                        "top": "0.18%"
+                    },
+                    "ratio": {
+                        "width": "56.98%",
+                        "height": "100%"
+                    }
+                },
+                {
+                    "name": "圣枝",
+                    "origin": "/image/ceremony/purify/1-3.1.png",
+                    "factor": "/image/ceremony/purify/1-3.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 188,
+                    "place": {
+                        "left": "47.2%",
+                        "top": "40.4%"
+                    },
+                    "ratio": {
+                        "width": "38.24%",
+                        "height": "27.87%"
+                    }
+                },
+                {
+                    "name": "鸡",
+                    "origin": "/image/ceremony/purify/1-4.1.png",
+                    "factor": "/image/ceremony/purify/1-4.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 205,
+                    "place": {
+                        "left": "33.8%",
+                        "top": "48.3%"
+                    },
+                    "ratio": {
+                        "width": "37.12%",
+                        "height": "51.73%"
+                    }
+                },
+                {
+                    "name": "泥团",
+                    "origin": "/image/ceremony/purify/1-5.1.png",
+                    "factor": "/image/ceremony/purify/1-5.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 250,
+                    "place": {
+                        "left": "59.2%",
+                        "top": "73.6%"
+                    },
+                    "ratio": {
+                        "width": "14.47%",
+                        "height": "23.21%"
+                    }
+                },
+                {
+                    "name": "白绳子",
+                    "origin": "/image/ceremony/purify/1-6.1.png",
+                    "factor": "/image/ceremony/purify/1-6.2.png",
+                    "paint": "/image/ceremony/purify/t.png",
+                    "time": 292,
+                    "place": {
+                        "left": "37.4%",
+                        "top": "10.8%"
+                    },
+                    "ratio": {
+                        "width": "37.41%",
+                        "height": "67.97%"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "肉和玉米",
+                    "origin": "/image/ceremony/bename/2-1.1.png",
+                    "factor": "/image/ceremony/bename/2-1.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 10,
+                    "place": {
+                        "left": "39.4%",
+                        "top": "0"
+                    },
+                    "ratio": {
+                        "width": "20.94%",
+                        "height": "34.72%"
+                    }
+                },
+                {
+                    "name": "黑猪",
+                    "origin": "/image/ceremony/bename/2-2.1.png",
+                    "factor": "/image/ceremony/bename/2-2.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 158,
+                    "place": {
+                        "left": "32.5%",
+                        "top": "38.3%"
+                    },
+                    "ratio": {
+                        "width": "48.63%",
+                        "height": "53.23%"
+                    }
+                },
+                {
+                    "name": "圣枝",
+                    "origin": "/image/ceremony/bename/2-3.1.png",
+                    "factor": "/image/ceremony/bename/2-3.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 204,
+                    "place": {
+                        "left": "10.1%",
+                        "top": "11.2%"
+                    },
+                    "ratio": {
+                        "width": "68.18%",
+                        "height": "88.80%"
+                    }
+                },
+                {
+                    "name": "燃烧木条",
+                    "origin": "/image/ceremony/bename/2-4.1.png",
+                    "factor": "/image/ceremony/bename/2-4.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 335,
+                    "place": {
+                        "left": "19.3%",
+                        "top": "35.5%"
+                    },
+                    "ratio": {
+                        "width": "52.96%",
+                        "height": "39.15%"
+                    }
+                },
+                {
+                    "name": "护灵符",
+                    "origin": "/image/ceremony/bename/2-5.1.png",
+                    "factor": "/image/ceremony/bename/2-5.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 499,
+                    "place": {
+                        "left": "37%",
+                        "top": "0"
+                    },
+                    "ratio": {
+                        "width": "20%",
+                        "height": "97%"
+                    }
+                },
+                {
+                    "name": "妇女和孩子",
+                    "origin": "/image/ceremony/bename/2-6.1.png",
+                    "factor": "/image/ceremony/bename/2-6.2.png",
+                    "paint": "t.png",
+                    "time": 625,
+                    "place": {
+                        "left": "0",
+                        "top": "10.8%"
+                    },
+                    "ratio": {
+                        "height": "89.52%",
+                        "width": "100%"
+                    }
+                },
+                {
+                    "name": "树枝和水",
+                    "origin": "/image/ceremony/bename/2-7.1.png",
+                    "factor": "/image/ceremony/bename/2-7.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 697,
+                    "place": {
+                        "left": "23.9%",
+                        "top": "0"
+                    },
+                    "ratio": {
+                        "width": "60.36%",
+                        "height": "100%"
+                    }
+                },
+                {
+                    "name": "啤酒",
+                    "origin": "/image/ceremony/bename/2-8.1.png",
+                    "factor": "/image/ceremony/bename/2-8.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 734,
+                    "place": {
+                        "left": "37.2%",
+                        "top": "45.9%"
+                    },
+                    "ratio": {
+                        "width": "18.12%",
+                        "height": "42.14%"
+                    }
+                },
+                {
+                    "name": "苦荞",
+                    "origin": "/image/ceremony/bename/2-9.1.png",
+                    "factor": "/image/ceremony/bename/2-9.2.png",
+                    "paint": "/image/ceremony/bename/t.png",
+                    "time": 851,
+                    "place": {
+                        "left": "9.6%",
+                        "top": "26.8%"
+                    },
+                    "ratio": {
+                        "width": "58.33%",
+                        "height": "58.98%"
+                    }
+                }
+            ],
+            [
+                {
+                    "name": "鸡毛",
+                    "origin": "/image/ceremony/pray/3-1.1.png",
+                    "factor": "/image/ceremony/pray/3-1.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 91,
+                    "place": {
+                        "left": "7%",
+                        "top": "0"
+                    },
+                    "ratio": {
+                        "width": "81.15%",
+                        "height": "64.27%"
+                    }
+                },
+                {
+                    "name": "草偶",
+                    "origin": "/image/ceremony/pray/3-2.1.png",
+                    "factor": "/image/ceremony/pray/3-2.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 134,
+                    "place": {
+                        "left": "39.8",
+                        "top": "10.5%"
+                    },
+                    "ratio": {
+                        "width": "39.18%",
+                        "height": "89.44%"
+                    }
+                },
+                {
+                    "name": "神铃",
+                    "origin": "/image/ceremony/pray/3-3.1.png",
+                    "factor": "/image/ceremony/pray/3-3.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 143,
+                    "place": {
+                        "left": "35.8%",
+                        "top": "63.5%"
+                    },
+                    "ratio": {
+                        "width": "7.94%",
+                        "height": "13.65%"
+                    }
+                },
+                {
+                    "name": "经书",
+                    "origin": "/image/ceremony/pray/3-4.1.png",
+                    "factor": "/image/ceremony/pray/3-4.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 324,
+                    "place": {
+                        "left": "17.1%",
+                        "top": "53.5%"
+                    },
+                    "ratio": {
+                        "width": "32.14%",
+                        "height": "42.87%"
+                    }
+                },
+                {
+                    "name": "咒板",
+                    "origin": "/image/ceremony/pray/3-5.1.png",
+                    "factor": "/image/ceremony/pray/3-5.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 380,
+                    "place": {
+                        "left": "29.8%",
+                        "top": "15.6%"
+                    },
+                    "ratio": {
+                        "width": "42.66%",
+                        "height": "37.41%"
+                    }
+                },
+                {
+                    "name": "帽子",
+                    "origin": "/image/ceremony/pray/3-6.1.png",
+                    "factor": "/image/ceremony/pray/3-6.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 456,
+                    "place": {
+                        "left": "28.9%",
+                        "top": "0"
+                    },
+                    "ratio": {
+                        "width": "46.09%",
+                        "height": "43.33%"
+                    }
+                },
+                {
+                    "name": "鸡翅膀",
+                    "origin": "/image/ceremony/pray/3-7.1.png",
+                    "factor": "/image/ceremony/pray/3-7.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 595,
+                    "place": {
+                        "left": "38.5%",
+                        "top": "35%"
+                    },
+                    "ratio": {
+                        "width": "30.16%",
+                        "height": "39.44%"
+                    }
+                },
+                {
+                    "name": "羊皮包裹",
+                    "origin": "/image/ceremony/pray/3-8.1.png",
+                    "factor": "/image/ceremony/pray/3-8.2.png",
+                    "paint": "/image/ceremony/pray/t.png",
+                    "time": 685,
+                    "place": {
+                        "left": "10.2%",
+                        "top": "20.4%"
+                    },
+                    "ratio": {
+                        "width": "24.69%",
+                        "height": "34.72%"
+                    }
+                }
+            ]
+        ]
+    },
+    "sakumap": [
+        {
+            "type": "image",
+            "source": "/image/sakumap/t (1).png",
+            "title": "Hello, Boy.",
+            "area": "A",
+            "left": 0.18,
+            "top": 0.2
+        },
+        {
+            "type": "image",
+            "source": "/image/sakumap/t (2).png",
+            "title": "Hello, Coley.",
+            "area": "B",
+            "left": 0.6,
+            "top": 0.3
+        },
+        {
+            "type": "video",
+            "source": "/video/sakumap/flowers.mp4",
+            "title": "Hey, guys.",
+            "area": "C",
+            "left": 0.25,
+            "top": 0.7
+        },
+        {
+            "type": "video",
+            "source": "/video/sakumap/flowers.mp4",
+            "title": "Hi, Bro.",
+            "area": "D",
+            "left": 0.8,
+            "top": 0.68
+        }
+    ]
+}
