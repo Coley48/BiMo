@@ -571,7 +571,7 @@ $(function () {
             this.modalLauncherHolder = this.mapWrapper.find(".modal-launcher-holder");
 
             this.data.forEach((value, index) => {
-                let item = $(`<div class="modal-launcher location-icon" data-toggle="tooltip" data-index="${index}" data-area="${value.area}" data-title="${value.title}" ></div>`).css({ top: value.top * winHeight + "px", left: value.left * winWidth + "px" });
+                let item = $(`<div class="modal-launcher" data-toggle="tooltip" data-index="${index}" data-area="${value.area}" data-title="${value.title}" ></div>`).css({ top: value.top * winHeight + "px", left: value.left * winWidth + "px" });
                 this.modalLauncherHolder.append(item);
 
                 if (winWidth > 992) {

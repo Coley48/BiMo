@@ -38,10 +38,10 @@ body {
 }
 
 body {
-    /* padding-left: 60px !important; */
-    background-color: #ecf0f1;
+    background: #ecf0f1 url("/static/bimo/img/background.png") center no-repeat;
+    background-size: cover;
     overflow: hidden;
-    font-family: "Title","Main","Sub-Title","English";
+    font-family: "Main";
 }
 
 ::-webkit-scrollbar{
@@ -86,13 +86,16 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1000;
-    background-color: lightblue;
-    background-image: url("/image/guidance/background.jpg");
-    background-repeat: no-repeat;
+    background: lightblue url("/image/guidance/background.png") center no-repeat;
     background-size: cover;
-    background-position: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     color: white;
 }
@@ -101,6 +104,8 @@ body {
     position: fixed;
     top:50%;
     left: 0;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     color: white;
     width: 100%;
@@ -191,7 +196,6 @@ body {
     height: auto;
     width: 100%;
 	margin: 0 auto;
-	/* padding: 2.5rem 2.5rem 2rem; */
 }
 
 .letter-content img.letter{
@@ -201,7 +205,6 @@ body {
 
 .letter-content .starter{
     position: absolute;
-    /* display: inline-block; */
     width: 100%;
     height: auto;
     bottom: 8%;
@@ -219,6 +222,8 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     width: 40%;
     text-align: center;
@@ -229,6 +234,7 @@ body {
 
 .starter-btn{
     font-size: 1.5rem;
+    -webkit-animation: breath 2s linear infinite both;
     animation: breath 2s linear infinite both;
 }
 .starter-bg{
@@ -236,9 +242,15 @@ body {
     max-height: 45px;
 }
 
+@-webkit-keyframes breath{
+    50%{
+        font-size: 1.6rem;
+    }
+    
+}
+
 @keyframes breath{
     50%{
-        /* transform: scale(1.1); */
         font-size: 1.6rem;
     }
     
@@ -259,7 +271,6 @@ body {
     -webkit-transition: all 1s ease-in-out;
     -o-transition: all 1s ease-in-out;
     transition: all 1s ease-in-out;
-    /* background-color: lightblue; */
 }
 
 .logo svg{
@@ -270,7 +281,6 @@ body {
 .logo:hover{
     /* background-color: #6c757d; */
     background-color: #545b62aa;
-    /* border-radius: .3rem; */
 }
 .logo:hover svg{
     /* color: white; */
@@ -282,10 +292,7 @@ body {
     left: 0;
     height: 100%;
     width: 3.75rem;
-    background-color: #6c757d8a;
-    background-image: url("/image/navigation/background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: #6c757d8a url("/image/navigation/background.png") center no-repeat;
     background-size: cover;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -368,10 +375,6 @@ body {
 
 #about-btn.icon{
     background-image: url("../img/icon/about.svg");
-}
-
-.location-icon{
-    background: url("../img/icon/point.svg") no-repeat center;
 }
 
 .nav-mask{
@@ -500,7 +503,11 @@ body {
     color: white;
     font-size: 2rem;
     line-height: .8;
+    -webkit-writing-mode: vertical-lr;
+    -ms-writing-mode: tb-lr;
     writing-mode: vertical-lr;/*从左向右 从右向左是 writing-mode: vertical-rl;*/  
+    -webkit-writing-mode: tb-lr;  
+    -ms-writing-mode: tb-lr;  
     writing-mode: tb-lr;/*IE浏览器的从左向右 从右向左是 writing-mode: tb-rl；*/  
 }
 
@@ -576,8 +583,14 @@ body {
 
 /* share */
 .share{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
@@ -651,7 +664,6 @@ body {
 
 .share-cancel:hover{
     color: lightcoral;
-    /* background-color: lightblue; */
 }
 
 /* about */
@@ -717,10 +729,6 @@ main .sec-2{
 
 /* section-0 journey */
 
-#section-0{
-    background-color: lightgoldenrodyellow;
-}
-
 .intro-list {
     font-size: 0;
     margin: 0;
@@ -767,6 +775,8 @@ main .sec-2{
     -webkit-transition: all 1s linear .2s;
     -o-transition: all 1s linear .2s;
     transition: all 1s linear .2s;
+    -webkit-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
     transform: translateX(-50%);
 }
 
@@ -782,7 +792,6 @@ main .sec-2{
     right: 20px;
     width: 80px;
     height: 80px;
-    /* background-color: black; */
     cursor: pointer;
     z-index: 10;
     border-radius: 50%;
@@ -796,6 +805,7 @@ main .sec-2{
     -ms-flex-align: center;
     align-items: center;
     font-size: 150%;
+    /* background-color: black; */
 }
 
 .back-trigger svg{
@@ -812,11 +822,8 @@ main .sec-2{
 #section-1 .sec-1{
     height: 100vh;
     width: 100%;
-    background-color: lightgray;
-    background-image: url("/image/ceremony/background/background.png");
-    background-position: center;
+    background: lightgray url("/image/ceremony/background/background.jpg") center no-repeat;
     background-size: cover;
-    background-repeat: no-repeat;
 }
 
 #section-1 .sec-1{
@@ -839,7 +846,6 @@ main .sec-2{
 }
 
 #section-1 .cube {
-    /* background-color: lightblue; */
     position: relative;
     min-width: 180px;
     min-height: 180px;
@@ -870,6 +876,7 @@ main .sec-2{
     opacity: .8;
     overflow: hidden;
     border-radius: 2px;
+    background-color: rgba(0, 0, 0, .5);
     /* transition: all 1s; */
 }
 
@@ -880,7 +887,6 @@ main .sec-2{
 .cube .back {
     -webkit-transform: translateZ(-100px) rotateY(180deg);
     transform: translateZ(-100px) rotateY(180deg);
-    background-color: lightblue;
 }
 
 .cube .right {
@@ -889,7 +895,6 @@ main .sec-2{
     -webkit-transform-origin: top right;
     -ms-transform-origin: top right;
     transform-origin: top right;
-    background-color: lightcoral;
 }
 
 .cube .left {
@@ -898,7 +903,6 @@ main .sec-2{
     -webkit-transform-origin: center left;
     -ms-transform-origin: center left;
     transform-origin: center left;
-    background-color: lightgoldenrodyellow;
 }
 
 .cube .top {
@@ -907,7 +911,6 @@ main .sec-2{
     -webkit-transform-origin: top center;
     -ms-transform-origin: top center;
     transform-origin: top center;
-    background-color: lightseagreen;
 }
 
 .cube .bottom {
@@ -916,18 +919,18 @@ main .sec-2{
     -webkit-transform-origin: bottom center;
     -ms-transform-origin: bottom center;
     transform-origin: bottom center;
-    background-color: lightpink;
 }
 
 .cube .front {
     -webkit-transform: translateZ(100px);
     transform: translateZ(100px);
-    background-color: lightcyan;
 }
 
 .cube video {
     height: 100%;
     width: auto;
+    -webkit-transform: translate(-25%, 0);
+    -ms-transform: translate(-25%, 0);
     transform: translate(-25%, 0);
 }
 
@@ -1022,7 +1025,10 @@ video::-webkit-media-controls {
     max-width: 450px;
     width: 20%;
     height: 100%;
-    left: -20%;
+    left: 0;
+    -webkit-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    transform: translateX(-100%);
     z-index: 5;
     text-align: center;
     -webkit-transition: all .5s ease-in-out;
@@ -1031,7 +1037,9 @@ video::-webkit-media-controls {
 }
 
 .ceremony-segment.show{
-    left: 0;
+    -webkit-transform: translateX(0);
+    -ms-transform: translateX(0);
+    transform: translateX(0);
 }
 
 .ceremony-segment .left-list{
@@ -1163,7 +1171,6 @@ video::-webkit-media-controls {
     z-index: 6;
     top: -5%;
     right: 20px;
-    /* background-color: black; */
     border-radius: 50%;
     -webkit-transform: translate(-10%,-100px);
     -ms-transform: translate(-10%,-100px);
@@ -1180,6 +1187,7 @@ video::-webkit-media-controls {
     color: white;
     cursor: pointer;
     font-size: 150%;
+    /* background-color: black; */
 }
 
 .ceremony-element.show .handle-bar{
@@ -1287,16 +1295,12 @@ video::-webkit-media-controls {
 /* element-detail */
 
 .video-js{
-    background-image: url("/static/bimo/img/video-background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/static/bimo/img/background.jpg") center no-repeat;
     background-size: cover;
 }
 
 .card-background{
-    background-image: url("/image/ceremony/background/card-background.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/image/ceremony/background/card-background.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -1362,7 +1366,7 @@ video::-webkit-media-controls {
     display: inline-block;
     position: relative;
     height: 70vh;
-    /* max-height: 80%; */
+    /* max-height: 700px; */
     width: auto;
     -webkit-transition: all .5s linear;
     -o-transition: all .5s linear;
@@ -1387,25 +1391,29 @@ video::-webkit-media-controls {
     bottom: 0;
     right: 0;
     margin: auto;
+    padding: 2rem;
     -webkit-transform: rotateY(180deg);
     transform: rotateY(180deg);
     width: 60%;
     height: 70%;
+    min-width: 600px;
     -webkit-transition: all .5s linear;
     -o-transition: all .5s linear;
     transition: all .5s linear;
     text-align: center;
     opacity: 0;
     visibility: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     cursor: pointer;
-    background-image: url("/image/ceremony/background/element-background.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/static/bimo/img/background.jpg") center no-repeat;
     background-size: cover;
-    padding: 2rem;
 }
 
 .card-back .paint{
@@ -1522,18 +1530,24 @@ video::-webkit-media-controls {
 /* section-2 dictation */
 
 #section-2 .sec-1{
-    background-image: url("/image/dictation/background.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/image/dictation/background.jpg") center no-repeat;
     background-size: cover;
+    display:-webkit-box;
+    display:-ms-flexbox;
     display:flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 }
 
 .dictation-trigger{
     width: 80%;
     height: 30%;
+    -webkit-transform: rotateZ(12deg);
+    -ms-transform: rotate(12deg);
     transform: rotateZ(12deg);
     cursor: pointer;
 }
@@ -1563,6 +1577,8 @@ video::-webkit-media-controls {
     z-index: 2;
     opacity: .5;
     cursor: pointer;
+    -webkit-transition: opcatiy .5s ease-in-out;
+    -o-transition: opcatiy .5s ease-in-out;
     transition: opcatiy .5s ease-in-out;
 }
 
@@ -1574,9 +1590,7 @@ video::-webkit-media-controls {
 /* section-3 sakumap */
 
 #section-3 .sec-1{
-    background-image: url("/image/sakumap/background.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/image/sakumap/background.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -1584,8 +1598,7 @@ video::-webkit-media-controls {
     position: relative;
     width: 100%;
     height: 100%;
-    background-image: url("/image/sakumap/map.png");
-    background-repeat: no-repeat;
+    background: url("/image/sakumap/map.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -1618,7 +1631,7 @@ video::-webkit-media-controls {
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    /* background-color: lightcoral; */
+    background: url("../img/icon/point.svg") center no-repeat;
 }
 
 .modal-shelter{
@@ -1636,20 +1649,20 @@ video::-webkit-media-controls {
 ------------------------------------------*/
 
 #section-4 .sec-1{
-    background-image: url("/image/ending/background.png");
-    background-position: center;
-    background-repeat: no-repeat;
+    background: url("/image/ending/background.png") center no-repeat;
     background-size: cover;
 }
 
 
-/** 
- * addition
- */
+/** addition
+------------------------------------------------ */
 
-/* bootstrap.css */
-.bg-none{
-    background: none !important;
+.popover{
+    font-family: "Main";
+    font-size: 1.05rem;
+}
+.tooltip{
+    font-family: "Main";
 }
 
 
@@ -1720,6 +1733,8 @@ video::-webkit-media-controls {
         position: static;
         width: 40%;
         margin: 0 auto;
+        -webkit-transform: none;
+        -ms-transform: none;
         transform: none;
     }
     .album-second-set{
@@ -1744,6 +1759,16 @@ video::-webkit-media-controls {
 
     .letter-wrap{
         width: 100%;
+    }
+
+    /* journey */
+    .back-trigger{
+        width: 50px;
+        height: 50px;
+    }
+    .ceremony-element .handle-bar{
+        width: 55px;
+        height: 55px;
     }
 
 
@@ -1797,8 +1822,14 @@ video::-webkit-media-controls {
 
     /* guidance */
     .letter-wrap.show{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
     }
 
@@ -1810,6 +1841,11 @@ video::-webkit-media-controls {
     }
     .starter-bg{
         max-height: 40px;
+    }
+    @-webkit-keyframes breath{
+        50%{
+            font-size: 1.4rem;
+        }
     }
     @keyframes breath{
         50%{

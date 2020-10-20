@@ -539,129 +539,129 @@
         "point": [
             {
                 "source": "/video/sakumap/1.mp4",
-                "title": "1",
-                "area": "A",
-                "left": 0.186,
-                "top": 0.22
+                "title": "放牛",
+                "area": "B",
+                "left": 0.65,
+                "top": 0.392
             },
             {
                 "source": "/video/sakumap/2.mp4",
-                "title": "2",
+                "title": "牛棚",
                 "area": "B",
                 "left": 0.64,
                 "top": 0.25
             },
             {
                 "source": "/video/sakumap/3.mp4",
-                "title": "3",
+                "title": "田野视角-2",
                 "area": "C",
-                "left": 0.25,
-                "top": 0.7
-            },
-            {
-                "source": "/video/sakumap/4.mp4",
-                "title": "4",
-                "area": "D",
-                "left": 0.8,
+                "left": 0.38,
                 "top": 0.68
             },
             {
-                "source": "/video/sakumap/5.mp4",
-                "title": "5",
+                "source": "/video/sakumap/4.mp4",
+                "title": "下山",
                 "area": "A",
                 "left": 0.151,
                 "top": 0.417
             },
             {
+                "source": "/video/sakumap/5.mp4",
+                "title": "山上视角-2",
+                "area": "D",
+                "left": 0.614,
+                "top": 0.833
+            },
+            {
                 "source": "/video/sakumap/6.mp4",
-                "title": "6",
+                "title": "孩子倒挂树上",
                 "area": "B",
-                "left": 0.88,
-                "top": 0.354
+                "left": 0.8,
+                "top": 0.45
             },
             {
                 "source": "/video/sakumap/7.mp4",
-                "title": "7",
+                "title": "学校里的孩子们",
                 "area": "C",
-                "left": 0.25,
-                "top": 0.7
+                "left": 0.44,
+                "top": 0.58
             },
             {
                 "source": "/video/sakumap/8.mp4",
-                "title": "8",
-                "area": "D",
-                "left": 0.73,
-                "top": 0.73
+                "title": "盖房子",
+                "area": "B",
+                "left": 0.55,
+                "top": 0.4
             },
             {
                 "source": "/video/sakumap/9.mp4",
-                "title": "9",
+                "title": "山沟里的家畜",
                 "area": "A",
                 "left": 0.423,
                 "top": 0.192
             },
             {
                 "source": "/video/sakumap/10.mp4",
-                "title": "10",
-                "area": "B",
-                "left": 0.65,
-                "top": 0.392
-            },
-            {
-                "source": "/video/sakumap/11.mp4",
-                "title": "11",
-                "area": "C",
-                "left": 0.15,
-                "top": 0.71
-            },
-            {
-                "source": "/video/sakumap/12.mp4",
-                "title": "12",
-                "area": "D",
-                "left": 0.614,
-                "top": 0.833
-            },
-            {
-                "source": "/video/sakumap/13.mp4",
-                "title": "13",
+                "title": "加工",
                 "area": "A",
                 "left": 0.309,
                 "top": 0.265
             },
             {
+                "source": "/video/sakumap/11.mp4",
+                "title": "猪圈",
+                "area": "D",
+                "left": 0.6,
+                "top": 0.68
+            },
+            {
+                "source": "/video/sakumap/12.mp4",
+                "title": "桥",
+                "area": "D",
+                "left": 0.9,
+                "top": 0.75
+            },
+            {
+                "source": "/video/sakumap/13.mp4",
+                "title": "赶牛过河",
+                "area": "A",
+                "left": 0.186,
+                "top": 0.22
+            },
+            {
                 "source": "/video/sakumap/14.mp4",
-                "title": "14",
-                "area": "B",
-                "left": 0.74,
-                "top": 0.2
+                "title": "田野视角-1",
+                "area": "D",
+                "left": 0.73,
+                "top": 0.73
             },
             {
                 "source": "/video/sakumap/15.mp4",
-                "title": "15",
+                "title": "学校",
                 "area": "C",
-                "left": 0.36,
-                "top": 0.6
+                "left": 0.46,
+                "top": 0.55
             },
             {
                 "source": "/video/sakumap/16.mp4",
-                "title": "16",
-                "area": "D",
-                "left": 0.61,
-                "top": 0.58
+                "title": "山上视角-1",
+                "area": "C",
+                "left": 0.28,
+                "top": 0.72
             },
             {
                 "source": "/video/sakumap/17.mp4",
-                "title": "17",
+                "title": "室内结构",
                 "area": "A",
-                "left": 0.228,
+                "left": 0.328,
                 "top": 0.4
             },
             {
                 "source": "/video/sakumap/18.mp4",
-                "title": "18",
+                "title": "山花",
                 "area": "B",
-                "left": 0.55,
-                "top": 0.3
+                "left": 0.74,
+                "top": 0.2
             }
         ]
     },
