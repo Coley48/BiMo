@@ -14,9 +14,10 @@ $(function () {
         AnimateOut = 'pt-scaleDown';
     // "pt-flipInTop", "pt-rotateRightSideFirst", "pt-rotateOutNewspaper", "pt-rotateInNewspaper"
 
+    let Sections = ["introduce", "journey", "ceremony", "dictation", "sakumap", "ending"];
     let Trigger = $(".trigger");
     Trigger.handler = () => {
-        let section = $("#section-" + CurrentPart);
+        let section = $("#section-" + Sections[CurrentPart]);
 
         if (section.hasClass("hide")) {
             section.removeClass("hide");
@@ -33,6 +34,21 @@ $(function () {
     }
     Trigger.click(Trigger.handler);
 
+
+    $.fn.indicator = function (cmd) {
+        switch (cmd) {
+            case "show":
+                this.find("[data-toggle='indicator']").addClass("show").one("click", function (e) { $(this).removeClass("show"); });
+                break;
+            case "hide":
+                this.find("[data-toggle='indicator'").removeClass("show");
+                break
+
+            default:
+                break;
+        }
+        return this;
+    }
 
 
     /** 导航栏
@@ -87,11 +103,8 @@ $(function () {
                     this.albumPage.on("mousewheel", (e) => {
                         e.stopPropagation();
                         Navigation.Album.distance += e.deltaY * e.deltaFactor;
-                        // secondContainer.css({ transform: `translate(-50%,${578 - firstContainer.offset().top - secondContainer.height()}px` })
-                        // secondContainer.offset({ top: -secondContainer.height() + (578 - firstContainer.offset().top) })
                         Navigation.Album.firstContainer.offset({ top: winHeight + Navigation.Album.distance });
                         Navigation.Album.secondContainer.offset({ top: -Navigation.Album.secondContainer.height() - Navigation.Album.distance });
-
                     });
                 } else {
                     if (this.imageSource) {
@@ -140,7 +153,6 @@ $(function () {
             }
         },
 
-
         init() {
             console.log("Navigation init.")
             this.init = null;
@@ -158,8 +170,7 @@ $(function () {
                     Navigation.navBtn.popover("enable");
                     Navigation.navMask.removeClass("show");
                 }
-            })
-
+            });
 
             this.navBtn.popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
@@ -243,7 +254,7 @@ $(function () {
 
             this.letterIcon.click((e) => {
                 this.letterWrap.addClass("show");
-                this.letterAudio.play();
+                // this.letterAudio.play();
                 $(".prologue").fadeOut(2000);
             });
             this.letterWrap.on("mousewheel", (e) => { e.stopPropagation() });
@@ -252,11 +263,33 @@ $(function () {
             this.starter.click((e) => {
                 $("#guidance").fadeOut(1500);
                 Fullpage.setAllowScrolling(true);
-                this.letterAudio.pause();
-            })
+                // this.letterAudio.pause();
+            });
+            this.starter.one("click", (e) => {
+                $(".logo").indicator("show");
+            });
 
         }
     }
+
+    // 引导
+    let Introduce = {
+        counter: 0,
+        minimap: $(".introduce-container .introduce-item"),
+
+        init() {
+            console.log("Introduce init.")
+            this.init = null;
+
+            this.minimap.one("mouseover", (e) => {
+                if (++this.counter === 4) {
+                    setTimeout(() => {
+                        $(".introduce-container footer").indicator("show");
+                    }, 1000);
+                }
+            });
+        }
+    };
 
     /** 探索旅途
     -----------------------------------------------------------------*/
@@ -266,7 +299,7 @@ $(function () {
         preview: $(".intro-list"),
         data: {},
         player: videojs("journey-video", { controls: true, controlBar: { pictureInPictureToggle: false } }),
-        backTrigger: $(".journey.back-trigger"),
+        backTrigger: $(".journey-trigger.back-trigger"),
 
         init() {
             console.log("Journey init.")
@@ -277,9 +310,13 @@ $(function () {
                 this.player.play();
                 Trigger.handler();
             });
+            this.preview.one("click", (e) => {
+                $("#section-journey .sec-2").indicator("show");
+            })
 
             this.backTrigger.click((e) => {
                 Trigger.handler();
+                Navigation.navBar.addClass("nav-show");
                 this.player.pause();
             })
         },
@@ -300,6 +337,7 @@ $(function () {
     let Ceremony = {
         current: -1,
         data: null,
+        introduced: false,
 
         // variable
         segmentData: null,
@@ -313,6 +351,7 @@ $(function () {
         // cube
         cube: $(".cube"),
         cubeWrap: $(".cube-wrap"),
+        cubeIntro: $(".cube-intro"),
 
         // left-list
         leftList: $(".ceremony-segment .left-list"),
@@ -321,7 +360,7 @@ $(function () {
         // right-slide
         rightSlider: $(".ceremony-element .right-slider"),
         rightHandlebar: $(".ceremony-element .handle-bar"),
-        backTrigger: $(".ceremony.back-trigger"),
+        backTrigger: $(".ceremony-trigger.back-trigger"),
 
         // card
         cardWrap: $(".card-wrap"),
@@ -353,8 +392,7 @@ $(function () {
 
             // card
             this.cardFlip.click((e) => { Ceremony.cardWrap.toggleClass("reverse"); });
-            this.backToVideo.click((e) => { Fullpage.moveSlideLeft(); this.cardWrap.removeClass("reverse"); });
-
+            this.backToVideo.click((e) => { Fullpage.moveSlideLeft(); });
 
             // left-list
             this.leftList.init = function () {
@@ -378,7 +416,7 @@ $(function () {
             this.leftList.on("mousewheel", (e) => e.stopPropagation());
             this.leftHandlebar.click((e) => {
                 this.leftList.parent().toggleClass("show");
-            })
+            });
 
 
             // right-slider
@@ -399,7 +437,7 @@ $(function () {
                 Ceremony.elementData = Ceremony.getElements();
 
                 for (let i = 0; i < Ceremony.elementData.length; i++) {
-                    this.append(`<img src="${Ceremony.elementData[i].origin}" alt=""  data-index="${i}" >`);
+                    this.append(`<li data-index="${i}"><img src="${Ceremony.elementData[i].origin}" alt="" ></li>`);
                 }
 
                 Ceremony.elementTimePoints = Ceremony.elementData.map((value) => value.time);
@@ -410,6 +448,10 @@ $(function () {
 
                     if (dist === 0) {
                         fullpage_api.moveSlideRight();
+                        if (!this.introduced) {
+                            $("#section-ceremony .element-detail").indicator("show");
+                            this.introduced = true;
+                        }
                     } else {
                         Ceremony.rightSlider.slide(dist);
                     }
@@ -419,21 +461,22 @@ $(function () {
             }
 
             this.rightHandlebar.click((e) => {
-                Ceremony.rightHandlebar.parent().toggleClass("show");
-            })
+                this.rightHandlebar.parent().toggleClass("show");
+            });
 
 
             // center-video
             this.centerVideo = videojs("center-video", { controls: true, controlBar: { pictureInPictureToggle: false } });
             this.backTrigger.click((e) => {
                 Trigger.handler();
+                Navigation.navBar.addClass("nav-show");
                 this.centerVideo.pause();
-            })
+            });
 
             this.centerVideo.one("play", (e) => {
-                Ceremony.centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
+                this.centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
                 // Ceremony.rightSlider.slide(-4);
-            })
+            });
 
             function timeUpdateHandler(e) {
                 let currentTime = Math.floor(this.currentTime());
@@ -445,7 +488,7 @@ $(function () {
                 }
 
                 if (eleIndex !== -1) {
-                    Ceremony.rightSlider.slide(eleIndex - $(".right-slider img:nth-child(5)").attr("data-index"));
+                    Ceremony.rightSlider.slide(eleIndex - $(".right-slider :nth-child(5)").attr("data-index"));
                 }
             }
 
@@ -467,9 +510,19 @@ $(function () {
                 Ceremony.reset(e.target.getAttribute("data-index"));
                 this.centerVideo.play();
             });
+            this.cube.one("click", (e) => {
+                $("#section-ceremony .ceremony-wrap").indicator("show");
+            })
 
-            // this.leftList.init();
-            // this.rightSlider.init();
+            this.cube.on("mouseover", (e) => {
+                let index = e.target.getAttribute("data-index");
+                this.cubeIntro.addClass("show");
+                this.cubeIntro.find("h3").text(this.data.name[index]);
+                this.cubeIntro.find("p").text(this.data.cubeIntro[index]);
+            });
+            this.cube.on("mouseout", (e) => {
+                this.cubeIntro.removeClass("show");
+            })
 
         },
 
@@ -517,7 +570,10 @@ $(function () {
             this.DictationTrigger.click((e) => {
                 Trigger.handler();
                 this.primary.play();
-            })
+            });
+            this.DictationTrigger.one("click", (e) => {
+                $("#section-dictation .sec-2").indicator("show");
+            });
         },
 
         // 切换播放
@@ -614,16 +670,11 @@ $(function () {
                     Sakumap.modalContainer.css(options);
                 }
 
-
-                // if (item.type === "image") {
-                //     Sakumap.modalContainer.html(`<img src="${item.source}" alt=''>`);
-                // } else {
-                // }
-                Sakumap.modalContainer.html(`<video src="${item.source}" autoplay muted></video>`);
+                Sakumap.modalContainer.html(`<video src="${item.source}" autoplay></video>`);
             })
 
             this.modalShelter.click(() => {
-                this.modalContainer.fadeOut(200);
+                this.modalContainer.fadeOut(200).find("video").get(0).pause();
                 this.modalShelter.fadeOut(200);
             })
 
@@ -664,7 +715,7 @@ $(function () {
         console.log("Data is ready!");
     });
 
-    Chapters.push(Journey, Ceremony, Dictation, Sakumap, Ending);
+    Chapters.push(Introduce, Journey, Ceremony, Dictation, Sakumap, Ending);
 
     let Fullpage = new fullpage('main', {
         // scrollHorizontally: true,
@@ -677,7 +728,7 @@ $(function () {
         slidesNavigation: false,
         controlArrows: false,
         recordHistory: false,
-        anchors: ["journey", "ceremony", "dictation", "sakumap", "ending"],
+        anchors: ["introduce", "journey", "ceremony", "dictation", "sakumap", "ending"],
         menu: '.menu-container',
         animateAnchor: false,
 
@@ -693,6 +744,9 @@ $(function () {
             Navigation.init();
             Guidance.init();
         },
+        onSlideLeave: function (section, origin, destination, direction) {
+            Ceremony.cardWrap.removeClass("reverse");
+        }
     });
 
     Fullpage.setAllowScrolling(false);

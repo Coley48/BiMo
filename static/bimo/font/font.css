@@ -8,14 +8,14 @@
     font-style: normal;
 } */
 
-@font-face {
+/* @font-face {
   font-family: "Sub-Title";
   src: url("Safe-from-harm.ttf") format("ttf"),
       url('safe-from-harm.woff2') format('woff2'),
       url('safe-from-harm.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 @font-face {
   font-family: "Main";
@@ -26,11 +26,11 @@
   font-style: normal;
 }
 
-@font-face {
+/* @font-face {
   font-family: "English";
   src: url("Aucoinextbol.Ttf") format("ttf"),
        url('aucoinextbol.woff2') format('woff2'),
        url('aucoinextbol.woff') format('woff');
   font-weight: normal;
   font-style: normal;
-}
+} */
