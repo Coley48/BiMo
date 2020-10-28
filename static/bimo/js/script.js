@@ -1,6 +1,7 @@
 $(function () {
     'use scrict';
 
+
     /**
      * 全局配置
      */
@@ -29,7 +30,7 @@ $(function () {
             section.find(".sec-2").removeClass(AnimateIn).addClass(AnimateOut);
         }
 
-        Navigation.navBar.removeClass("nav-show");
+        Navigation.logo.removeClass("active");
 
     }
     Trigger.click(Trigger.handler);
@@ -56,15 +57,17 @@ $(function () {
 
     let Navigation = {
         current: -1,
+        logo: $(".logo"),
         navBar: $(".nav"),
         navBtn: $('nav [data-toggle]'),
         addition: $(".addition"),
         closeBtn: $(".close-btn"),
         navMask: $(".nav-mask"),
+        clickAudio: document.getElementById("click-audio"),
         bars: [".menu", ".earth", ".album", ".share", ".about"],
 
         Earth: {
-            player: videojs("earth-video", { controls: true, controlBar: { pictureInPictureToggle: false } }),
+            player: videojs("earth-video", { controls: true, controlBar: { pictureInPictureToggle: false, volumePanel: false } }),
 
             init() {
                 console.log("Earth init.");
@@ -77,6 +80,7 @@ $(function () {
         Album: {
             albumPage: $(".album"),
             imageSource: null,
+            albumDisplay: $(".album-display"),
             albumDisplayImg: $(".album-display img"),
             distance: 0,
 
@@ -116,17 +120,17 @@ $(function () {
                         })
                     }
 
-                    this.albumPage.on("mousewheel", (e) => {
-                        e.stopPropagation();
-                    });
+                    this.albumPage.on("mousewheel", (e) => { e.stopPropagation(); });
                 }
 
                 $(".album img").click((e) => {
-                    this.albumDisplayImg.attr("src", e.target.src).show();
+                    console.log(e.target.src);
+                    this.albumDisplayImg.attr("src", e.target.src);
+                    this.albumDisplay.fadeIn(500);
                 });
 
                 this.albumDisplayImg.click((e) => {
-                    Navigation.Album.albumDisplayImg.hide();
+                    this.albumDisplay.fadeOut(500);
                 })
 
 
@@ -160,60 +164,64 @@ $(function () {
             this.menuBtn = this.navBtn.filter("#menu-btn");
             this.menuBar = $(Navigation.bars[Navigation.menuBtn.attr("data-index")]);
 
-            $(".logo").click((e) => {
-                Navigation.navBar.toggleClass("nav-show");
+            $(".click-btn").click((e) => {
+                this.clickAudio.play();
+            });
+
+            this.logo.click((e) => {
+                this.logo.toggleClass("active");
 
                 if (this.current === "0") {
-                    Navigation.menuBtn.removeClass("active");
-                    Navigation.menuBar.removeClass("show");
-                    Navigation.closeBtn.fadeOut(200);
-                    Navigation.navBtn.popover("enable");
-                    Navigation.navMask.removeClass("show");
+                    this.menuBtn.removeClass("active");
+                    this.menuBar.removeClass("show");
+                    this.closeBtn.fadeOut(200);
+                    this.navBtn.popover("enable");
+                    this.navMask.removeClass("show");
                 }
             });
 
             this.navBtn.popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
             this.navBtn.click((e) => {
-                let target = Navigation.navBtn.filter(e.target);
+                let target = this.navBtn.filter(e.target);
                 let index = e.target.getAttribute("data-index");
-                let page = Navigation.bars[index];
-                Navigation.Earth.player.pause();
+                let page = this.bars[index];
+                this.Earth.player.pause();
 
                 if (target.hasClass("active")) {
                     target.removeClass("active");// 隐藏bar
-                    Navigation.addition.filter(page).removeClass("show");
-                    Navigation.closeBtn.fadeOut(200);// 隐藏x按钮
-                    Navigation.navBtn.popover("enable");// 显示popover
-                    Navigation.navMask.removeClass("show");// 隐藏mask
-                    Navigation.current = -1;
+                    this.addition.filter(page).removeClass("show");
+                    this.closeBtn.fadeOut(200);// 隐藏x按钮
+                    this.navBtn.popover("enable");// 显示popover
+                    this.navMask.removeClass("show");// 隐藏mask
+                    this.current = -1;
                 } else {
-                    Navigation.navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
-                    Navigation.addition.removeClass("show").filter(page).toggleClass("show");
-                    Navigation.closeBtn.fadeIn(200);
-                    Navigation.navMask.addClass("show");
-                    Navigation.current = index;
+                    this.navBtn.removeClass("active").filter(e.target).addClass("active").popover('disable').popover("hide");
+                    this.addition.removeClass("show").filter(page).toggleClass("show");
+                    this.closeBtn.fadeIn(200);
+                    this.navMask.addClass("show");
+                    this.current = index;
                 }
 
                 switch (page) {
                     case ".earth":
-                        if (Navigation.Earth.init) {
-                            Navigation.Earth.init();
+                        if (this.Earth.init) {
+                            this.Earth.init();
                         }
                         break;
                     case ".album":
-                        if (Navigation.Album.init) {
-                            Navigation.Album.init();
+                        if (this.Album.init) {
+                            this.Album.init();
                         }
                         break;
                     case ".share":
-                        if (Navigation.Share.init) {
-                            Navigation.Share.init();
+                        if (this.Share.init) {
+                            this.Share.init();
                         }
                         break;
                     case ".about":
-                        if (Navigation.About.init) {
-                            Navigation.About.init();
+                        if (this.About.init) {
+                            this.About.init();
                         }
                         break;
 
@@ -254,7 +262,7 @@ $(function () {
 
             this.letterIcon.click((e) => {
                 this.letterWrap.addClass("show");
-                // this.letterAudio.play();
+                this.letterAudio.play();
                 $(".prologue").fadeOut(2000);
             });
             this.letterWrap.on("mousewheel", (e) => { e.stopPropagation() });
@@ -263,7 +271,7 @@ $(function () {
             this.starter.click((e) => {
                 $("#guidance").fadeOut(1500);
                 Fullpage.setAllowScrolling(true);
-                // this.letterAudio.pause();
+                this.letterAudio.pause();
             });
             this.starter.one("click", (e) => {
                 $(".logo").indicator("show");
@@ -316,7 +324,7 @@ $(function () {
 
             this.backTrigger.click((e) => {
                 Trigger.handler();
-                Navigation.navBar.addClass("nav-show");
+                Navigation.logo.addClass("active");
                 this.player.pause();
             })
         },
@@ -387,7 +395,7 @@ $(function () {
             this.init = null;
 
             // cube
-            // window.onmousemove = (e) => this.cubeWrap.css("perspective-origin", `${e.clientX - winWidth / 2}px ${e.clientY - winHeight / 2}px`);
+            window.onmousemove = (e) => this.cubeWrap.css("perspective-origin", `${e.clientX - winWidth / 2}px ${e.clientY - winHeight / 2}px`);
             this.cube.find("div").popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
             // card
@@ -469,7 +477,7 @@ $(function () {
             this.centerVideo = videojs("center-video", { controls: true, controlBar: { pictureInPictureToggle: false } });
             this.backTrigger.click((e) => {
                 Trigger.handler();
-                Navigation.navBar.addClass("nav-show");
+                Navigation.logo.addClass("active");
                 this.centerVideo.pause();
             });
 
@@ -637,11 +645,11 @@ $(function () {
             })
 
             $(".modal-launcher").click((e) => {
-                Sakumap.modalContainer.fadeIn(200);
-                Sakumap.modalShelter.fadeIn(200);
+                this.modalContainer.fadeIn(200);
+                this.modalShelter.fadeIn(200);
 
                 let i = e.target.getAttribute("data-index");
-                let item = Sakumap.data[i];
+                let item = this.data[i];
 
                 if (winWidth > 992) {
                     let options = { left: item.left * winWidth + "px", top: item.top * winHeight + "px" };
@@ -667,16 +675,20 @@ $(function () {
                             break;
                     }
 
-                    Sakumap.modalContainer.css(options);
+                    this.modalContainer.css(options);
                 }
 
-                Sakumap.modalContainer.html(`<video src="${item.source}" autoplay></video>`);
+                this.modalContainer.html(`<video src="${item.source}" autoplay></video>`);
             })
 
             this.modalShelter.click(() => {
                 this.modalContainer.fadeOut(200).find("video").get(0).pause();
                 this.modalShelter.fadeOut(200);
-            })
+            });
+
+            this.modalContainer.click((e) => {
+                this.modalContainer.toggleClass("full");
+            });
 
         }
     }

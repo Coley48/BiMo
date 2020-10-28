@@ -28,6 +28,8 @@
     list-style: none;
     outline: none;
     scrollbar-width: none;
+    /* cursor: url("/static/bimo/img/cursor/default.cur"),default; */
+    /* cursor: url("/static/bimo/img/cursor/pointer.cur"),pointer; */
 }
 
 html,
@@ -59,7 +61,6 @@ body {
     transform: translateY(-50%);
     z-index: 10;
     color: white;
-    cursor: pointer;
 }
 .bottom-center{
     width: 100%;
@@ -72,7 +73,6 @@ body {
     transform: translateY(-50%);
     z-index: 10;
     color: white;
-    cursor: pointer;
 }
 
 /* indicator 
@@ -95,11 +95,9 @@ body {
         z-index: -1;
     }
 }
-/* [data-toggle="indicator"]:hover::before, */
 .show[data-toggle="indicator"]::before{
     content: url("/static/bimo/img/arrow.png");
 }
-/* [data-toggle="indicator"]:hover::after, */
 .show[data-toggle="indicator"]::after{
     content: attr(data-content);
     white-space: nowrap;
@@ -349,10 +347,17 @@ body {
     transition: all 1s ease-in-out;
     /* background-color: #545b62aa; */
 }
-
-.logo img{
+.logo svg{
     width: 40px;
     height: 40px;
+    color: white;
+    -webkit-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
+}
+
+.logo.active svg{
+    color: black;
 }
 
 .nav {
@@ -383,7 +388,7 @@ body {
     opacity: 0;
 }
 
-.nav.nav-show{
+.logo.active+.nav{
     -webkit-transform: translateY(0);
     -ms-transform: translateY(0);
     transform: translateY(0);
@@ -612,22 +617,20 @@ body {
 }
 
 .album-display{
-    /* opacity: 0; */
+    display: none;
     position: absolute;
-    top: 50%;
-    left: 15%;
-    width: 70%;
-    height: auto;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
     z-index: 100;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, .5);
 }
 
 .album-display img{
-    width: 100%;
-    height: auto;
-    display: none;
+    height: 100%;
+    width: auto;
     cursor: -webkit-zoom-out;
     cursor: zoom-out;
 }
@@ -747,11 +750,18 @@ body {
 .about-container h3{
     padding: 20px 0;
 }
-
 .about-container p{
-    padding: 0 10px;
+    text-align: left;
+    font-size: 1.2rem;
 }
 
+.about-bimo p{
+    text-indent: 2em;
+}
+.about-us p,
+.about-contact{
+    white-space: pre-line;
+}
 
 /**
  * main
@@ -863,7 +873,7 @@ main .sec-2{
 .introduce-container img{
     width: auto;
     height: 160px;
-    cursor: pointer;
+    cursor: url("/static/bimo/img/cursor/help.cur"),help;;
 }
 
 .mini-journey li:first-child,
@@ -1652,7 +1662,7 @@ video::-webkit-media-controls {
 
 .text-content p{
     text-align: left;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     white-space: pre-wrap;
 }
 
@@ -1790,7 +1800,11 @@ video::-webkit-media-controls {
     color: white;
 }
 .dictation-cover h3{
-    line-height: .8;
+    line-height: .95;
+}
+.dictation-cover h3:last-child{
+    line-height: 1;
+    text-indent: 6em;
 }
 
 #section-dictation .dictation-indicator{
@@ -1831,6 +1845,14 @@ video::-webkit-media-controls {
     background-size: cover;
 }
 
+#section-sakumap p{
+    font-size: 1.8rem;
+    line-height: 1;
+}
+#section-sakumap p:last-child{
+    text-indent: 20em;
+}
+
 .map-wrapper{
     position: relative;
     width: 100%;
@@ -1844,18 +1866,28 @@ video::-webkit-media-controls {
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 500px;
-    height: auto;
+    height: 280px;
+    width: auto;
+    height: 280px;
     border: none;
     font-size: 0;
     opacity: .95;
     z-index: 3;
 }
-
-.modal-container * {
+.modal-container.full{
     width: 100%;
-    height: auto;
+    height: 100%;
+    text-align: center;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+}
+
+.modal-container video {
+    height: 100%;
+    width: auto;
     z-index: 3;
+    cursor: pointer;
 }
 
 .modal-launcher {
