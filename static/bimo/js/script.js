@@ -251,14 +251,23 @@ $(function () {
 
     let Guidance = {
         // 封面
+        scroll: $(".scroll"),
         letterWrap: $(".letter-wrap"),
         letterIcon: $(".letter-icon img"),
         starter: $(".starter"),
+        loadingAudio: document.getElementById("loading-audio"),
         letterAudio: document.getElementById("letter-audio"),
 
         init() {
             this.init = null;
             console.log("Guidance init.");
+
+            this.scroll.click((e) => {
+                $(".animate").addClass("animate__animated");
+                $(".prologue").show();
+                this.loadingAudio.play();
+                this.scroll.fadeOut(500).find("img").css("animation-play-state", "paused");
+            });
 
             this.letterIcon.click((e) => {
                 this.letterWrap.addClass("show");
@@ -276,7 +285,6 @@ $(function () {
             this.starter.one("click", (e) => {
                 $(".logo").indicator("show");
             });
-
         }
     }
 
@@ -295,6 +303,10 @@ $(function () {
                         $(".introduce-container footer").indicator("show");
                     }, 1000);
                 }
+            });
+
+            this.minimap.on("mouseenter", (e) => {
+                Navigation.clickAudio.play();
             });
         }
     };
@@ -472,6 +484,13 @@ $(function () {
                 this.rightHandlebar.parent().toggleClass("show");
             });
 
+            this.rightHandlebar.one("click", (e) => {
+                $(".element-indicator").indicator("show");
+                this.rightHandlebar.one("click", (e) => {
+                    $(".element-indicator").indicator("hide");
+                })
+            })
+
 
             // center-video
             this.centerVideo = videojs("center-video", { controls: true, controlBar: { pictureInPictureToggle: false } });
@@ -530,7 +549,7 @@ $(function () {
             });
             this.cube.on("mouseout", (e) => {
                 this.cubeIntro.removeClass("show");
-            })
+            });
 
         },
 

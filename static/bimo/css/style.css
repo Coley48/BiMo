@@ -61,6 +61,7 @@ body {
     transform: translateY(-50%);
     z-index: 10;
     color: white;
+    cursor: pointer;
 }
 .bottom-center{
     width: 100%;
@@ -73,6 +74,7 @@ body {
     transform: translateY(-50%);
     z-index: 10;
     color: white;
+    cursor: pointer;
 }
 
 /* indicator 
@@ -175,18 +177,22 @@ body {
     color: white;
 }
 
-#guidance .prompt{
+#guidance .scroll{
     position: fixed;
     top:50%;
-    left: 0;
-    -webkit-transform: translateY(-50%);
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    color: white;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    width: 100px;
+    height: auto;
+    display: none;
+}
+.scroll img{
     width: 100%;
-    text-align: center;
-    z-index: 1001;
-    padding: 0 2rem;
+    height: auto;
+    cursor: pointer;
+    animation: pulse 2s ease-in-out infinite both;
 }
 
 #guidance .prologue{
@@ -745,6 +751,9 @@ body {
     height: 100%;
     overflow: scroll;
     background-color: lightgoldenrodyellow;
+    background: url("/static/bimo/img/background.jpg") center no-repeat;
+    background-size: cover;
+    color:#ebd8d1;
 }
 
 .about-container h3{
@@ -761,6 +770,10 @@ body {
 .about-us p,
 .about-contact{
     white-space: pre-line;
+}
+
+.about-us p:last-child{
+    text-align: center;
 }
 
 /**
@@ -873,7 +886,7 @@ main .sec-2{
 .introduce-container img{
     width: auto;
     height: 160px;
-    cursor: url("/static/bimo/img/cursor/help.cur"),help;;
+    cursor: help;
 }
 
 .mini-journey li:first-child,
@@ -1467,10 +1480,10 @@ video::-webkit-media-controls {
 }
 
 .right-slider li:nth-child(5) img{
-    animation: shake 1s ease-in-out .8s infinite both;
+    animation: element-shake 1s ease-in-out .8s infinite both;
 }
 
-@-webkit-keyframes shake {
+@-webkit-keyframes element-shake {
     50%{
         -webkit-transform: translateX(-1%);
         -ms-transform: translateX(-1%);
@@ -1478,7 +1491,7 @@ video::-webkit-media-controls {
     }
 }
 
-@keyframes shake {
+@keyframes element-shake {
     50%{
         -webkit-transform: translateX(-1%);
         -ms-transform: translateX(-1%);
@@ -1503,6 +1516,17 @@ video::-webkit-media-controls {
     -webkit-transform: translate(10%, -50%) scale(.8);
     -ms-transform: translate(10%, -50%) scale(.8);
     transform: translate(10%, -50%) scale(.8);
+}
+
+.element-indicator{
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    min-width: 200px;
+    max-width: 450px;
+    width: 9%;
+    height: 1px;
+    z-index: 100;
 }
 
 /* element-detail */
