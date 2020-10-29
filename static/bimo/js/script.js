@@ -281,6 +281,7 @@ $(function () {
                 $("#guidance").fadeOut(1500);
                 Fullpage.setAllowScrolling(true);
                 this.letterAudio.pause();
+                this.loadingAudio.pause();
             });
             this.starter.one("click", (e) => {
                 $(".logo").indicator("show");
@@ -332,13 +333,15 @@ $(function () {
             });
             this.preview.one("click", (e) => {
                 $("#section-journey .sec-2").indicator("show");
-            })
+            });
 
             this.backTrigger.click((e) => {
                 Trigger.handler();
                 Navigation.logo.addClass("active");
                 this.player.pause();
-            })
+            });
+
+            $("#section-journey .sec-1 header").indicator("show");
         },
 
         reset(index) {
@@ -777,6 +780,14 @@ $(function () {
         },
         onSlideLeave: function (section, origin, destination, direction) {
             Ceremony.cardWrap.removeClass("reverse");
+        },
+        onLeave: function (origin, destination, direction) {
+            let originElement = $(origin.item);
+            if (originElement.hasClass("hide") === false) {
+                originElement.addClass("hide");
+                originElement.find(".sec-1").removeClass(AnimateOut).addClass(AnimateIn);
+                originElement.find(".sec-2").removeClass(AnimateIn).addClass(AnimateOut);
+            }
         }
     });
 

@@ -97,6 +97,10 @@ body {
         z-index: -1;
     }
 }
+.indicator-fadeOutSlow::before,
+.indicator-fadeOutSlow::after{
+    animation-delay: 10s;
+}
 .show[data-toggle="indicator"]::before{
     content: url("/static/bimo/img/arrow.png");
 }
@@ -179,8 +183,8 @@ body {
 
 #guidance .scroll{
     position: fixed;
-    top:50%;
-    left: 50%;
+    top:70%;
+    left: 45%;
     -webkit-transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
@@ -204,15 +208,34 @@ body {
     display: none;
     /* font-family: "Title"; */
 }
-
-.prologue h1{
+.prologue h1.title{
     font-size: 4rem;
 }
-
-.prologue rt{
-    text-align: center;
-    font-size: 2.5rem;
+.title span{
+    position: relative;
 }
+.title span::after{
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 45px;
+}
+.title :nth-child(1)::after{
+    background: url("/image/guidance/bi.png") no-repeat;
+    background-size: contain;
+}
+.title :nth-child(2)::after{
+    background: url("/image/guidance/mo.png") no-repeat;
+    background-size: contain;
+}
+.title :nth-child(3)::after{
+    background: url("/image/guidance/xing.png") no-repeat;
+    background-size: contain;
+}
+
 
 .preface p{
     text-indent: 3rem;
@@ -722,6 +745,40 @@ body {
 .share-icons a:hover{
     color: lightseagreen;
 }
+.share-icons .icon-holder{
+    position: relative;
+    width: 100px;
+    height: 80px;
+    background-color: lightcyan;
+    background: url("/static/bimo/img/share.png") no-repeat;
+    /* background-size: 50px 50px; */
+}
+/* .icon-holder::after{
+    position: absolute;
+    content: attr(data-content);
+    color: black;
+    top: 100%;
+    left: 0;
+    white-space: nowrap;
+} */
+.icon-holder.qq{
+}
+.icon-holder.zone{
+    background-position: -100px 0;
+}
+.icon-holder.weichat{
+    background-position: -200px 0;
+}
+.icon-holder.weibo{
+    background-position: 0 -80px;
+}
+.icon-holder.circle{
+    background-position: -100px -80px;
+}
+.icon-holder.copy{
+    background-position: -200px -80px;
+}
+
 
 .share-cancel{
     height: 14%;
@@ -768,11 +825,13 @@ body {
     text-indent: 2em;
 }
 .about-us p,
-.about-contact{
+.about-thanks p,
+.about-contact p{
     white-space: pre-line;
 }
 
-.about-us p:last-child{
+.about-thanks p,
+.about-contact p{
     text-align: center;
 }
 
@@ -856,6 +915,9 @@ main .sec-2{
     text-align: center;
     pointer-events: none;
 }
+.introduce-container div:hover img{
+    transform: scale(1.05);
+}
 .introduce-container ul:hover::after{
     content: attr(data-content);
     position: absolute;
@@ -887,6 +949,7 @@ main .sec-2{
     width: auto;
     height: 160px;
     cursor: help;
+    transition: all .5s ease-in-out;
 }
 
 .mini-journey li:first-child,
@@ -918,6 +981,12 @@ main .sec-2{
 
 
 /* section journey */
+
+#section-journey .sec-1 header{
+    position: absolute;
+    top: 5%;
+    left: 50%;
+}
 
 .intro-list {
     font-size: 0;
