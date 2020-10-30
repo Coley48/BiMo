@@ -1460,7 +1460,6 @@ video::-webkit-media-controls {
     font-size: 150%;
     /* background-color: black; */
 }
-
 .ceremony-element.show .handle-bar{
     -webkit-transform: translate(0,0);
     -ms-transform: translate(0,0);
@@ -1549,7 +1548,11 @@ video::-webkit-media-controls {
 }
 
 .right-slider li:nth-child(5) img{
-    animation: element-shake 1s ease-in-out .8s infinite both;
+    animation: element-shake 1s ease-in-out .8s;
+    animation-fill-mode: both;
+}
+.right-slider.infinite li:nth-child(5) img{
+    animation-iteration-count: infinite;
 }
 
 @-webkit-keyframes element-shake {

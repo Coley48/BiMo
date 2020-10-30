@@ -124,7 +124,6 @@ $(function () {
                 }
 
                 $(".album img").click((e) => {
-                    console.log(e.target.src);
                     this.albumDisplayImg.attr("src", e.target.src);
                     this.albumDisplay.fadeIn(500);
                 });
@@ -381,8 +380,10 @@ $(function () {
         leftHandlebar: $(".ceremony-segment .handle-bar"),
 
         // right-slide
+        rightPart: $(".ceremony-element"),
         rightSlider: $(".ceremony-element .right-slider"),
         rightHandlebar: $(".ceremony-element .handle-bar"),
+        rightHandlebarDiv: $(".ceremony-element .handle-bar div"),
         backTrigger: $(".ceremony-trigger.back-trigger"),
 
         // card
@@ -414,7 +415,7 @@ $(function () {
             this.cube.find("div").popover({ boundary: 'window', placement: "right", trigger: "hover" });
 
             // card
-            this.cardFlip.click((e) => { Ceremony.cardWrap.toggleClass("reverse"); });
+            this.cardFlip.click((e) => { Ceremony.cardWrap.toggleClass("reverse"); Navigation.clickAudio.play(); });
             this.backToVideo.click((e) => { Fullpage.moveSlideLeft(); });
 
             // left-list
@@ -481,10 +482,14 @@ $(function () {
 
                     Ceremony.setCardImage($(this).find(":nth-child(5)").attr("data-index"));
                 });
+
+                Ceremony.rightSlider.slide(-4);
+
             }
 
             this.rightHandlebar.click((e) => {
-                this.rightHandlebar.parent().toggleClass("show");
+                this.rightPart.toggleClass("show");
+                Navigation.clickAudio.play();
             });
 
             this.rightHandlebar.one("click", (e) => {
@@ -492,7 +497,7 @@ $(function () {
                 this.rightHandlebar.one("click", (e) => {
                     $(".element-indicator").indicator("hide");
                 })
-            })
+            });
 
 
             // center-video
@@ -505,7 +510,6 @@ $(function () {
 
             this.centerVideo.one("play", (e) => {
                 this.centerVideo.on("timeupdate", debounce(timeUpdateHandler, 950));
-                // Ceremony.rightSlider.slide(-4);
             });
 
             function timeUpdateHandler(e) {
@@ -519,6 +523,12 @@ $(function () {
 
                 if (eleIndex !== -1) {
                     Ceremony.rightSlider.slide(eleIndex - $(".right-slider :nth-child(5)").attr("data-index"));
+                    if (!Ceremony.rightPart.hasClass("show")) {
+                        Ceremony.rightHandlebarDiv.addClass("animate__headShake");
+                        setTimeout(() => {
+                            Ceremony.rightHandlebarDiv.removeClass("animate__headShake");
+                        }, 3000);
+                    }
                 }
             }
 
@@ -737,6 +747,8 @@ $(function () {
 
     /** 初始化
     ------------------------------------------------------------------------*/
+    Chapters.push(Introduce, Journey, Ceremony, Dictation, Sakumap, Ending);
+
     $.get("/data/data.json", function (data) {
         Navigation.Album.imageSource = data.album;
 
@@ -747,9 +759,14 @@ $(function () {
         Sakumap.data = data.sakumap.point;
 
         console.log("Data is ready!");
+
+        Chapters.forEach((sec) => {
+            if (sec.init) {
+                sec.init();
+            }
+        })
     });
 
-    Chapters.push(Introduce, Journey, Ceremony, Dictation, Sakumap, Ending);
 
     let Fullpage = new fullpage('main', {
         // scrollHorizontally: true,
@@ -767,12 +784,10 @@ $(function () {
         animateAnchor: false,
 
         afterLoad: function (origin, destination) {
-            //使用 index
             CurrentPart = destination.index;
-            if (Chapters[CurrentPart].init) {
-                Chapters[CurrentPart].init();
-            }
-
+            //     if (Chapters[CurrentPart].init) {
+            //         Chapters[CurrentPart].init();
+            //     }
         },
         afterRender: (e) => {
             Navigation.init();

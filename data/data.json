@@ -164,7 +164,7 @@
                     "factor": "/image/ceremony/purify/1-1.2.png",
                     "paint": "/image/ceremony/purify/1-1.3.png",
                     "info": "必须是一公一母交配过后的土鸡蛋。\n毕摩会将鸡蛋打在盛有水的黑色碗中，可以看出人身上的疾病情况，是否有鬼附着。\n在彝族中，非正常死亡的人会变成鬼，如有上吊死的人，鬼魂在鸡蛋中会浮现出人形手里拿着绳子；如跳悬崖自杀者，在鸡蛋中会变成悬崖上站着一个“人”。\n可根据鸡蛋与毕摩位置，判断鬼的方位来源。",
-                    "time": 1,
+                    "time": 45,
                     "place": {
                         "left": "35%",
                         "top": "33.7%"
@@ -262,7 +262,7 @@
                     "factor": "/image/ceremony/bename/2-1.2.png",
                     "paint": "/image/ceremony/bename/2-1.3.png",
                     "info": "悬挂的玉米是要快速晾晒干。\n猪膀胱取自过年时杀的年猪，猪体型大，膀胱就大，代表这家人能杀这么大的猪，寓意财产富足。",
-                    "time": 1,
+                    "time": 5,
                     "place": {
                         "left": "39.4%",
                         "top": "0"
@@ -342,7 +342,7 @@
                     "factor": "/image/ceremony/bename/2-6.2.png",
                     "paint": "/image/ceremony/bename/2-6.3.png",
                     "info": "相当于汉族办喜事酒席，街坊邻里一起庆祝。本族亲人一般随100元，邻居随20元。",
-                    "time": 625,
+                    "time": 649,
                     "place": {
                         "left": "0",
                         "top": "10%"
@@ -357,7 +357,7 @@
                     "origin": "/image/ceremony/bename/2-7.1.png",
                     "factor": "/image/ceremony/bename/2-7.2.png",
                     "paint": "/image/ceremony/bename/2-7.3.png",
-                    "time": 697,
+                    "time": 700,
                     "info": "祈福本家人的孩子的父母、兄弟姐妹沾水后（男孩沾左手，女孩沾右手），把水倒在地下，为了祈福。",
                     "place": {
                         "left": "24.2%",
@@ -407,7 +407,7 @@
                     "origin": "/image/ceremony/pray/3-1.1.png",
                     "factor": "/image/ceremony/pray/3-1.2.png",
                     "paint": "/image/ceremony/pray/3-1.3.png",
-                    "time": 1,
+                    "time": 98,
                     "info": "一般是两条线相交而成，代表两条鬼魂的路，有一条是麻绳组成。",
                     "place": {
                         "left": "8.5%",
@@ -439,7 +439,7 @@
                     "origin": "/image/ceremony/pray/3-3.1.png",
                     "factor": "/image/ceremony/pray/3-3.2.png",
                     "paint": "/image/ceremony/pray/3-3.3.png",
-                    "time": 171,
+                    "time": 168,
                     "info": "毕摩摇响铜铃铛，告知天地神灵仪式开始。\n召唤受祈福者的灵魂，请求世间的美好事物汇聚。\n仪式中会重复多次。",
                     "place": {
                         "left": "35.8%",
@@ -455,7 +455,7 @@
                     "origin": "/image/ceremony/pray/3-4.1.png",
                     "factor": "/image/ceremony/pray/3-4.2.png",
                     "paint": "/image/ceremony/pray/3-4.3.png",
-                    "time": 180,
+                    "time": 177,
                     "info": "祈福仪式宰杀标准不一。\n简单仪式为宰杀鸡，复杂仪式为宰杀鸡、猪、羊、山羊。\n仪式中，鸡为毕摩宰杀，猪羊为帮忙亲友宰杀。",
                     "place": {
                         "left": "48.7%",
@@ -503,7 +503,7 @@
                     "origin": "/image/ceremony/pray/3-7.1.png",
                     "factor": "/image/ceremony/pray/3-7.2.png",
                     "paint": "/image/ceremony/pray/3-7.3.png",
-                    "time": 469,
+                    "time": 464,
                     "info": "毕摩在这个环节将牲畜作为污秽的替代物，将它们赶出家门到鬼怪处。\n帽子在此过程中，可以保护毕摩不受“伤害”。",
                     "place": {
                         "left": "28.9%",
@@ -519,7 +519,7 @@
                     "origin": "/image/ceremony/pray/3-8.1.png",
                     "factor": "/image/ceremony/pray/3-8.2.png",
                     "paint": "/image/ceremony/pray/3-8.3.png",
-                    "time": 617,
+                    "time": 600,
                     "info": "分为鸡斯切，猪斯切，羊斯切。\n人身上的疾病变成猪鸡羊等实物，将它送走。",
                     "place": {
                         "left": "38.5%",
@@ -535,7 +535,7 @@
                     "origin": "/image/ceremony/pray/3-9.1.png",
                     "factor": "/image/ceremony/pray/3-9.2.png",
                     "paint": "/image/ceremony/pray/3-9.3.png",
-                    "time": 685,
+                    "time": 730,
                     "info": "羊皮中包裹有羊、猪、鸡等动物内脏，用来祭祀毕摩的神魂。",
                     "place": {
                         "left": "10.2%",
