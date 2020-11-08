@@ -412,7 +412,9 @@ $(function () {
 
             // cube
             window.onmousemove = (e) => this.cubeWrap.css("perspective-origin", `${e.clientX - winWidth / 2}px ${e.clientY - winHeight / 2}px`);
-            this.cube.find("div").popover({ boundary: 'window', placement: "right", trigger: "hover" });
+            if (winWidth > 992) {
+                this.cube.find("div").popover({ boundary: 'window', placement: "right", trigger: "hover" });
+            }
 
             // card
             this.cardFlip.click((e) => { Ceremony.cardWrap.toggleClass("reverse"); Navigation.clickAudio.play(); });
