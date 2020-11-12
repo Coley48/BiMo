@@ -3,14 +3,14 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'eval-cheap-module-source-map',
     output: {
         publicPath: '',
     },
     devServer: {
         open: true,
-        port: 80,
-        contentBase: 'test',
+        port: 8000,
+        // contentBase: 'src',
         hot: true,
     },
     module: {
