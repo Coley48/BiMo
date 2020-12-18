@@ -4,27 +4,34 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-// const WorkboxPlugin = require('workbox-webpack-plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
+// Progressive Web Application
+let isPWA = true;
+if (isPWA) {
+    common.plugins.push(new WorkboxPlugin.GenerateSW({
+        clientsClaim: true,
+        skipWaiting: true,
+    }));
+}
 
 module.exports = merge(common, {
     mode: 'production',
-    // devtool: "cheap-module-source-map",
     output: {
-        // publicPath: 'static/',
         publicPath: '/static/bimo/',
+        // publicPath: '',
     },
     plugins: [
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
-            // filename: '[name].[contenthash].css'
+            // filename: '[name].bundle.css',
+            filename: 'css/[name].[contenthash:8].css'
         }),
-        new webpack.ids.HashedModuleIdsPlugin({
-            hashFunction: 'sha256',
-            hashDigest: 'hex',
-            hashDigestLength: 20
-        }),
+        // new webpack.ids.HashedModuleIdsPlugin({
+        //     hashFunction: 'sha256',
+        //     hashDigest: 'hex',
+        //     hashDigestLength: 8
+        // }),
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.css$/,
             cssProcessor: require('cssnano'),
@@ -33,20 +40,36 @@ module.exports = merge(common, {
             },
             canPrint: true
         }),
-        // new WorkboxPlugin.GenerateSW({
-        //     clientsClaim: true,
-        //     skipWaiting: true,
-        // }),
     ],
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+                sideEffects: true,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: "../"
+                        }
+                    },
+                    'css-loader',
+                    'postcss-loader'
+                ]
             },
             {
                 test: /\.less$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'less-loader']
+                sideEffects: true,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: "../"
+                        }
+                    },
+                    'css-loader',
+                    'postcss-loader',
+                    'less-loader']
             }
         ]
     }

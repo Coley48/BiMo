@@ -1,2 +1,2 @@
 # BiMo
-A legendary trip.
+静态网页版本。

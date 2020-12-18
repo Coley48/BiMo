@@ -104,7 +104,7 @@ typings/
 
 
 test/
-dist/
 image/
 video/
 src/
+static/

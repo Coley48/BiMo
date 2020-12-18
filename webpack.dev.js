@@ -3,7 +3,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'eval-cheap-module-source-map',
+    devtool: 'source-map',
     output: {
         publicPath: '',
     },
@@ -12,17 +12,37 @@ module.exports = merge(common, {
         port: 8000,
         // contentBase: 'src',
         hot: true,
+        historyApiFallback: {
+            index: '/index.html'
+        }
     },
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader']
+                use: [
+                    'vue-style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            esModule: false,
+                        }
+                    },
+                ]
             },
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'postcss-loader', 'less-loader']
-            }
+                use: [
+                    'vue-style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            esModule: false,
+                        }
+                    },
+                    'less-loader'
+                ]
+            },
         ]
     },
     optimization: {
