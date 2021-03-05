@@ -1,0 +1,142 @@
+@arrow-width:60px;
+@arrow-height:51px;
+
+@media only screen and (min-width:1880px){
+    .show[data-toggle="tips"]{
+
+        &.animated::before,
+        &.animated::after{
+            animation: tips-fadeOut 5s linear 10s forwards;
+        }
+
+        &::before{
+            content: url("../img/arrows/arrow-0.png");
+            position: absolute;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        &::after{
+            content: attr(data-content);
+            position: absolute;
+            pointer-events: none;
+            white-space: nowrap;
+            padding: .5rem;
+            font-size: 1rem;
+            border-radius: .3rem;
+            color: black;
+            background-color: white;
+            border: 1px solid rgba(0,0,0,.2);
+            z-index: 1000;
+        }
+
+        &.left-top{
+            &::before{
+                right: 100%;
+                transform:translate(0,-50%) rotateY(180deg);
+            }
+            &::after{
+                right: 100%;
+                transform: translate(-@arrow-width,-@arrow-height);
+            }
+        }
+
+        &.left-bottom{
+            &::before{
+                right: 100%;
+                transform: translate(0,50%) rotateX(180deg) rotateY(-180deg);
+            }
+            &::after{
+                right: 100%;
+                transform: translate(-@arrow-width,@arrow-height);
+            }
+        }
+
+        &.right-top{
+            &::before{
+                transform: translate(0,-100%);
+            }
+            &::after{
+                transform: translate(@arrow-width,-@arrow-height*1.5);
+            }
+        }
+
+        &.right-bottom{
+            &::before{
+                transform: translate(0,0) rotateX(180deg);
+            }
+            &::after{
+                transform: translate(@arrow-width,@arrow-height/2);
+            }
+        }
+
+        &.right-center{
+            &::before{
+                top: 50%;
+                left: 90%;
+                transform: rotateX(180deg);
+            }
+            &::after{
+                top: 50%;
+                left: 90%;
+                transform: translate(@arrow-width,@arrow-height/2);
+            }
+        }
+
+        &.left-center{
+            
+            &::before{
+                top: 50%;
+                right: 90%;
+                transform: translate(0,-60%) rotateX(180deg) rotateZ(180deg);
+            }
+            &::after{
+                top: 50%;
+                right: 90%;
+                transform: translate(-@arrow-width,-@arrow-height);
+            }
+        }
+
+        &.top-right{
+            &::before{
+                top: 0;
+                left: 80%;
+                transform: translate(0,-50%);
+            }
+            &::after{
+                top: 0;
+                left: 80%;
+                transform: translate(@arrow-width,-@arrow-height);
+            }
+        }
+
+        &.bottom-left{
+            &::before{
+                bottom: 0;
+                right: 80%;
+                transform: translate(0,50%) rotateX(180deg) rotateY(-180deg);
+            }
+            &::after{
+                right: 80%;
+                bottom: 0;
+                transform: translate(-@arrow-width,@arrow-height);
+            }
+        }
+
+        .hide[data-toggle="tips"]{
+            &::before,
+            &::after{
+                display: none !important;
+                z-index: -1 !important;
+                visibility: hidden !important;
+            }
+        }
+
+        @keyframes tips-fadeOut{
+            100%{
+                opacity: 0;
+                z-index: -1;
+            }
+        }
+    }
+}
