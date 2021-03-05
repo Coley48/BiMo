@@ -10,7 +10,7 @@ module.exports = {
     output: {
         // filename: '[name].[chunkhash].bundle.js',
         filename: 'js/[name].[hash:8].bundle.js',
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, 'bimo'),
         pathinfo: false,
     },
     resolve: {
