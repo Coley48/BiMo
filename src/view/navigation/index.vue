@@ -8,7 +8,7 @@
       :class="logoTipsState"
       @click.once="closeLogoTips"
     >
-      <div class="logo" @click="toggleNavbar" :draggable="!isAdminLogin">
+      <div class="logo" @click="toggleNavbar">
         <svg
           version="1.0"
           xmlns="http://www.w3.org/2000/svg"
@@ -37,7 +37,7 @@
       <div class="nav">
         <a
           class="nav-item"
-          v-for="(item, idx) in computedIcons"
+          v-for="(item, idx) in icons"
           :key="idx"
           :data-content="item.content"
           :class="[item.name, { active: index === idx }]"
@@ -107,17 +107,13 @@ export default {
   },
   computed: {
     currentPart() {
-      return this.computedIcons[this.index]
-        ? this.computedIcons[this.index].name + "-part"
+      return this.icons[this.index]
+        ? this.icons[this.index].name + "-part"
         : "";
     },
-    computedIcons() {
-      return this.isAdminLogin ? this.fullIcons : this.fullIcons.slice(0, -1);
-    },
     ...mapState({
-      isAdminLogin: "isAdminLogin",
       isLogoActive: "isLogoActive",
-      fullIcons: (state) => state.navigation.icons,
+      icons: (state) => state.navigation.icons,
     }),
   },
   components: {
@@ -126,7 +122,6 @@ export default {
     EarthPart: () => import("@/view/navigation/earth-part.vue"),
     SharePart: () => import("@/view/navigation/share-part.vue"),
     AboutPart: () => import("@/view/navigation/about-part.vue"),
-    AdminPart: () => import("@/view/navigation/admin-part.vue"),
   },
   mounted() {
     // this.$store.dispatch("getAsyncData");
@@ -212,9 +207,6 @@ export default {
       }
       &.about {
         background-image: url("../../assets/img/icon/about.svg");
-      }
-      &.admin {
-        background-image: url("../../assets/img/icon/admin.svg");
       }
     }
   }

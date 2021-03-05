@@ -69,7 +69,7 @@ module.exports = {
             $: "jquery"
         }),
         new HtmlWebpackPlugin({
-            filename: 'index.html',
+            filename: 'bimo.html',
             template: './src/index.html',
             favicon: './src/assets/img/favicon.ico'
         }),

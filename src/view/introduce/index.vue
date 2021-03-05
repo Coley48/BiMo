@@ -1,12 +1,7 @@
 <template>
   <section class="introduce">
     <div class="container">
-      <h2
-        class="title"
-        data-editable="text"
-        tabindex="0"
-        data-source="introduce.title"
-      >
+      <h2 class="title">
         {{ title }}
       </h2>
 

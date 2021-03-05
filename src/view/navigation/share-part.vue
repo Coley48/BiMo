@@ -19,13 +19,7 @@
           ></path>
         </svg>
         <p>
-          <span
-            data-editable="text"
-            tabindex="0"
-            :data-source="getDataSource('hintText')"
-          >
-            {{ hintText }}</span
-          >
+          {{ hintText }}
         </p>
       </div>
 
@@ -62,9 +56,6 @@ export default {
   methods: {
     close() {
       this.$emit("close");
-    },
-    getDataSource(prop) {
-      return `navigation.album.${prop}`;
     },
   },
 };

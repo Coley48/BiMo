@@ -1,6 +1,6 @@
 <template>
   <section class="ceremony">
-    <!-- ceremony-cover -->
+    <!-- ceremony-封面 -->
     <transition name="section">
       <div class="sec-1" v-show="isCoverShow">
         <div class="info" :class="{ show: isInfoShow }">
@@ -83,7 +83,7 @@
                     @click.once="closeBackTopTips"
                     v-show="!isSliderActive"
                   >
-                    <img :src="backTopIcon" alt="" draggable="false" />
+                    <img :src="backTopIcon" alt="" gable="dragfalse" />
                   </div>
                 </transition>
 

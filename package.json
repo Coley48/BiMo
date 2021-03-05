@@ -10,7 +10,7 @@
     "start": "webpack-dev-server --config webpack.dev.js --progress",
     "watch": "webpack --watch",
     "server": "http-server dist -o",
-    "spider": "font-spider ./src/assets/font/font.html"
+    "spider": "font-spider ./src/assets/fonts/font.html"
   },
   "author": "Coley Brooks",
   "license": "ISC",

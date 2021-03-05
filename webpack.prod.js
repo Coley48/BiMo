@@ -7,7 +7,7 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const WorkboxPlugin = require('workbox-webpack-plugin');
 
 // Progressive Web Application
-let isPWA = true;
+let isPWA = false;
 if (isPWA) {
     common.plugins.push(new WorkboxPlugin.GenerateSW({
         clientsClaim: true,

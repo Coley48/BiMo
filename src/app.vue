@@ -1,5 +1,5 @@
 <template>
-  <div class="app" @dragover.prevent="showEntry" @dragend.prevent="hideEntry">
+  <div class="app">
     <!-- 导航栏 -->
     <navigation></navigation>
 
@@ -9,48 +9,27 @@
         <router-view></router-view>
       </transition>
     </div>
-
-    <!-- 登录入口 -->
-    <div
-      :class="{ entry: true, active: isLoginEntryActive }"
-      @dragover.prevent
-      @drop.prevent="showLoginInterface"
-    ></div>
-
-    <!-- 登录界面 -->
-    <transition>
-      <login :isShow="isLoginInterfaceActive" @callback="loginCallback"></login>
-    </transition>
-
-    <!-- 右键菜单 -->
-    <contextmenu v-if="isAdminLogin"></contextmenu>
   </div>
 </template>
 
 
 <script>
 import navigation from "@/view/navigation/index";
-import login from "@/view/login/index";
 import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "app",
   data() {
-    return {
-      isLoginEntryActive: false, // 登录入口是否显示
-      isLoginInterfaceActive: false, // 登录界面是否显示
-    };
+    return {};
   },
   computed: {
-    ...mapState(["isAdminLogin", "currentIndex", "chapters"]),
+    ...mapState(["currentIndex", "chapters"]),
     chapterCount() {
       return this.chapters.length;
     },
   },
   components: {
     navigation,
-    login,
-    contextmenu: () => import("@/component/contextmenu.vue"),
   },
   methods: {
     ...mapMutations(["gotoPage"]),
@@ -64,37 +43,15 @@ export default {
         this.$store.commit("gotoPage", index);
       }
     },
-    // 显示登录界面
-    showLoginInterface() {
-      this.isLoginInterfaceActive = true;
-    },
-    // 登录回调
-    loginCallback(res) {
-      if (res === true) {
-        this.$store.commit("adminLogin"); // 更改登录标志
-        this.isLoginInterfaceActive = false; // 隐藏登录界面
-      }
-    },
-    showEntry() {
-      if (this.isAdminLogin === false) {
-        this.isLoginEntryActive = true;
-      }
-    },
-    hideEntry() {
-      this.isLoginEntryActive = false;
-    },
   },
   mounted() {
-    // 判断是否已登录
-    if (Boolean(sessionStorage.getItem("isAdminLogin"))) {
-      this.$store.commit("adminLogin");
-    }
-
     let Win = $(window);
 
     if (Win.width() >= 1280) {
-      let sectionWrap = $("#section");
       let context = this;
+
+      // 监听鼠标滚轮
+      let sectionWrap = $("#section");
       import("@/assets/js/jquery.mousewheel.min").then(scrollHandler);
 
       function scrollHandler() {
@@ -114,6 +71,26 @@ export default {
           setTimeout(scrollHandler, 2000);
         });
       }
+
+      // 监听键盘按键
+      document.onkeydown = (event) => {
+        let oEvent = event || window.oEvent;
+
+        let KeyCode =
+          oEvent.detail || oEvent.keyCode || oEvent.which || oEvent.charCode;
+
+        // let CtrlKeyCode = oEvent.ctrlKey || oEvent.metaKey;
+
+        if (KeyCode == 38) {
+          // Up 向上
+          oEvent.preventDefault();
+          context.skipTo(context.currentIndex - 1);
+        } else if (KeyCode == 40) {
+          // Down 向下
+          oEvent.preventDefault();
+          context.skipTo(context.currentIndex + 1);
+        }
+      };
     }
   },
 };

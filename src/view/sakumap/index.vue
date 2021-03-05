@@ -5,12 +5,7 @@
         <div class="cover">
           <div class="opener" @click="enter()">
             <p v-for="(item, index) in poemList" :key="index">
-              <span
-                data-editable="text"
-                tabindex="0"
-                :data-source="getDataSource(index)"
-                >{{ item }}
-              </span>
+              {{ item }}
             </p>
           </div>
         </div>
@@ -63,9 +58,6 @@ export default {
     };
   },
   methods: {
-    getDataSource(index) {
-      return `dictation.poemList[${index}]`;
-    },
     enter() {
       this.isCoverShow = false;
       this.$store.commit("hideNavbar");

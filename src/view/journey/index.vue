@@ -11,9 +11,6 @@
             @click="enterVideo(idx)"
             @click.once="isBackTopTipsShow = true"
           >
-            <!-- tabindex="0" -->
-            <!-- data-editable="text" -->
-            <!-- :data-source="'journey.imageList[' + idx + '].title'" -->
             <img :src="item.imageSrc" alt="" draggable="false" />
             <h2 class="path-text">
               {{ item.title }}

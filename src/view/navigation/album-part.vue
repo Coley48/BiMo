@@ -2,13 +2,7 @@
   <div class="album">
     <div class="container">
       <div class="hint-text">
-        <span
-          data-editable="text"
-          tabindex="0"
-          :data-source="getDataSource('hintText')"
-        >
-          {{ hintText }}</span
-        >
+        {{ hintText }}
       </div>
       <div class="view" v-show="index !== -1" @click="index = -1">
         <img :src="imageList[index]" alt="" />
@@ -42,11 +36,7 @@ export default {
       index: -1,
     };
   },
-  methods: {
-    getDataSource(prop) {
-      return `navigation.album.${prop}`;
-    },
-  },
+  methods: {},
   computed: {
     next() {
       return this.firstGroup.length;

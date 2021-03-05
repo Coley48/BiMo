@@ -2,7 +2,7 @@
   <section class="guidance">
     <transition>
       <div class="starter-wrap" v-show="isStarterShow" @click="showPreface()">
-        <img :src="starterIcon" alt="" :draggable="!isAdminLogin" />
+        <img :src="starterIcon" alt="" />
       </div>
     </transition>
 
@@ -11,22 +11,10 @@
       :class="{ show: isPrefaceShow, hide: isPrefaceHide }"
     >
       <h1 class="title">
-        <span
-          v-for="(item, index) in titleList"
-          :key="index"
-          tabindex="0"
-          data-editable="text"
-          :data-source="'guidance.titleList[' + index + ']'"
-          >{{ item }}</span
-        >
+        <span v-for="(item, index) in titleList" :key="index">{{ item }}</span>
       </h1>
 
-      <p
-        class="content"
-        data-editable="text"
-        tabindex="0"
-        data-source="guidance.briefIntro"
-      >
+      <p class="content">
         {{ briefIntro }}
       </p>
 
@@ -71,7 +59,6 @@ export default {
   },
   computed: {
     ...mapState({
-      isAdminLogin: "isAdminLogin",
       titleList: (state) => state.guidance.titleList,
       briefIntro: (state) => state.guidance.briefIntro,
       starterIcon: (state) => state.guidance.starterIcon,

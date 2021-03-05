@@ -7,22 +7,10 @@
         :class="{ textcenter: item.textCenter || false }"
       >
         <h3>
-          <span
-            data-editable="text"
-            tabindex="0"
-            :data-source="getDataSource(index, 'title')"
-          >
-            {{ item.title }}
-          </span>
+          {{ item.title }}
         </h3>
         <p v-for="(it, idx) in item.content" :key="index + '-' + idx">
-          <span
-            data-editable="text"
-            tabindex="0"
-            :data-source="getDataSource(index, 'content')"
-          >
-            {{ it }}
-          </span>
+          {{ it }}
         </p>
       </div>
     </div>
@@ -36,11 +24,7 @@ export default {
   data() {
     return {};
   },
-  methods: {
-    getDataSource(index, prop) {
-      return `navigation.about.paragraph[${index}].${prop}`;
-    },
-  },
+  methods: {},
   computed: {
     ...mapState({
       paragraph: (state) => state.navigation.about.paragraph,
