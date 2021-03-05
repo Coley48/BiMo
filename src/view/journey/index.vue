@@ -30,7 +30,7 @@
           @click="backTop"
           @click.once="closeBackTopTips"
         >
-          <img :src="backTopIcon" alt="" />
+          <img src="/image/journey/book.png" alt="" />
         </div>
 
         <video-player :options="videoOptions" :callback="videoHandler" />
@@ -41,7 +41,6 @@
 
 <script>
 import VideoPlayer from "@/component/video-player.vue";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -51,6 +50,25 @@ export default {
       isCoverShow: true,
       backJourneyTopTipsState:
         localStorage.getItem("backJourneyTopTipsState") || "show",
+      imageList: [
+        {
+          imageSrc: "/image/journey/1.成都-西昌.jpg",
+          title: "成都-西昌",
+        },
+        {
+          imageSrc: "/image/journey/2.西昌-美姑.jpg",
+          title: "西昌-美姑",
+        },
+        {
+          imageSrc: "/image/journey/3.美姑-洒库.jpg",
+          title: "美姑-洒库",
+        },
+      ],
+      videoList: [
+        "/video/journey/chengdu-xichang.mp4",
+        "/video/journey/xichang-meigu.mp4",
+        "/video/journey/meigu-saku.mp4",
+      ],
       videoPlayer: null,
       videoOptions: {
         fill: true,
@@ -58,20 +76,14 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: this.$store.state.journey.videoList[0],
+            src: "/video/journey/chengdu-xichang.mp4",
             type: "video/mp4",
           },
         ],
       },
     };
   },
-  computed: {
-    ...mapState({
-      backTopIcon: (state) => state.journey.backTopIcon,
-      imageList: (state) => state.journey.imageList,
-      videoList: (state) => state.journey.videoList,
-    }),
-  },
+  computed: {},
   components: {
     VideoPlayer,
   },

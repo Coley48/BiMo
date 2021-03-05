@@ -83,7 +83,11 @@
                     @click.once="closeBackTopTips"
                     v-show="!isSliderActive"
                   >
-                    <img :src="backTopIcon" alt="" gable="dragfalse" />
+                    <img
+                      src="/image/ceremony/cube.png"
+                      alt=""
+                      gable="dragfalse"
+                    />
                   </div>
                 </transition>
 
@@ -109,7 +113,11 @@
                   @click="toggleSlider"
                   @click.once="closeSliderTips"
                 >
-                  <img :src="toggleSliderIcon" alt="" draggable="false" />
+                  <img
+                    src="/image/ceremony/explore.png"
+                    alt=""
+                    draggable="false"
+                  />
                 </div>
 
                 <image-slider
@@ -189,7 +197,6 @@ import ListGroup from "@/component/list-group.vue";
 import HandleBar from "@/component/handle-bar.vue";
 import VideoPlayer from "@/component/video-player.vue";
 import ImageSlider from "@/component/image-slider.vue";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -223,11 +230,543 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: this.$store.state.ceremony.videoList[0],
+            src: "./video/ceremony/purify-full.mp4",
             type: "video/mp4",
           },
         ],
       },
+      videoList: [
+        "./video/ceremony/purify-full.mp4",
+        "./video/ceremony/bename-full.mp4",
+        "./video/ceremony/pray-full.mp4",
+      ],
+      infoList: [
+        {
+          name: "驱秽仪式",
+          intro:
+            "一种常见仪式。毕摩举行该仪式，驱除对象身上的污秽、妖魔、鬼怪等不好的东西，以达到治愈对象身心病痛的效果。",
+        },
+        {
+          name: "起名仪式",
+          intro:
+            "彝族人相信，世间存在勒支特匕（一种会吃掉小孩妖魔）。当小孩子降生，毕摩通过取名仪式，让勒支特匕远离孩子。仪式中，毕摩根据小孩和母亲的生辰八字，加之观察天象，结合彝族历法，为小孩取一个大名。父母可以再根据自己的喜好，为孩子取一个小名。",
+        },
+        {
+          name: "祈福仪式",
+          intro:
+            "一种较为固定的家庭仪式，一般每年三次，较为隆重。第一次在春暖花开之时，第二次在七八月份，第三次在彝族新年前夕。家庭会根据经济条件，选择宰杀的牲畜。通常为羊、猪、鸡各一只。",
+        },
+      ],
+      cube: {
+        top: {
+          index: 0,
+          videoSrc: "/video/ceremony/purify-preview-1.mp4",
+        },
+        bottom: {
+          index: 0,
+          videoSrc: "/video/ceremony/purify-preview-2.mp4",
+        },
+        left: {
+          index: 1,
+          videoSrc: "/video/ceremony/bename-preview-1.mp4",
+        },
+        right: {
+          index: 1,
+          videoSrc: "/video/ceremony/bename-preview-2.mp4",
+        },
+        front: {
+          index: 2,
+          videoSrc: "/video/ceremony/pray-preview-1.mp4",
+        },
+        back: {
+          index: 2,
+          videoSrc: "/video/ceremony/pray-preview-2.mp4",
+        },
+      },
+      segment: [
+        [
+          {
+            text: "鸡蛋占卜",
+            time: 45,
+          },
+          {
+            text: "生烟",
+            time: 177,
+          },
+          {
+            text: "读经文",
+            time: 231,
+          },
+          {
+            text: "烧圆石",
+            time: 291,
+          },
+          {
+            text: "绕白绳",
+            time: 298,
+          },
+          {
+            text: "浇石头",
+            time: 341,
+          },
+          {
+            text: "跨圣枝",
+            time: 346,
+          },
+        ],
+        [
+          {
+            text: "生烟",
+            time: 170,
+          },
+          {
+            text: "牲畜绕头",
+            time: 270,
+          },
+          {
+            text: "宰杀牲畜",
+            time: 311,
+          },
+          {
+            text: "套绳子",
+            time: 413,
+          },
+          {
+            text: "制作护灵符",
+            time: 500,
+          },
+          {
+            text: "午饭",
+            time: 569,
+          },
+          {
+            text: "鸡蛋占卜",
+            time: 595,
+          },
+          {
+            text: "神枝绕头",
+            time: 685,
+          },
+          {
+            text: "妇女接过圣枝和水",
+            time: 703,
+          },
+          {
+            text: "起名",
+            time: 765,
+          },
+          {
+            text: "剪头发",
+            time: 779,
+          },
+          {
+            text: "喂孩子酒水",
+            time: 820,
+          },
+          {
+            text: "穿衣",
+            time: 890,
+          },
+        ],
+        [
+          {
+            text: "生烟",
+            time: 106,
+          },
+          {
+            text: "牲畜绕头",
+            time: 198,
+          },
+          {
+            text: "鸡血淋草偶",
+            time: 240,
+          },
+          {
+            text: "吹鸡",
+            time: 274,
+          },
+          {
+            text: "牲畜头朝门摆放",
+            time: 301,
+          },
+          {
+            text: "换魂仪式",
+            time: 455,
+          },
+          {
+            text: "拿草偶转圈",
+            time: 497,
+          },
+          {
+            text: "传递木板",
+            time: 545,
+          },
+        ],
+      ],
+      element: [
+        [
+          {
+            name: "鸡蛋占卜",
+            origin: "/image/ceremony/purify/1-origin.png",
+            factor: "/image/ceremony/purify/1-factor.png",
+            paint: "/image/ceremony/purify/1-paint.png",
+            info:
+              "鸡蛋占卜所用鸡蛋必须是一公一母交配过后的土鸡蛋。\n毕摩会将鸡蛋打在盛有水的黑色碗中，可以看出人身上的疾病情况，是否有鬼附着。\n在彝族中，非正常死亡的人会变成鬼，如有上吊死的人，鬼魂在鸡蛋中会浮现出人形手里拿着绳子；如跳悬崖自杀者，在鸡蛋中会变成悬崖上站着一个“人”。\n可根据鸡蛋与毕摩位置，判断鬼的方位来源。",
+            time: 45,
+            style: {
+              left: "35%",
+              top: "33.7%",
+              width: "54.5%",
+              height: "63.32%",
+            },
+          },
+          {
+            name: "经书",
+            origin: "/image/ceremony/purify/2-origin.png",
+            factor: "/image/ceremony/purify/2-factor.png",
+            paint: "/image/ceremony/purify/2-paint.png",
+            info:
+              "彝族毕摩的经书种类繁多，毕摩现存的经卷有28类，212种，数量达12452卷。\n从形式上，毕摩经书可以分为占卜、咒术、驱遣、祛秽、赔偿、禳解、调和、祈愿、祭祀、送灵、溯源等种类。",
+            time: 110,
+            style: {
+              left: "64.9%",
+              top: "68.3%",
+              width: "31.68%",
+              height: "29.25%",
+            },
+          },
+          {
+            name: "圣枝",
+            origin: "/image/ceremony/purify/3-origin.png",
+            factor: "/image/ceremony/purify/3-factor.png",
+            paint: "/image/ceremony/purify/3-paint.png",
+            info:
+              "一共需要9双，18支；\n当毕摩咒完后，不好的鬼魂埋在土中，最后用圣枝锁在地下，不再出来。",
+            time: 188,
+            style: {
+              left: "48%",
+              top: "60.1%",
+              width: "51.6%",
+              height: "40%",
+            },
+          },
+          {
+            name: "鸡",
+            origin: "/image/ceremony/purify/4-origin.png",
+            factor: "/image/ceremony/purify/4-factor.png",
+            paint: "/image/ceremony/purify/4-paint.png",
+            info: "仪式时，毕摩拿着鸡往人的身上扇，把人身上的鬼魂扇出去。",
+            time: 200,
+            style: {
+              left: "34.4%",
+              top: "52%",
+              width: "35.6%",
+              height: "47.5%",
+            },
+          },
+          {
+            name: "泥团",
+            origin: "/image/ceremony/purify/5-origin.png",
+            factor: "/image/ceremony/purify/5-factor.png",
+            paint: "/image/ceremony/purify/5-paint.png",
+            info:
+              "捏成3个人的形状，将荞麦花喂到三个泥人口中，将风湿病回归到泥人土中。\n土里挖一个洞，里面烧入牛羊的脂肪，将泥人埋入洞中。",
+            time: 250,
+            style: {
+              left: "60.4%",
+              top: "76%",
+              width: "12.04%",
+              height: "17.63%",
+            },
+          },
+          {
+            name: "白绳子",
+            origin: "/image/ceremony/purify/6-origin.png",
+            factor: "/image/ceremony/purify/6-factor.png",
+            paint: "/image/ceremony/purify/6-paint.png",
+            info: "用白绳子将孩子身体的病痛绑走。",
+            time: 292,
+            style: {
+              left: "57.5%",
+              top: "27.7%",
+              width: "15%",
+              height: "33%",
+            },
+          },
+        ],
+        [
+          {
+            name: "玉米和猪膀胱",
+            origin: "/image/ceremony/bename/1-origin.png",
+            factor: "/image/ceremony/bename/1-factor.png",
+            paint: "/image/ceremony/bename/1-paint.png",
+            info:
+              "悬挂的玉米是要快速晾晒干。\n猪膀胱取自过年时杀的年猪，猪体型大，膀胱就大，代表这家人能杀这么大的猪，寓意财产富足。",
+            time: 5,
+            style: {
+              left: "39.4%",
+              top: "0",
+              width: "20.94%",
+              height: "34.72%",
+            },
+          },
+          {
+            name: "黑猪",
+            origin: "/image/ceremony/bename/2-origin.png",
+            factor: "/image/ceremony/bename/2-factor.png",
+            paint: "/image/ceremony/bename/2-paint.png",
+            info:
+              "猪杀了后，把猪蹄和尾巴坚硬割下来，挂到门楣上，为了防止勒格特比来吃小孩，把不好的事物挡在外面。",
+            time: 158,
+            style: {
+              left: "32.5%",
+              top: "38.3%",
+              width: "48.63%",
+              height: "53.23%",
+            },
+          },
+          {
+            name: "圣枝",
+            origin: "/image/ceremony/bename/3-origin.png",
+            factor: "/image/ceremony/bename/3-factor.png",
+            paint: "/image/ceremony/bename/3-paint.png",
+            info:
+              "共有两组。\n一组：一支有叉，一支无叉和两支有树叶的树枝；\n另一组：九支有叉，九支无叉",
+            time: 204,
+            style: {
+              left: "10.1%",
+              top: "11.2%",
+              width: "68.18%",
+              height: "88.80%",
+            },
+          },
+          {
+            name: "燃烧的木条",
+            origin: "/image/ceremony/bename/4-origin.png",
+            factor: "/image/ceremony/bename/4-factor.png",
+            paint: "/image/ceremony/bename/4-paint.png",
+            info:
+              "毕摩用燃烧的木条，分别点猪尾部、身体、头部，后将木条扔出，寓意把不好的东西扔出去。",
+            time: 335,
+            style: {
+              left: "23.7%",
+              top: "29.5%",
+              width: "53.8%",
+              height: "44.3%",
+            },
+          },
+          {
+            name: "护灵符",
+            origin: "/image/ceremony/bename/5-origin.png",
+            factor: "/image/ceremony/bename/5-factor.png",
+            paint: "/image/ceremony/bename/5-paint.png",
+            info:
+              "将鱼鳍、姜、蒜等放入并缝在一起，佩戴在小孩的脖子上。\n防止外人将不好东西带进家，防止小孩生病。",
+            time: 499,
+            style: {
+              left: "35%",
+              top: "1%",
+              width: "22%",
+              height: "99%",
+            },
+          },
+          {
+            name: "妇女和孩子",
+            origin: "/image/ceremony/bename/6-origin.png",
+            factor: "/image/ceremony/bename/6-factor.png",
+            paint: "/image/ceremony/bename/6-paint.png",
+            info:
+              "相当于汉族办喜事酒席，街坊邻里一起庆祝。本族亲人一般随100元，邻居随20元。",
+            time: 649,
+            style: {
+              left: "0",
+              top: "10%",
+              width: "100%",
+              height: "89.65%",
+            },
+          },
+          {
+            name: "树枝和水",
+            origin: "/image/ceremony/bename/7-origin.png",
+            factor: "/image/ceremony/bename/7-factor.png",
+            paint: "/image/ceremony/bename/7-paint.png",
+            time: 700,
+            info:
+              "祈福本家人的孩子的父母、兄弟姐妹沾水后（男孩沾左手，女孩沾右手），把水倒在地下，为了祈福。",
+            style: {
+              left: "32.4%",
+              top: "3.5%",
+              width: "52.5%",
+              height: "82%",
+            },
+          },
+          {
+            name: "啤酒",
+            origin: "/image/ceremony/bename/8-origin.png",
+            factor: "/image/ceremony/bename/8-factor.png",
+            paint: "/image/ceremony/bename/8-paint.png",
+            time: 734,
+            info:
+              "原来彝族人主要饮用苦荞和玉米酿制的酒，近些年，被现代啤酒所代替。\n瓶上刻有525标志，是主家与客人分酒的分割线。",
+            style: {
+              left: "37.2%",
+              top: "45.9%",
+              width: "18.12%",
+              height: "42.14%",
+            },
+          },
+          {
+            name: "苦荞",
+            origin: "/image/ceremony/bename/9-origin.png",
+            factor: "/image/ceremony/bename/9-factor.png",
+            paint: "/image/ceremony/bename/9-paint.png",
+            info:
+              "炒苦荞，彝族过去贫穷，无法负担杀牲畜，就用苦荞祭祀神灵，慢慢演变成祭祀环节中的一部分。",
+            time: 851,
+            style: {
+              left: "7.7%",
+              top: "18.6%",
+              width: "63.33%",
+              height: "72.59%",
+            },
+          },
+        ],
+        [
+          {
+            name: "鸡毛穿线",
+            origin: "/image/ceremony/pray/1-origin.png",
+            factor: "/image/ceremony/pray/1-factor.png",
+            paint: "/image/ceremony/pray/1-paint.png",
+            time: 98,
+            info: "一般是两条线相交而成，代表两条鬼魂的路，有一条是麻绳组成。",
+            style: {
+              left: "8.5%",
+              top: "0",
+              width: "83.49%",
+              height: "65.37%",
+            },
+          },
+          {
+            name: "草偶",
+            origin: "/image/ceremony/pray/2-origin.png",
+            factor: "/image/ceremony/pray/2-factor.png",
+            paint: "/image/ceremony/pray/2-paint.png",
+            time: 142,
+            info:
+              "用草做成狗或鸡等低级事物，如果发生诅咒，别人家将本家咒成狗或鸡等事物，仪式可反制，将污秽带走。",
+            style: {
+              left: "32.5%",
+              top: "0",
+              width: "48%",
+              height: "100%",
+            },
+          },
+          {
+            name: "铜铃",
+            origin: "/image/ceremony/pray/3-origin.png",
+            factor: "/image/ceremony/pray/3-factor.png",
+            paint: "/image/ceremony/pray/3-paint.png",
+            time: 168,
+            info:
+              "毕摩摇响铜铃铛，告知天地神灵仪式开始。\n召唤受祈福者的灵魂，请求世间的美好事物汇聚。\n仪式中会重复多次。",
+            style: {
+              left: "35.8%",
+              top: "63.5%",
+              width: "7.94%",
+              height: "13.65%",
+            },
+          },
+          {
+            name: "三种动物",
+            origin: "/image/ceremony/pray/4-origin.png",
+            factor: "/image/ceremony/pray/4-factor.png",
+            paint: "/image/ceremony/pray/4-paint.png",
+            time: 177,
+            info:
+              "祈福仪式宰杀标准不一。\n简单仪式为宰杀鸡，复杂仪式为宰杀鸡、猪、羊、山羊。\n仪式中，鸡为毕摩宰杀，猪羊为帮忙亲友宰杀。",
+            style: {
+              left: "48.7%",
+              top: "50.1%",
+              width: "33.2%",
+              height: "50%",
+            },
+          },
+          {
+            name: "经书",
+            origin: "/image/ceremony/pray/5-origin.png",
+            factor: "/image/ceremony/pray/5-factor.png",
+            paint: "/image/ceremony/pray/5-paint.png",
+            time: 322,
+            info:
+              "不同的仪式，毕摩会用到不同的经书。\n祈福仪式口诵经文内容，让妖魔鬼怪和不好的事物远离这个家庭，保佑一家人都远离妖魔、疾病，粮食丰收，吉祥如意。",
+            style: {
+              left: "17.1%",
+              top: "53.5%",
+              width: "32.19%",
+              height: "42.87%",
+            },
+          },
+          {
+            name: "鬼魂木板",
+            origin: "/image/ceremony/pray/6-origin.png",
+            factor: "/image/ceremony/pray/6-factor.png",
+            paint: "/image/ceremony/pray/6-paint.png",
+            time: 384,
+            info:
+              "在木板上画两个不同性别的鬼魂，使用经文、吐口水、放在脚下踩等方式诅咒它们。",
+            style: {
+              left: "47.9%",
+              top: "15.6%",
+              width: "24.58%",
+              height: "37.41%",
+            },
+          },
+          {
+            name: "帽子",
+            origin: "/image/ceremony/pray/7-origin.png",
+            factor: "/image/ceremony/pray/7-factor.png",
+            paint: "/image/ceremony/pray/7-paint.png",
+            time: 464,
+            info:
+              "毕摩在这个环节将牲畜作为污秽的替代物，将它们赶出家门到鬼怪处。\n帽子在此过程中，可以保护毕摩不受“伤害”。",
+            style: {
+              left: "28.9%",
+              top: "0",
+              width: "46.20%",
+              height: "42.87%",
+            },
+          },
+          {
+            name: "斯切",
+            origin: "/image/ceremony/pray/8-origin.png",
+            factor: "/image/ceremony/pray/8-factor.png",
+            paint: "/image/ceremony/pray/8-paint.png",
+            time: 600,
+            info:
+              "分为鸡斯切，猪斯切，羊斯切。\n人身上的疾病变成猪鸡羊等实物，将它送走。",
+            style: {
+              left: "38.5%",
+              top: "35%",
+              width: "30.16%",
+              height: "39.44%",
+            },
+          },
+          {
+            name: "羊皮包裹",
+            origin: "/image/ceremony/pray/9-origin.png",
+            factor: "/image/ceremony/pray/9-factor.png",
+            paint: "/image/ceremony/pray/9-paint.png",
+            time: 730,
+            info: "羊皮中包裹有羊、猪、鸡等动物内脏，用来祭祀毕摩的神魂。",
+            style: {
+              left: "10.2%",
+              top: "20.4%",
+              width: "24.69%",
+              height: "34.72%",
+            },
+          },
+        ],
+      ],
     };
   },
   methods: {
@@ -350,15 +889,6 @@ export default {
     elementTimePoints() {
       return this.element[this.index].map((value) => value.time);
     },
-    ...mapState({
-      cube: (state) => state.ceremony.cube,
-      infoList: (state) => state.ceremony.infoList,
-      videoList: (state) => state.ceremony.videoList,
-      segment: (state) => state.ceremony.segment,
-      element: (state) => state.ceremony.element,
-      backTopIcon: (state) => state.ceremony.backTopIcon,
-      toggleSliderIcon: (state) => state.ceremony.toggleSliderIcon,
-    }),
   },
   components: {
     ListGroup,

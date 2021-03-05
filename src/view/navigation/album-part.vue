@@ -1,9 +1,7 @@
 <template>
   <div class="album">
     <div class="container">
-      <div class="hint-text">
-        {{ hintText }}
-      </div>
+      <div class="hint-text">向上滚动以查看图片。</div>
       <div class="view" v-show="index !== -1" @click="index = -1">
         <img :src="imageList[index]" alt="" />
       </div>
@@ -28,12 +26,26 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   data() {
     return {
       index: -1,
+      imageList: [
+        "/image/album/1.png",
+        "/image/album/2.png",
+        "/image/album/3.png",
+        "/image/album/4.png",
+        "/image/album/5.png",
+        "/image/album/6.png",
+        "/image/album/7.png",
+        "/image/album/8.png",
+        "/image/album/9.png",
+        "/image/album/10.png",
+        "/image/album/11.png",
+        "/image/album/12.png",
+        "/image/album/13.png",
+        "/image/album/14.png",
+      ],
     };
   },
   methods: {},
@@ -41,10 +53,6 @@ export default {
     next() {
       return this.firstGroup.length;
     },
-    ...mapState({
-      hintText: (state) => state.navigation.album.hintText,
-      imageList: (state) => state.navigation.album.imageList,
-    }),
     half() {
       return Math.floor(this.imageList.length / 2);
     },

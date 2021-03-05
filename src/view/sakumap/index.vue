@@ -4,9 +4,11 @@
       <div class="sec-1" v-show="isCoverShow">
         <div class="cover">
           <div class="opener" @click="enter()">
-            <p v-for="(item, index) in poemList" :key="index">
-              {{ item }}
-            </p>
+            <p>"倘若高山不美，用羊群装饰则美；"</p>
+            <p>"羊群装饰不美，用杉林装饰则美；"</p>
+            <p>"杉林装饰不美，有鸟鹊鸣叫与獐子跳跃则美；"</p>
+            <p>"山崖不美，若山上有云飘则美，山下有蜂鸣则美。"</p>
+            <p>"——彝族克智谚语"</p>
           </div>
         </div>
       </div>
@@ -43,8 +45,6 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   data() {
     this.$store.commit("setIndex", 4);
@@ -55,6 +55,170 @@ export default {
       isVideoFull: false,
       player: null,
       isPosition: false,
+      points: [
+        {
+          src: "./video/sakumap/1.mp4",
+          title: "放牛",
+          area: "B",
+          position: {
+            left: "65%",
+            top: "39.2%",
+          },
+        },
+        {
+          src: "./video/sakumap/2.mp4",
+          title: "牛棚",
+          area: "B",
+          position: {
+            left: "64%",
+            top: "25%",
+          },
+        },
+        {
+          src: "./video/sakumap/3.mp4",
+          title: "田野视角-2",
+          area: "C",
+          position: {
+            left: "38%",
+            top: "68%",
+          },
+        },
+        {
+          src: "./video/sakumap/4.mp4",
+          title: "下山",
+          area: "A",
+          position: {
+            left: "15.1%",
+            top: "41.7%",
+          },
+        },
+        {
+          src: "./video/sakumap/5.mp4",
+          title: "山上视角-2",
+          area: "D",
+          position: {
+            left: "61.4%",
+            top: "83.3%",
+          },
+        },
+        {
+          src: "./video/sakumap/6.mp4",
+          title: "孩子嬉戏",
+          area: "B",
+          position: {
+            left: "80%",
+            top: "45%",
+          },
+        },
+        {
+          src: "./video/sakumap/7.mp4",
+          title: "学校里的孩子们",
+          area: "C",
+          position: {
+            left: "44%",
+            top: "58%",
+          },
+        },
+        {
+          src: "./video/sakumap/8.mp4",
+          title: "盖房子",
+          area: "B",
+          position: {
+            left: "55%",
+            top: "40%",
+          },
+        },
+        {
+          src: "./video/sakumap/9.mp4",
+          title: "山沟里的家畜",
+          area: "A",
+          position: {
+            left: "42.3%",
+            top: "19.2%",
+          },
+        },
+        {
+          src: "./video/sakumap/10.mp4",
+          title: "加工察尔瓦",
+          area: "A",
+          position: {
+            left: "30.9%",
+            top: "26.5%",
+          },
+        },
+        {
+          src: "./video/sakumap/11.mp4",
+          title: "猪圈",
+          area: "D",
+          position: {
+            left: "60%",
+            top: "68%",
+          },
+        },
+        {
+          src: "./video/sakumap/12.mp4",
+          title: "桥",
+          area: "D",
+          position: {
+            left: "90%",
+            top: "75%",
+          },
+        },
+        {
+          src: "./video/sakumap/13.mp4",
+          title: "赶牛过河",
+          area: "A",
+          position: {
+            left: "18.6%",
+            top: "22%",
+          },
+        },
+        {
+          src: "./video/sakumap/14.mp4",
+          title: "田野视角-1",
+          area: "D",
+          position: {
+            left: "73%",
+            top: "73%",
+          },
+        },
+        {
+          src: "./video/sakumap/15.mp4",
+          title: "学校",
+          area: "C",
+          position: {
+            left: "46%",
+            top: "55%",
+          },
+        },
+        {
+          src: "./video/sakumap/16.mp4",
+          title: "山上视角-1",
+          area: "C",
+          position: {
+            left: "28%",
+            top: "72%",
+          },
+        },
+        {
+          src: "./video/sakumap/17.mp4",
+          title: "室内结构",
+          area: "A",
+          position: {
+            left: "32.8%",
+            top: "40%",
+          },
+        },
+        {
+          src: "./video/sakumap/18.mp4",
+          title: "山坡",
+          area: "B",
+          position: {
+            left: "74%",
+            top: "20%",
+          },
+        },
+      ],
     };
   },
   methods: {
@@ -93,10 +257,6 @@ export default {
         [this.points[this.index].area]: this.isPosition,
       };
     },
-    ...mapState({
-      poemList: (state) => state.sakumap.poemList,
-      points: (state) => state.sakumap.points,
-    }),
   },
 };
 </script>

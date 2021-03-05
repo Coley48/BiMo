@@ -1,9 +1,7 @@
 <template>
   <section class="introduce">
     <div class="container">
-      <h2 class="title">
-        {{ title }}
-      </h2>
+      <h2 class="title">影像结构</h2>
 
       <list
         class="journey-wrap"
@@ -45,7 +43,6 @@
 <script>
 import list from "./list";
 import box from "./box";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -53,17 +50,41 @@ export default {
     return {
       counter: 0,
       bottomTipsState: localStorage.getItem("bottomTipsState"),
+      journey: {
+        images: [
+          "/image/introduce/train.png",
+          "/image/introduce/bus.png",
+          "/image/introduce/car.png",
+        ],
+        title: "探索旅途",
+        content:
+          "本次探索路途分为三段，我将带领你从四川省会成都出发，一路前往大凉山方向。",
+      },
+      ceremony: {
+        images: [
+          "/image/introduce/purify.png",
+          "/image/introduce/bename.png",
+          "/image/introduce/pray.png",
+        ],
+        title: "毕摩仪式",
+        content:
+          "我们将跟随我的父亲一起，观看驱秽、新生儿起名、祈福三种仪式。影像中，你可以了解到仪式核心环节和关键要素。",
+      },
+      dictation: {
+        image: "/image/introduce/dictation.png",
+        title: "毕摩口述",
+        content:
+          "为什么彝族人民相信鬼神，认为自然界中的鬼神操纵影响着人们的生活？来听听毕摩的口述，你应该可以找到答案。",
+      },
+      sakumap: {
+        image: "/image/introduce/sakumap.png",
+        title: "洒库全景",
+        content:
+          "你想了解更多彝族人民日常生活的真实写照吗？这里为你准备了很多。",
+      },
     };
   },
-  computed: {
-    ...mapState({
-      title: (state) => state.introduce.title,
-      journey: (state) => state.introduce.journey,
-      ceremony: (state) => state.introduce.ceremony,
-      dictation: (state) => state.introduce.dictation,
-      sakumap: (state) => state.introduce.sakumap,
-    }),
-  },
+  computed: {},
   methods: {
     playAudio() {
       this.$store.commit("playClickAudio");

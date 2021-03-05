@@ -81,6 +81,28 @@ export default {
       index: -1,
       clickAudio: null,
       logoTipsState: localStorage.getItem("logoTipsState") || "show",
+      icons: [
+        {
+          content: "章节目录",
+          name: "menu",
+        },
+        {
+          content: "家庭相册",
+          name: "album",
+        },
+        {
+          content: "你的位置",
+          name: "earth",
+        },
+        {
+          content: "分享推广",
+          name: "share",
+        },
+        {
+          content: "关于我们",
+          name: "about",
+        },
+      ],
     };
   },
   methods: {
@@ -113,7 +135,6 @@ export default {
     },
     ...mapState({
       isLogoActive: "isLogoActive",
-      icons: (state) => state.navigation.icons,
     }),
   },
   components: {

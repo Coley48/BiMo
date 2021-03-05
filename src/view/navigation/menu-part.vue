@@ -4,7 +4,7 @@
       <span class="list-item">章节目录</span>
       <router-link
         class="list-item"
-        v-for="(item, idx) in menu"
+        v-for="(item, idx) in menuItem"
         :key="idx"
         :to="chapters[idx]"
         :class="{ active: currentIndex === idx }"
@@ -22,13 +22,21 @@ import { mapState } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      menuItem: [
+        "引导",
+        "探索旅途",
+        "毕摩仪式",
+        "毕摩口述",
+        "洒库全景",
+        "终章",
+      ],
+    };
   },
   computed: {
     ...mapState({
       currentIndex: "currentIndex",
       chapters: "chapters",
-      menu: (state) => state.navigation.menu,
     }),
   },
   methods: {

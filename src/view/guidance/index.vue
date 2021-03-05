@@ -2,7 +2,7 @@
   <section class="guidance">
     <transition>
       <div class="starter-wrap" v-show="isStarterShow" @click="showPreface()">
-        <img :src="starterIcon" alt="" />
+        <img src="/image/guidance/scroll.png" alt="" />
       </div>
     </transition>
 
@@ -11,21 +11,23 @@
       :class="{ show: isPrefaceShow, hide: isPrefaceHide }"
     >
       <h1 class="title">
-        <span v-for="(item, index) in titleList" :key="index">{{ item }}</span>
+        <span>毕</span>
+        <span>摩</span>
+        <span>行</span>
       </h1>
 
       <p class="content">
-        {{ briefIntro }}
+        这是一段探寻毕摩文化的旅途，毕摩是彝族专门替族人礼赞、祈祷、祭祀的祭师。“毕”为“念经”之意，“摩”为“有知识的长者”。他既掌管神权，又把握文化，既司通天地，又指导人事。
       </p>
 
       <div class="letter-opener" @click="showLetter()">
-        <img :src="letterIcon" alt="" />
+        <img src="/image/guidance/envelope.png" alt="" />
       </div>
     </div>
 
     <div class="letter-wrap" :class="{ show: isLetterShow }">
       <div class="letter">
-        <img :src="letterPic" alt="" draggable="false" />
+        <img src="/image/guidance/letter.png" alt="" draggable="false" />
 
         <router-link
           class="accept"
@@ -34,7 +36,7 @@
           @click.native="stopAudio"
           draggable="false"
         >
-          <img :src="acceptIcon" alt="" draggable="false" />
+          <img src="/image/guidance/board.png" alt="" draggable="false" />
         </router-link>
       </div>
     </div>
@@ -45,7 +47,6 @@
 
 <script>
 import { Howl } from "howler";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -57,18 +58,7 @@ export default {
       isLetterShow: false,
     };
   },
-  computed: {
-    ...mapState({
-      titleList: (state) => state.guidance.titleList,
-      briefIntro: (state) => state.guidance.briefIntro,
-      starterIcon: (state) => state.guidance.starterIcon,
-      acceptIcon: (state) => state.guidance.acceptIcon,
-      letterIcon: (state) => state.guidance.letterIcon,
-      letterPic: (state) => state.guidance.letterPic,
-      letterAudioSrc: (state) => state.guidance.letterAudioSrc,
-      loadingAudioSrc: (state) => state.guidance.loadingAudioSrc,
-    }),
-  },
+  computed: {},
   methods: {
     showPreface() {
       this.isPrefaceShow = true;
@@ -86,20 +76,13 @@ export default {
       this.$store.commit("playClickAudio");
       this.$store.commit("toggleNavbar", true);
     },
-    updateData() {
-      this.$store.commit("updateData", {
-        chapter: "guidance",
-        attr: "briefIntro",
-        value: "Hello, world.",
-      });
-    },
   },
   mounted() {
     this.letterAudio = new Howl({
-      src: this.letterAudioSrc,
+      src: "/video/guidance/letter.mp3",
     });
     this.loadingAudio = new Howl({
-      src: this.loadingAudioSrc,
+      src: "/video/guidance/loading.mp3",
     });
   },
 };

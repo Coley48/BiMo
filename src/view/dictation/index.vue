@@ -5,9 +5,10 @@
         <div class="container">
           <div class="opener" @click="enterVideo"></div>
           <div class="preface" @click="enterVideo">
-            <p v-for="(item, index) in poemList" :key="index">
-              {{ item }}
-            </p>
+            <p>"头人的知识上百，"</p>
+            <p>"兹莫的知识上千，"</p>
+            <p>"毕摩的知识无数计。"</p>
+            <p>"——彝族克智谚语"</p>
           </div>
         </div>
       </div>
@@ -44,7 +45,6 @@
 <script>
 import videojs from "video.js";
 import VideoPlayer from "@/component/video-player";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -60,7 +60,7 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: this.$store.state.dictation.videoList[0],
+            src: "/video/dictation/dictation-1.mp4",
             type: "video/mp4",
           },
         ],
@@ -72,18 +72,14 @@ export default {
         controlBar: { pictureInPictureToggle: false, volumePanel: false },
         sources: [
           {
-            src: this.$store.state.dictation.videoList[1],
+            src: "/video/dictation/dictation-2.mp4",
             type: "video/mp4",
           },
         ],
       },
     };
   },
-  computed: {
-    ...mapState({
-      poemList: (state) => state.dictation.poemList,
-    }),
-  },
+  computed: {},
   methods: {
     firstHandler(firstPlayer) {
       this.firstPlayer = firstPlayer;

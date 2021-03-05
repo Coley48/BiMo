@@ -2,33 +2,28 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import router from "../router"
 import { Howl } from 'howler';
-import state from '../data/config.json';
-
-
-// 全局属性
-let addition = {
-  currentIndex: -1, // 页面索引号
-  isLogoActive: true, // 导航栏激活状态
-  chapters: [ // 章节导航路由对象
-    { name: "Introduce" },
-    { name: "Journey" },
-    { name: "Ceremony" },
-    { name: "Dictation" },
-    { name: "Sakumap" },
-    { name: "Ending" },
-  ],
-};
-
-Object.assign(state, addition);
-state.clickAudio = new Howl({
-  src: state.guidance.clickAudioSrc
-})
 
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state,
+  state: {
+    currentIndex: -1, // 页面索引号
+    isLogoActive: true, // 导航栏激活状态
+
+    chapters: [ // 章节导航路由对象
+      { name: "Introduce" },
+      { name: "Journey" },
+      { name: "Ceremony" },
+      { name: "Dictation" },
+      { name: "Sakumap" },
+      { name: "Ending" },
+    ],
+    clickAudio: new Howl({
+      src: "/video/navigation/click.mp3"
+    })
+  },
+
   getters: {
   },
   mutations: {

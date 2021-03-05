@@ -18,9 +18,7 @@
             p-id="5503"
           ></path>
         </svg>
-        <p>
-          {{ hintText }}
-        </p>
+        <p>邀请更多人踏上旅程。</p>
       </div>
 
       <div class="icon-group" v-for="(group, idx) in iconGroup" :key="idx">
@@ -41,18 +39,52 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-
 export default {
   data() {
-    return {};
+    return {
+      iconGroup: [
+        [
+          {
+            name: "qq",
+            url:
+              "https://connect.qq.com/widget/shareqq/index.html?url=https://coley48.cn/bimo.html&desc=毕摩行：一部民族志交互纪录片。",
+            desc: "QQ好友",
+          },
+          {
+            name: "zone",
+            url:
+              "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://coley48.cn/bimo.html",
+            desc: "QQ空间",
+          },
+          {
+            name: "weichat",
+            url: "#",
+            desc: "微信好友",
+          },
+        ],
+        [
+          {
+            name: "weibo",
+            url:
+              "http://v.t.sina.com.cn/share/share.php?url=https://coley48.cn/bimo.html&title=毕摩行：一部民族志交互纪录片。",
+            desc: "新浪微博",
+          },
+          {
+            name: "circle",
+            url:
+              "https://api.addthis.com/oexchange/0.8/forward/wechat/offer?url=https://coley48.cn/bimo.html&title=毕摩行：一部民族志交互纪录片。",
+            desc: "朋友圈",
+          },
+          {
+            name: "copy",
+            url: "https://coley48.cn/bimo.html",
+            desc: "复制链接",
+          },
+        ],
+      ],
+    };
   },
-  computed: {
-    ...mapState({
-      hintText: (state) => state.navigation.share.hintText,
-      iconGroup: (state) => state.navigation.share.iconGroup,
-    }),
-  },
+  computed: {},
   methods: {
     close() {
       this.$emit("close");

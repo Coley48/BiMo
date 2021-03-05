@@ -4,8 +4,14 @@
       <div class="sec-1" v-show="isCoverShow">
         <div class="cover">
           <div class="opener" @click="enter">
-            <p v-for="(item, index) in poemList" :key="index">
-              {{ item }}
+            <p>"经过这几天的体验，",</p>
+            <p>"我相信你对彝族人民和毕摩文化有了更深的了解。",</p>
+            <p>"通过毕摩仪式，",</p>
+            <p>"阿尔布哈的孩子减轻了病痛；",</p>
+            <p>"阿尔尔主的孩子有了好听的名字；",</p>
+            <p>"吉拿伟吉一家也远离了神鬼的侵扰。",</p>
+            <p>
+              "最后的篇章是探索乐章，是烟火，是山花，是流水，是旅途，是愿景......"
             </p>
           </div>
         </div>
@@ -25,7 +31,6 @@
 
 <script>
 import VideoPlayer from "@/component/video-player";
-import { mapState } from "vuex";
 
 export default {
   data() {
@@ -39,18 +44,14 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: this.$store.state.ending.videoSrc,
+            src: "/video/ending/ending.mp4",
             type: "video/mp4",
           },
         ],
       },
     };
   },
-  computed: {
-    ...mapState({
-      poemList: (state) => state.ending.poemList,
-    }),
-  },
+  computed: {},
   methods: {
     enter() {
       this.isCoverShow = false;

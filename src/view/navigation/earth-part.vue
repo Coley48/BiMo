@@ -20,7 +20,7 @@ export default {
         controlBar: { pictureInPictureToggle: false, volumePanel: false },
         sources: [
           {
-            src: this.$store.state.navigation.earth.videoSrc,
+            src: "/video/earth/google-earth.mp4",
             type: "video/mp4",
           },
         ],
