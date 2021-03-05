@@ -108,3 +108,7 @@ image/
 video/
 src/
 static/
+conf/ca/
+
+
+model/config.go

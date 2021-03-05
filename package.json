@@ -48,6 +48,7 @@
     "@popperjs/core": "^2.6.0",
     "animate.css": "^4.1.1",
     "bootstrap": "^4.5.3",
+    "dropzone": "^5.7.6",
     "hammerjs": "^2.0.8",
     "howler": "^2.2.1",
     "http-server": "^0.12.3",
