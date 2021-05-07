@@ -30,7 +30,7 @@
           @click="backTop"
           @click.once="closeBackTopTips"
         >
-          <img src="/image/journey/book.png" alt="" />
+          <img src="../../assets/img/icon/book.png" alt="" />
         </div>
 
         <video-player :options="videoOptions" :callback="videoHandler" />
@@ -238,9 +238,6 @@ export default {
       }
     }
   }
-}
-
-.freeze {
 }
 
 @media only screen and (min-width: 1440px) {

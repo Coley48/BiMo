@@ -2,7 +2,7 @@
   <section class="guidance">
     <transition>
       <div class="starter-wrap" v-show="isStarterShow" @click="showPreface()">
-        <img src="/image/guidance/scroll.png" alt="" />
+        <img src="../../assets/img/guidance/scroll.png" alt="" />
       </div>
     </transition>
 
@@ -21,13 +21,17 @@
       </p>
 
       <div class="letter-opener" @click="showLetter()">
-        <img src="/image/guidance/envelope.png" alt="" />
+        <img src="../../assets/img/icon/envelope.png" alt="" />
       </div>
     </div>
 
     <div class="letter-wrap" :class="{ show: isLetterShow }">
       <div class="letter">
-        <img src="/image/guidance/letter.png" alt="" draggable="false" />
+        <img
+          src="../../assets/img/guidance/letter.png"
+          alt=""
+          draggable="false"
+        />
 
         <router-link
           class="accept"
@@ -36,7 +40,11 @@
           @click.native="stopAudio"
           draggable="false"
         >
-          <img src="/image/guidance/board.png" alt="" draggable="false" />
+          <img
+            src="../../assets/img/guidance/board.png"
+            alt=""
+            draggable="false"
+          />
         </router-link>
       </div>
     </div>
@@ -89,6 +97,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+// 应用于所有屏幕的基础样式
 .guidance {
   position: relative;
   z-index: 1000;
@@ -258,40 +267,41 @@ export default {
       }
     }
   }
+
+  @keyframes scroll-pulse {
+    from {
+      transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+      transform: scale3d(1.05, 1.05, 1.05);
+    }
+
+    to {
+      transform: scale3d(1, 1, 1);
+    }
+  }
+
+  @keyframes icon-rotate {
+    50% {
+      transform: rotateZ(10deg);
+    }
+  }
+
+  @keyframes font-breath {
+    50% {
+      font-size: 0.95rem;
+    }
+  }
+
+  @keyframes person-blink {
+    50% {
+      opacity: 1;
+    }
+  }
 }
 
-@keyframes scroll-pulse {
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    transform: scale3d(1.05, 1.05, 1.05);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
-}
-
-@keyframes icon-rotate {
-  50% {
-    transform: rotateZ(10deg);
-  }
-}
-
-@keyframes font-breath {
-  50% {
-    font-size: 0.95rem;
-  }
-}
-
-@keyframes person-blink {
-  50% {
-    opacity: 1;
-  }
-}
-
+// 576px以上屏幕宽度的样式
 @media only screen and (min-width: 576px) {
   .guidance {
     .starter-wrap {
@@ -344,6 +354,7 @@ export default {
   }
 }
 
+// 768px以上屏幕宽度的样式
 @media only screen and (min-width: 768px) {
   .guidance {
     .starter-wrap {
@@ -394,6 +405,7 @@ export default {
   }
 }
 
+// 1024px以上屏幕宽度的样式
 @media only screen and (min-width: 1024px) {
   .guidance {
     .preface-wrap {
@@ -436,6 +448,7 @@ export default {
   }
 }
 
+// 1028px以上屏幕宽度的样式
 @media only screen and (min-width: 1280px) {
   .guidance {
     .starter-wrap {
@@ -503,6 +516,7 @@ export default {
   }
 }
 
+// 1440px以上屏幕宽度的样式
 @media only screen and (min-width: 1440px) {
   .guidance {
     .starter-wrap {

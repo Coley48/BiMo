@@ -5,10 +5,10 @@
         <div class="container">
           <div class="opener" @click="enterVideo"></div>
           <div class="preface" @click="enterVideo">
-            <p>"头人的知识上百，"</p>
-            <p>"兹莫的知识上千，"</p>
-            <p>"毕摩的知识无数计。"</p>
-            <p>"——彝族克智谚语"</p>
+            <p>头人的知识上百，</p>
+            <p>兹莫的知识上千，</p>
+            <p>毕摩的知识无数计。</p>
+            <p>——彝族克智谚语</p>
           </div>
         </div>
       </div>

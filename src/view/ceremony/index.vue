@@ -84,7 +84,7 @@
                     v-show="!isSliderActive"
                   >
                     <img
-                      src="/image/ceremony/cube.png"
+                      src="../../assets/img/icon/cube.png"
                       alt=""
                       gable="dragfalse"
                     />
@@ -114,7 +114,7 @@
                   @click.once="closeSliderTips"
                 >
                   <img
-                    src="/image/ceremony/explore.png"
+                    src="../../assets/img/icon/explore.png"
                     alt=""
                     draggable="false"
                   />
@@ -810,23 +810,27 @@ export default {
       this.player?.currentTime(this.segmentTimePoints[i]);
     },
     updateTime() {
-      let t = Math.floor(this.player?.currentTime());
-      let i = this.segmentTimePoints.indexOf(t);
-      if (i != -1) {
-        this.listIndex = i;
-      }
+      try {
+        let t = Math.floor(this.player?.currentTime());
+        let i = this.segmentTimePoints.indexOf(t);
+        if (i != -1) {
+          this.listIndex = i;
+        }
 
-      let j = this.elementTimePoints.indexOf(t);
-      if (j != -1) {
-        this.isFactorShake = true;
-        this.isTriggerShake = true;
-        setTimeout(() => {
-          this.isTriggerShake = false;
-        }, 3000);
+        let j = this.elementTimePoints.indexOf(t);
+        if (j != -1) {
+          this.isFactorShake = true;
+          this.isTriggerShake = true;
+          setTimeout(() => {
+            this.isTriggerShake = false;
+          }, 3000);
 
-        this.imageSlider.slide(
-          j - this.imageSlider.children(":nth-child(4)").attr("data-index")
-        );
+          this.imageSlider.slide(
+            j - this.imageSlider.children(":nth-child(4)").attr("data-index")
+          );
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     debounce(func, delay) {
@@ -898,15 +902,15 @@ export default {
   },
   mounted() {
     let Win = $(window);
-    let Height = Win.height() / 2;
-    let Width = Win.width() / 2;
-    if (Width >= 1280 / 2) {
+    let originY = Win.height() / 2;
+    let originX = Win.width() / 2;
+    if (Win.width() >= 1280) {
       let cubeWrap = $(".ceremony .sec-1");
 
       cubeWrap.on("mousemove", (e) => {
         cubeWrap.css(
           "perspective-origin",
-          `${e.clientX - Width}px ${e.clientY - Height}px`
+          `${e.clientX - originX}px ${e.clientY - originY}px`
         );
       });
       cubeWrap.find(".cube").on("mouseover", (e) => {
