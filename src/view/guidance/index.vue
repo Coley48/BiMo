@@ -87,10 +87,10 @@ export default {
   },
   mounted() {
     this.letterAudio = new Howl({
-      src: "/video/guidance/letter.mp3",
+      src: "./video/guidance/letter.mp3",
     });
     this.loadingAudio = new Howl({
-      src: "/video/guidance/loading.mp3",
+      src: "./video/guidance/loading.mp3",
     });
   },
 };

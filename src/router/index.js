@@ -10,74 +10,34 @@ VueRouter.prototype.push = function push(location) {
 }
 Vue.use(VueRouter)
 
-
-
-// const routes = [
-//   {
-//     path: '/',
-//     name: 'Guidance',
-//     component: guidance,
-//   },
-//   {
-//     path: '/introduce',
-//     name: 'Introduce',
-//     component: () => import('../view/introduce/index.vue')
-//   }, {
-//     path: '/journey',
-//     name: 'Journey',
-//     component: () => import('../view/journey/index.vue')
-//   }, {
-//     path: '/ceremony',
-//     name: 'Ceremony',
-//     component: () => import('../view/ceremony/index.vue')
-//   }, {
-//     path: '/dictation',
-//     name: 'Dictation',
-//     component: () => import('../view/dictation/index.vue')
-//   }, {
-//     path: '/sakumap',
-//     name: 'Sakumap',
-//     component: () => import('../view/sakumap/index.vue')
-//   }, {
-//     path: '/ending',
-//     name: 'Ending',
-//     component: () => import('../view/ending/index.vue')
-//   },
-//   {
-//     path: '*',
-//     redirect: { name: "Guidance" }
-//   }
-// ]
-
-
 const routes = [
   {
-    path: '/bimo.html',
+    path: './index.html',
     name: 'Guidance',
     component: guidance,
   },
   {
-    path: '/bimo.html#introduce',
+    path: './index.html#introduce',
     name: 'Introduce',
     component: () => import('../view/introduce/index.vue')
   }, {
-    path: '/bimo.html#journey',
+    path: './index.html#journey',
     name: 'Journey',
     component: () => import('../view/journey/index.vue')
   }, {
-    path: '/bimo.html#ceremony',
+    path: './index.html#ceremony',
     name: 'Ceremony',
     component: () => import('../view/ceremony/index.vue')
   }, {
-    path: '/bimo.html#dictation',
+    path: './index.html#dictation',
     name: 'Dictation',
     component: () => import('../view/dictation/index.vue')
   }, {
-    path: '/bimo.html#sakumap',
+    path: './index.html#sakumap',
     name: 'Sakumap',
     component: () => import('../view/sakumap/index.vue')
   }, {
-    path: '/bimo.html#ending',
+    path: './index.html#ending',
     name: 'Ending',
     component: () => import('../view/ending/index.vue')
   },

@@ -8,9 +8,9 @@ module.exports = merge(common, {
         publicPath: '',
     },
     devServer: {
-        open: true,
         port: 8000,
         // contentBase: 'src',
+        // open: true,
         hot: true,
         historyApiFallback: {
             index: '/index.html'

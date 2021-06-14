@@ -52,22 +52,22 @@ export default {
         localStorage.getItem("backJourneyTopTipsState") || "show",
       imageList: [
         {
-          imageSrc: "/image/journey/1.成都-西昌.jpg",
+          imageSrc: "./image/journey/1.成都-西昌.jpg",
           title: "成都-西昌",
         },
         {
-          imageSrc: "/image/journey/2.西昌-美姑.jpg",
+          imageSrc: "./image/journey/2.西昌-美姑.jpg",
           title: "西昌-美姑",
         },
         {
-          imageSrc: "/image/journey/3.美姑-洒库.jpg",
+          imageSrc: "./image/journey/3.美姑-洒库.jpg",
           title: "美姑-洒库",
         },
       ],
       videoList: [
-        "/video/journey/chengdu-xichang.mp4",
-        "/video/journey/xichang-meigu.mp4",
-        "/video/journey/meigu-saku.mp4",
+        "./video/journey/chengdu-xichang.mp4",
+        "./video/journey/xichang-meigu.mp4",
+        "./video/journey/meigu-saku.mp4",
       ],
       videoPlayer: null,
       videoOptions: {
@@ -76,7 +76,7 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: "/video/journey/chengdu-xichang.mp4",
+            src: "./video/journey/chengdu-xichang.mp4",
             type: "video/mp4",
           },
         ],

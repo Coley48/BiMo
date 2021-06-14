@@ -52,9 +52,9 @@ export default {
       bottomTipsState: localStorage.getItem("bottomTipsState"),
       journey: {
         images: [
-          "/image/introduce/train.png",
-          "/image/introduce/bus.png",
-          "/image/introduce/car.png",
+          "./image/introduce/train.png",
+          "./image/introduce/bus.png",
+          "./image/introduce/car.png",
         ],
         title: "探索旅途",
         content:
@@ -62,22 +62,22 @@ export default {
       },
       ceremony: {
         images: [
-          "/image/introduce/purify.png",
-          "/image/introduce/bename.png",
-          "/image/introduce/pray.png",
+          "./image/introduce/purify.png",
+          "./image/introduce/bename.png",
+          "./image/introduce/pray.png",
         ],
         title: "毕摩仪式",
         content:
           "我们将跟随我的父亲一起，观看驱秽、新生儿起名、祈福三种仪式。影像中，你可以了解到仪式核心环节和关键要素。",
       },
       dictation: {
-        image: "/image/introduce/dictation.png",
+        image: "./image/introduce/dictation.png",
         title: "毕摩口述",
         content:
           "为什么彝族人民相信鬼神，认为自然界中的鬼神操纵影响着人们的生活？来听听毕摩的口述，你应该可以找到答案。",
       },
       sakumap: {
-        image: "/image/introduce/sakumap.png",
+        image: "./image/introduce/sakumap.png",
         title: "洒库全景",
         content:
           "你想了解更多彝族人民日常生活的真实写照吗？这里为你准备了很多。",

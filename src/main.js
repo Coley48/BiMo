@@ -1,7 +1,7 @@
 require("bootstrap/dist/css/bootstrap-reboot.min.css");
 require('video.js/dist/video-js.css')
 require("./assets/css/style.less");
-require("./assets/fonts/font.css");
+require("./assets/font/font.css");
 
 import Vue from 'vue'
 import App from './app'

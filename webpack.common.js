@@ -10,14 +10,13 @@ module.exports = {
     output: {
         // filename: '[name].[chunkhash].bundle.js',
         filename: 'js/[name].[hash:8].bundle.js',
-        path: path.resolve(__dirname, 'bimo'),
+        path: path.resolve(__dirname, 'BiMo'),
         pathinfo: false,
     },
     resolve: {
         extensions: [".js", ".vue"],
         alias: {
             "@": path.resolve(__dirname, './src'),
-            // vue$: process.env.NODE_ENV === 'production' ? 'vue/dist/vue.runtime.js' : 'vue/dist/vue.esm.js'
         }
     },
     module: {
@@ -69,7 +68,7 @@ module.exports = {
             $: "jquery"
         }),
         new HtmlWebpackPlugin({
-            filename: 'bimo.html',
+            filename: 'index.html',
             template: './src/index.html',
             favicon: './src/assets/img/favicon.ico'
         }),

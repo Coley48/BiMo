@@ -44,7 +44,7 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: "/video/ending/ending.mp4",
+            src: "./video/ending/ending.mp4",
             type: "video/mp4",
           },
         ],

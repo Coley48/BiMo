@@ -260,27 +260,27 @@ export default {
       cube: {
         top: {
           index: 0,
-          videoSrc: "/video/ceremony/purify-preview-1.mp4",
+          videoSrc: "./video/ceremony/purify-preview-1.mp4",
         },
         bottom: {
           index: 0,
-          videoSrc: "/video/ceremony/purify-preview-2.mp4",
+          videoSrc: "./video/ceremony/purify-preview-2.mp4",
         },
         left: {
           index: 1,
-          videoSrc: "/video/ceremony/bename-preview-1.mp4",
+          videoSrc: "./video/ceremony/bename-preview-1.mp4",
         },
         right: {
           index: 1,
-          videoSrc: "/video/ceremony/bename-preview-2.mp4",
+          videoSrc: "./video/ceremony/bename-preview-2.mp4",
         },
         front: {
           index: 2,
-          videoSrc: "/video/ceremony/pray-preview-1.mp4",
+          videoSrc: "./video/ceremony/pray-preview-1.mp4",
         },
         back: {
           index: 2,
-          videoSrc: "/video/ceremony/pray-preview-2.mp4",
+          videoSrc: "./video/ceremony/pray-preview-2.mp4",
         },
       },
       segment: [
@@ -407,11 +407,10 @@ export default {
         [
           {
             name: "鸡蛋占卜",
-            origin: "/image/ceremony/purify/1-origin.png",
-            factor: "/image/ceremony/purify/1-factor.png",
-            paint: "/image/ceremony/purify/1-paint.png",
-            info:
-              "鸡蛋占卜所用鸡蛋必须是一公一母交配过后的土鸡蛋。\n毕摩会将鸡蛋打在盛有水的黑色碗中，可以看出人身上的疾病情况，是否有鬼附着。\n在彝族中，非正常死亡的人会变成鬼，如有上吊死的人，鬼魂在鸡蛋中会浮现出人形手里拿着绳子；如跳悬崖自杀者，在鸡蛋中会变成悬崖上站着一个“人”。\n可根据鸡蛋与毕摩位置，判断鬼的方位来源。",
+            origin: "./image/ceremony/purify/1-origin.png",
+            factor: "./image/ceremony/purify/1-factor.png",
+            paint: "./image/ceremony/purify/1-paint.png",
+            info: "鸡蛋占卜所用鸡蛋必须是一公一母交配过后的土鸡蛋。\n毕摩会将鸡蛋打在盛有水的黑色碗中，可以看出人身上的疾病情况，是否有鬼附着。\n在彝族中，非正常死亡的人会变成鬼，如有上吊死的人，鬼魂在鸡蛋中会浮现出人形手里拿着绳子；如跳悬崖自杀者，在鸡蛋中会变成悬崖上站着一个“人”。\n可根据鸡蛋与毕摩位置，判断鬼的方位来源。",
             time: 45,
             style: {
               left: "35%",
@@ -422,11 +421,10 @@ export default {
           },
           {
             name: "经书",
-            origin: "/image/ceremony/purify/2-origin.png",
-            factor: "/image/ceremony/purify/2-factor.png",
-            paint: "/image/ceremony/purify/2-paint.png",
-            info:
-              "彝族毕摩的经书种类繁多，毕摩现存的经卷有28类，212种，数量达12452卷。\n从形式上，毕摩经书可以分为占卜、咒术、驱遣、祛秽、赔偿、禳解、调和、祈愿、祭祀、送灵、溯源等种类。",
+            origin: "./image/ceremony/purify/2-origin.png",
+            factor: "./image/ceremony/purify/2-factor.png",
+            paint: "./image/ceremony/purify/2-paint.png",
+            info: "彝族毕摩的经书种类繁多，毕摩现存的经卷有28类，212种，数量达12452卷。\n从形式上，毕摩经书可以分为占卜、咒术、驱遣、祛秽、赔偿、禳解、调和、祈愿、祭祀、送灵、溯源等种类。",
             time: 110,
             style: {
               left: "64.9%",
@@ -437,11 +435,10 @@ export default {
           },
           {
             name: "圣枝",
-            origin: "/image/ceremony/purify/3-origin.png",
-            factor: "/image/ceremony/purify/3-factor.png",
-            paint: "/image/ceremony/purify/3-paint.png",
-            info:
-              "一共需要9双，18支；\n当毕摩咒完后，不好的鬼魂埋在土中，最后用圣枝锁在地下，不再出来。",
+            origin: "./image/ceremony/purify/3-origin.png",
+            factor: "./image/ceremony/purify/3-factor.png",
+            paint: "./image/ceremony/purify/3-paint.png",
+            info: "一共需要9双，18支；\n当毕摩咒完后，不好的鬼魂埋在土中，最后用圣枝锁在地下，不再出来。",
             time: 188,
             style: {
               left: "48%",
@@ -452,9 +449,9 @@ export default {
           },
           {
             name: "鸡",
-            origin: "/image/ceremony/purify/4-origin.png",
-            factor: "/image/ceremony/purify/4-factor.png",
-            paint: "/image/ceremony/purify/4-paint.png",
+            origin: "./image/ceremony/purify/4-origin.png",
+            factor: "./image/ceremony/purify/4-factor.png",
+            paint: "./image/ceremony/purify/4-paint.png",
             info: "仪式时，毕摩拿着鸡往人的身上扇，把人身上的鬼魂扇出去。",
             time: 200,
             style: {
@@ -466,11 +463,10 @@ export default {
           },
           {
             name: "泥团",
-            origin: "/image/ceremony/purify/5-origin.png",
-            factor: "/image/ceremony/purify/5-factor.png",
-            paint: "/image/ceremony/purify/5-paint.png",
-            info:
-              "捏成3个人的形状，将荞麦花喂到三个泥人口中，将风湿病回归到泥人土中。\n土里挖一个洞，里面烧入牛羊的脂肪，将泥人埋入洞中。",
+            origin: "./image/ceremony/purify/5-origin.png",
+            factor: "./image/ceremony/purify/5-factor.png",
+            paint: "./image/ceremony/purify/5-paint.png",
+            info: "捏成3个人的形状，将荞麦花喂到三个泥人口中，将风湿病回归到泥人土中。\n土里挖一个洞，里面烧入牛羊的脂肪，将泥人埋入洞中。",
             time: 250,
             style: {
               left: "60.4%",
@@ -481,9 +477,9 @@ export default {
           },
           {
             name: "白绳子",
-            origin: "/image/ceremony/purify/6-origin.png",
-            factor: "/image/ceremony/purify/6-factor.png",
-            paint: "/image/ceremony/purify/6-paint.png",
+            origin: "./image/ceremony/purify/6-origin.png",
+            factor: "./image/ceremony/purify/6-factor.png",
+            paint: "./image/ceremony/purify/6-paint.png",
             info: "用白绳子将孩子身体的病痛绑走。",
             time: 292,
             style: {
@@ -497,11 +493,10 @@ export default {
         [
           {
             name: "玉米和猪膀胱",
-            origin: "/image/ceremony/bename/1-origin.png",
-            factor: "/image/ceremony/bename/1-factor.png",
-            paint: "/image/ceremony/bename/1-paint.png",
-            info:
-              "悬挂的玉米是要快速晾晒干。\n猪膀胱取自过年时杀的年猪，猪体型大，膀胱就大，代表这家人能杀这么大的猪，寓意财产富足。",
+            origin: "./image/ceremony/bename/1-origin.png",
+            factor: "./image/ceremony/bename/1-factor.png",
+            paint: "./image/ceremony/bename/1-paint.png",
+            info: "悬挂的玉米是要快速晾晒干。\n猪膀胱取自过年时杀的年猪，猪体型大，膀胱就大，代表这家人能杀这么大的猪，寓意财产富足。",
             time: 5,
             style: {
               left: "39.4%",
@@ -512,11 +507,10 @@ export default {
           },
           {
             name: "黑猪",
-            origin: "/image/ceremony/bename/2-origin.png",
-            factor: "/image/ceremony/bename/2-factor.png",
-            paint: "/image/ceremony/bename/2-paint.png",
-            info:
-              "猪杀了后，把猪蹄和尾巴坚硬割下来，挂到门楣上，为了防止勒格特比来吃小孩，把不好的事物挡在外面。",
+            origin: "./image/ceremony/bename/2-origin.png",
+            factor: "./image/ceremony/bename/2-factor.png",
+            paint: "./image/ceremony/bename/2-paint.png",
+            info: "猪杀了后，把猪蹄和尾巴坚硬割下来，挂到门楣上，为了防止勒格特比来吃小孩，把不好的事物挡在外面。",
             time: 158,
             style: {
               left: "32.5%",
@@ -527,11 +521,10 @@ export default {
           },
           {
             name: "圣枝",
-            origin: "/image/ceremony/bename/3-origin.png",
-            factor: "/image/ceremony/bename/3-factor.png",
-            paint: "/image/ceremony/bename/3-paint.png",
-            info:
-              "共有两组。\n一组：一支有叉，一支无叉和两支有树叶的树枝；\n另一组：九支有叉，九支无叉",
+            origin: "./image/ceremony/bename/3-origin.png",
+            factor: "./image/ceremony/bename/3-factor.png",
+            paint: "./image/ceremony/bename/3-paint.png",
+            info: "共有两组。\n一组：一支有叉，一支无叉和两支有树叶的树枝；\n另一组：九支有叉，九支无叉",
             time: 204,
             style: {
               left: "10.1%",
@@ -542,11 +535,10 @@ export default {
           },
           {
             name: "燃烧的木条",
-            origin: "/image/ceremony/bename/4-origin.png",
-            factor: "/image/ceremony/bename/4-factor.png",
-            paint: "/image/ceremony/bename/4-paint.png",
-            info:
-              "毕摩用燃烧的木条，分别点猪尾部、身体、头部，后将木条扔出，寓意把不好的东西扔出去。",
+            origin: "./image/ceremony/bename/4-origin.png",
+            factor: "./image/ceremony/bename/4-factor.png",
+            paint: "./image/ceremony/bename/4-paint.png",
+            info: "毕摩用燃烧的木条，分别点猪尾部、身体、头部，后将木条扔出，寓意把不好的东西扔出去。",
             time: 335,
             style: {
               left: "23.7%",
@@ -557,11 +549,10 @@ export default {
           },
           {
             name: "护灵符",
-            origin: "/image/ceremony/bename/5-origin.png",
-            factor: "/image/ceremony/bename/5-factor.png",
-            paint: "/image/ceremony/bename/5-paint.png",
-            info:
-              "将鱼鳍、姜、蒜等放入并缝在一起，佩戴在小孩的脖子上。\n防止外人将不好东西带进家，防止小孩生病。",
+            origin: "./image/ceremony/bename/5-origin.png",
+            factor: "./image/ceremony/bename/5-factor.png",
+            paint: "./image/ceremony/bename/5-paint.png",
+            info: "将鱼鳍、姜、蒜等放入并缝在一起，佩戴在小孩的脖子上。\n防止外人将不好东西带进家，防止小孩生病。",
             time: 499,
             style: {
               left: "35%",
@@ -572,11 +563,10 @@ export default {
           },
           {
             name: "妇女和孩子",
-            origin: "/image/ceremony/bename/6-origin.png",
-            factor: "/image/ceremony/bename/6-factor.png",
-            paint: "/image/ceremony/bename/6-paint.png",
-            info:
-              "相当于汉族办喜事酒席，街坊邻里一起庆祝。本族亲人一般随100元，邻居随20元。",
+            origin: "./image/ceremony/bename/6-origin.png",
+            factor: "./image/ceremony/bename/6-factor.png",
+            paint: "./image/ceremony/bename/6-paint.png",
+            info: "相当于汉族办喜事酒席，街坊邻里一起庆祝。本族亲人一般随100元，邻居随20元。",
             time: 649,
             style: {
               left: "0",
@@ -587,12 +577,11 @@ export default {
           },
           {
             name: "树枝和水",
-            origin: "/image/ceremony/bename/7-origin.png",
-            factor: "/image/ceremony/bename/7-factor.png",
-            paint: "/image/ceremony/bename/7-paint.png",
+            origin: "./image/ceremony/bename/7-origin.png",
+            factor: "./image/ceremony/bename/7-factor.png",
+            paint: "./image/ceremony/bename/7-paint.png",
             time: 700,
-            info:
-              "祈福本家人的孩子的父母、兄弟姐妹沾水后（男孩沾左手，女孩沾右手），把水倒在地下，为了祈福。",
+            info: "祈福本家人的孩子的父母、兄弟姐妹沾水后（男孩沾左手，女孩沾右手），把水倒在地下，为了祈福。",
             style: {
               left: "32.4%",
               top: "3.5%",
@@ -602,12 +591,11 @@ export default {
           },
           {
             name: "啤酒",
-            origin: "/image/ceremony/bename/8-origin.png",
-            factor: "/image/ceremony/bename/8-factor.png",
-            paint: "/image/ceremony/bename/8-paint.png",
+            origin: "./image/ceremony/bename/8-origin.png",
+            factor: "./image/ceremony/bename/8-factor.png",
+            paint: "./image/ceremony/bename/8-paint.png",
             time: 734,
-            info:
-              "原来彝族人主要饮用苦荞和玉米酿制的酒，近些年，被现代啤酒所代替。\n瓶上刻有525标志，是主家与客人分酒的分割线。",
+            info: "原来彝族人主要饮用苦荞和玉米酿制的酒，近些年，被现代啤酒所代替。\n瓶上刻有525标志，是主家与客人分酒的分割线。",
             style: {
               left: "37.2%",
               top: "45.9%",
@@ -617,11 +605,10 @@ export default {
           },
           {
             name: "苦荞",
-            origin: "/image/ceremony/bename/9-origin.png",
-            factor: "/image/ceremony/bename/9-factor.png",
-            paint: "/image/ceremony/bename/9-paint.png",
-            info:
-              "炒苦荞，彝族过去贫穷，无法负担杀牲畜，就用苦荞祭祀神灵，慢慢演变成祭祀环节中的一部分。",
+            origin: "./image/ceremony/bename/9-origin.png",
+            factor: "./image/ceremony/bename/9-factor.png",
+            paint: "./image/ceremony/bename/9-paint.png",
+            info: "炒苦荞，彝族过去贫穷，无法负担杀牲畜，就用苦荞祭祀神灵，慢慢演变成祭祀环节中的一部分。",
             time: 851,
             style: {
               left: "7.7%",
@@ -634,9 +621,9 @@ export default {
         [
           {
             name: "鸡毛穿线",
-            origin: "/image/ceremony/pray/1-origin.png",
-            factor: "/image/ceremony/pray/1-factor.png",
-            paint: "/image/ceremony/pray/1-paint.png",
+            origin: "./image/ceremony/pray/1-origin.png",
+            factor: "./image/ceremony/pray/1-factor.png",
+            paint: "./image/ceremony/pray/1-paint.png",
             time: 98,
             info: "一般是两条线相交而成，代表两条鬼魂的路，有一条是麻绳组成。",
             style: {
@@ -648,12 +635,11 @@ export default {
           },
           {
             name: "草偶",
-            origin: "/image/ceremony/pray/2-origin.png",
-            factor: "/image/ceremony/pray/2-factor.png",
-            paint: "/image/ceremony/pray/2-paint.png",
+            origin: "./image/ceremony/pray/2-origin.png",
+            factor: "./image/ceremony/pray/2-factor.png",
+            paint: "./image/ceremony/pray/2-paint.png",
             time: 142,
-            info:
-              "用草做成狗或鸡等低级事物，如果发生诅咒，别人家将本家咒成狗或鸡等事物，仪式可反制，将污秽带走。",
+            info: "用草做成狗或鸡等低级事物，如果发生诅咒，别人家将本家咒成狗或鸡等事物，仪式可反制，将污秽带走。",
             style: {
               left: "32.5%",
               top: "0",
@@ -663,12 +649,11 @@ export default {
           },
           {
             name: "铜铃",
-            origin: "/image/ceremony/pray/3-origin.png",
-            factor: "/image/ceremony/pray/3-factor.png",
-            paint: "/image/ceremony/pray/3-paint.png",
+            origin: "./image/ceremony/pray/3-origin.png",
+            factor: "./image/ceremony/pray/3-factor.png",
+            paint: "./image/ceremony/pray/3-paint.png",
             time: 168,
-            info:
-              "毕摩摇响铜铃铛，告知天地神灵仪式开始。\n召唤受祈福者的灵魂，请求世间的美好事物汇聚。\n仪式中会重复多次。",
+            info: "毕摩摇响铜铃铛，告知天地神灵仪式开始。\n召唤受祈福者的灵魂，请求世间的美好事物汇聚。\n仪式中会重复多次。",
             style: {
               left: "35.8%",
               top: "63.5%",
@@ -678,12 +663,11 @@ export default {
           },
           {
             name: "三种动物",
-            origin: "/image/ceremony/pray/4-origin.png",
-            factor: "/image/ceremony/pray/4-factor.png",
-            paint: "/image/ceremony/pray/4-paint.png",
+            origin: "./image/ceremony/pray/4-origin.png",
+            factor: "./image/ceremony/pray/4-factor.png",
+            paint: "./image/ceremony/pray/4-paint.png",
             time: 177,
-            info:
-              "祈福仪式宰杀标准不一。\n简单仪式为宰杀鸡，复杂仪式为宰杀鸡、猪、羊、山羊。\n仪式中，鸡为毕摩宰杀，猪羊为帮忙亲友宰杀。",
+            info: "祈福仪式宰杀标准不一。\n简单仪式为宰杀鸡，复杂仪式为宰杀鸡、猪、羊、山羊。\n仪式中，鸡为毕摩宰杀，猪羊为帮忙亲友宰杀。",
             style: {
               left: "48.7%",
               top: "50.1%",
@@ -693,12 +677,11 @@ export default {
           },
           {
             name: "经书",
-            origin: "/image/ceremony/pray/5-origin.png",
-            factor: "/image/ceremony/pray/5-factor.png",
-            paint: "/image/ceremony/pray/5-paint.png",
+            origin: "./image/ceremony/pray/5-origin.png",
+            factor: "./image/ceremony/pray/5-factor.png",
+            paint: "./image/ceremony/pray/5-paint.png",
             time: 322,
-            info:
-              "不同的仪式，毕摩会用到不同的经书。\n祈福仪式口诵经文内容，让妖魔鬼怪和不好的事物远离这个家庭，保佑一家人都远离妖魔、疾病，粮食丰收，吉祥如意。",
+            info: "不同的仪式，毕摩会用到不同的经书。\n祈福仪式口诵经文内容，让妖魔鬼怪和不好的事物远离这个家庭，保佑一家人都远离妖魔、疾病，粮食丰收，吉祥如意。",
             style: {
               left: "17.1%",
               top: "53.5%",
@@ -708,12 +691,11 @@ export default {
           },
           {
             name: "鬼魂木板",
-            origin: "/image/ceremony/pray/6-origin.png",
-            factor: "/image/ceremony/pray/6-factor.png",
-            paint: "/image/ceremony/pray/6-paint.png",
+            origin: "./image/ceremony/pray/6-origin.png",
+            factor: "./image/ceremony/pray/6-factor.png",
+            paint: "./image/ceremony/pray/6-paint.png",
             time: 384,
-            info:
-              "在木板上画两个不同性别的鬼魂，使用经文、吐口水、放在脚下踩等方式诅咒它们。",
+            info: "在木板上画两个不同性别的鬼魂，使用经文、吐口水、放在脚下踩等方式诅咒它们。",
             style: {
               left: "47.9%",
               top: "15.6%",
@@ -723,12 +705,11 @@ export default {
           },
           {
             name: "帽子",
-            origin: "/image/ceremony/pray/7-origin.png",
-            factor: "/image/ceremony/pray/7-factor.png",
-            paint: "/image/ceremony/pray/7-paint.png",
+            origin: "./image/ceremony/pray/7-origin.png",
+            factor: "./image/ceremony/pray/7-factor.png",
+            paint: "./image/ceremony/pray/7-paint.png",
             time: 464,
-            info:
-              "毕摩在这个环节将牲畜作为污秽的替代物，将它们赶出家门到鬼怪处。\n帽子在此过程中，可以保护毕摩不受“伤害”。",
+            info: "毕摩在这个环节将牲畜作为污秽的替代物，将它们赶出家门到鬼怪处。\n帽子在此过程中，可以保护毕摩不受“伤害”。",
             style: {
               left: "28.9%",
               top: "0",
@@ -738,12 +719,11 @@ export default {
           },
           {
             name: "斯切",
-            origin: "/image/ceremony/pray/8-origin.png",
-            factor: "/image/ceremony/pray/8-factor.png",
-            paint: "/image/ceremony/pray/8-paint.png",
+            origin: "./image/ceremony/pray/8-origin.png",
+            factor: "./image/ceremony/pray/8-factor.png",
+            paint: "./image/ceremony/pray/8-paint.png",
             time: 600,
-            info:
-              "分为鸡斯切，猪斯切，羊斯切。\n人身上的疾病变成猪鸡羊等实物，将它送走。",
+            info: "分为鸡斯切，猪斯切，羊斯切。\n人身上的疾病变成猪鸡羊等实物，将它送走。",
             style: {
               left: "38.5%",
               top: "35%",
@@ -753,9 +733,9 @@ export default {
           },
           {
             name: "羊皮包裹",
-            origin: "/image/ceremony/pray/9-origin.png",
-            factor: "/image/ceremony/pray/9-factor.png",
-            paint: "/image/ceremony/pray/9-paint.png",
+            origin: "./image/ceremony/pray/9-origin.png",
+            factor: "./image/ceremony/pray/9-factor.png",
+            paint: "./image/ceremony/pray/9-paint.png",
             time: 730,
             info: "羊皮中包裹有羊、猪、鸡等动物内脏，用来祭祀毕摩的神魂。",
             style: {

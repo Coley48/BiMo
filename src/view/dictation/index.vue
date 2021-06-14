@@ -60,7 +60,7 @@ export default {
         controlBar: { pictureInPictureToggle: false },
         sources: [
           {
-            src: "/video/dictation/dictation-1.mp4",
+            src: "./video/dictation/dictation-1.mp4",
             type: "video/mp4",
           },
         ],
@@ -72,7 +72,7 @@ export default {
         controlBar: { pictureInPictureToggle: false, volumePanel: false },
         sources: [
           {
-            src: "/video/dictation/dictation-2.mp4",
+            src: "./video/dictation/dictation-2.mp4",
             type: "video/mp4",
           },
         ],
