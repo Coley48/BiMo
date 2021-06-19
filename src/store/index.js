@@ -20,7 +20,7 @@ export default new Vuex.Store({
       { name: "Ending" },
     ],
     clickAudio: new Howl({
-      src: "/video/navigation/click.mp3"
+      src: "./video/navigation/click.mp3"
     })
   },
 

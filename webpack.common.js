@@ -10,7 +10,7 @@ module.exports = {
     output: {
         // filename: '[name].[chunkhash].bundle.js',
         filename: 'js/[name].[hash:8].bundle.js',
-        path: path.resolve(__dirname, 'BiMo'),
+        path: path.resolve(__dirname, 'dist'),
         pathinfo: false,
     },
     resolve: {
@@ -70,7 +70,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: './src/index.html',
-            favicon: './src/assets/img/favicon.ico'
+            favicon: './src/assets/img/favicon.ico',
         }),
         new VueLoaderPlugin()
     ],
