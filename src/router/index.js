@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: './index.html',
-    name: 'Guidance',
+    name: 'Guidance-1',
     component: guidance,
   },
   {
@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '*',
-    redirect: { name: "Guidance" }
+    redirect: { name: "Introduce" }
   }
 ]
 

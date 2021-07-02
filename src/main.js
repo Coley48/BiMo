@@ -9,6 +9,10 @@ import router from './router'
 import store from './store'
 
 Vue.config.productionTip = false
+// 全局提示
+Vue.prototype.mAlert = function (msg) {
+    alert(msg);
+}
 
 new Vue({
     router,

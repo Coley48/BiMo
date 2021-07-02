@@ -99,6 +99,10 @@ export default {
           name: "share",
         },
         {
+          content: "用户登录",
+          name: "user",
+        },
+        {
           content: "关于我们",
           name: "about",
         },
@@ -143,6 +147,7 @@ export default {
     EarthPart: () => import("@/view/navigation/earth-part.vue"),
     SharePart: () => import("@/view/navigation/share-part.vue"),
     AboutPart: () => import("@/view/navigation/about-part.vue"),
+    UserPart: () => import("@/view/navigation/user-part.vue"),
   },
   mounted() {
     // this.$store.dispatch("getAsyncData");
@@ -228,6 +233,9 @@ export default {
       }
       &.about {
         background-image: url("../../assets/img/icon/about.svg");
+      }
+      &.user {
+        background-image: url("../../assets/img/icon/user.svg");
       }
     }
   }
