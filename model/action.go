@@ -2,17 +2,17 @@ package model
 
 import "errors"
 
-// 查询
+// 查询用户信息
 func GetUser(username string) (User, error) {
 	var user User
 	err := DB.Get(&user, "select * from user where username = ?", username)
 	return user, err
 }
 
-// 注册
+// 用户注册
 func NewUser(user *User) error {
 	tx := DB.MustBegin()
-	result, err := DB.Exec("insert into user (`username`,`password`,`email`,`addition`) values(?,?,?,?)", user.Username, user.Password, user.Email, user.Addition)
+	result, err := DB.Exec("insert into user (`username`,`password`,`email`) values(?,?,?,?)", user.Username, user.Password, user.Email)
 	row, _ := result.RowsAffected()
 	if row != 1 {
 		tx.Rollback()
@@ -25,14 +25,42 @@ func NewUser(user *User) error {
 	return nil
 }
 
-// 更新
+// 更新用户信息
 func SetUser(id int, user User) error {
 	tx := DB.MustBegin()
-	result, err := DB.Exec("update user set password=?,email=?,addition? where id=?", user.Password, user.Email, user.Addition, user.Id)
+	result, err := DB.Exec("update user set password=?,email=?,addition? where id=?", user.Password, user.Email, user.Addition, user.ID)
 	row, _ := result.RowsAffected()
 	if row != 1 {
 		tx.Rollback()
 		return errors.New("SetUser failed.")
+	}
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return nil
+}
+
+// 获取头像
+func GetAvator(id int) (string, error) {
+	var avator string
+	err := DB.Get(&avator, "select avator from user where id = ?", id)
+	return avator, err
+}
+
+func GetComment(page, limit int) ([]Comment, error) {
+	list := make([]Comment, 0, limit)
+	err := DB.Select(&list, "select * from comment order by cid desc limit ?,?", (page-1)*limit, limit)
+	return list, err
+}
+
+func PostComment(comment *Comment) error {
+	tx := DB.MustBegin()
+	result, err := DB.Exec("insert into comment (`cid`,`username`,`datetime`,`content`,`uid`) values(?,?,?,?,?)", comment.CID, comment.Username, comment.Datetime, comment.Content, comment.UID)
+	row, _ := result.RowsAffected()
+	if row != 1 {
+		tx.Rollback()
+		return errors.New("PostComment failed.")
 	}
 	if err != nil {
 		tx.Rollback()

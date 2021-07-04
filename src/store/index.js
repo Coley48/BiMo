@@ -10,6 +10,8 @@ export default new Vuex.Store({
   state: {
     currentIndex: -1, // 页面索引号
     isLogoActive: true, // 导航栏激活状态
+    isLogin: true, // 用户登录状态
+    userinfo: {}, // 用户信息
 
     chapters: [ // 章节导航路由对象
       { name: "Introduce" },

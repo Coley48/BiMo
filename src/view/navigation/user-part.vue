@@ -4,37 +4,74 @@
       <h3 class="title">毕摩行</h3>
       <div class="sign-in" v-if="isLogin">
         <div class="fields">
-          <div class="username">
-            <input v-model="username" type="username" placeholder="username" />
-          </div>
-          <div class="password">
-            <input v-model="password" type="password" placeholder="password" />
-          </div>
+          <el-input
+            type="text"
+            v-model="username"
+            autocomplete="off"
+            placeholder="请输入用户名"
+            prefix-icon="el-icon-user"
+            clearable
+          ></el-input>
+          <el-input
+            type="password"
+            v-model="password"
+            autocomplete="off"
+            show-password
+            minlength="8"
+            placeholder="请输入密码"
+            prefix-icon="el-icon-lock"
+          ></el-input>
         </div>
-        <button class="sign-in-btn" @click="signIn">Sign in</button>
+        <el-button class="sign-btn" :plain="true" type="info" @click="signIn"
+          >Sign In</el-button
+        >
         <div class="link">
-          <a href="#">Forgot password?</a> or
-          <a href="#" @click="switchMethod">Sign up</a>
+          <a href="#">忘记密码？</a>或
+          <a href="#" @click="switchMethod">注册</a>
         </div>
       </div>
       <div class="sign-up" v-else>
         <div class="fields">
-          <div class="username">
-            <input v-model="username" type="text" placeholder="username" />
-          </div>
-          <div class="email">
-            <input v-model="email" type="text" placeholder="email" />
-          </div>
-          <div class="password">
-            <input v-model="password" type="password" placeholder="password" />
-          </div>
-          <div class="confirm">
-            <input v-model="confirm" type="password" placeholder="confirm" />
-          </div>
-          <button class="sign-up-btn" @click="signUp">Sign up</button>
+          <el-input
+            type="text"
+            v-model="username"
+            autocomplete="off"
+            clearable
+            placeholder="请输入用户名"
+            prefix-icon="el-icon-user"
+          ></el-input>
+          <el-input
+            type="text"
+            v-model="email"
+            autocomplete="off"
+            clearable
+            placeholder="请输入邮箱"
+            prefix-icon="el-icon-message"
+          ></el-input>
+          <el-input
+            type="password"
+            v-model="password"
+            autocomplete="off"
+            show-password
+            minlength="8"
+            placeholder="请输入密码"
+            prefix-icon="el-icon-lock"
+          ></el-input>
+          <el-input
+            type="password"
+            v-model="confirm"
+            autocomplete="off"
+            show-password
+            minlength="8"
+            placeholder="请输入确认密码"
+            prefix-icon="el-icon-check"
+          ></el-input>
+          <el-button class="sign-btn" type="info" @click="signUp"
+            >Sign Up</el-button
+          >
           <div class="link">
-            <a href="#">Already have account?</a> Just
-            <a href="#" @click="switchMethod">Sign in</a>
+            <a href="#">已有账号？</a>直接
+            <a href="#" @click="switchMethod">登录</a>
           </div>
         </div>
       </div>
@@ -47,10 +84,10 @@ export default {
   data() {
     return {
       isLogin: true,
-      username: "coley48",
-      password: "123456",
-      email: "@qq.com",
-      confirm: "123456",
+      username: "",
+      password: "",
+      email: "",
+      confirm: "",
     };
   },
   computed: {},
@@ -62,31 +99,37 @@ export default {
     // 登录
     signIn() {
       if (!this.couldSign()) {
-        this.mAlert("请填写完成！");
+        this.message("warning", "请填写完整哦！");
+        return;
       }
       let data = {
         username: this.username,
         password: this.password,
       };
 
-      $.post("/api/signin", data, (res) => {
+      $.post("/api/sign-in", data, (res) => {
+        if (res.code === 200) {
+          this.message("success", res.info);
+        } else {
+          this.message("error", res.info);
+        }
         console.log(res);
       });
     },
     // 注册
     signUp() {
       if (!this.couldSign()) {
-        this.mAlert("未填写完整！");
+        this.message("warning", "未填写完整！");
         return;
       }
       if (this.password !== this.confirm) {
-        this.mAlert("密码不一致！");
+        this.message("warning", "密码不一致！");
         return;
       }
       let reg =
         /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
       if (!reg.test(this.email)) {
-        this.mAlert("请输入正确的邮箱！");
+        this.message("warning", "请输入正确的邮箱！");
         return;
       }
 
@@ -97,8 +140,20 @@ export default {
         email: this.email,
       };
 
-      $.post("/api/signup", data, (res) => {
+      $.post("/api/sign-up", data, (res) => {
+        if (res.code === 200) {
+          this.message("success", res.info);
+        } else {
+          this.message("error", res.info);
+        }
         console.log(res);
+      });
+    },
+    message(type, info) {
+      this.$message({
+        type: type,
+        message: info,
+        showClose: true,
       });
     },
     // 登录注册条件判定
@@ -126,69 +181,25 @@ export default {
   align-items: center;
 
   .wrapper {
-    padding: 20px;
-    border-radius: 0.5rem;
-    border-radius: 20px;
-    background: lightblue;
+    padding: 20px 25px;
+    border-radius: 0.75rem;
+    background: whitesmoke;
+    width: 300px;
 
     .title {
       text-align: center;
       font-size: 28px;
-      padding-top: 10px;
+      padding-top: 5px;
       letter-spacing: 0.5px;
-    }
-    .sub-title {
-      text-align: center;
-      font-size: 15px;
-      padding-top: 7px;
-      letter-spacing: 3px;
     }
   }
 
   .sign-in,
   .sign-up {
-    .fields {
+    .sign-btn {
       width: 100%;
-      padding: 20px 5px 5px 5px;
-
-      input {
-        outline: none;
-        background: none;
-        font-size: 18px;
-        color: #555;
-        padding: 8px;
-        margin-bottom: 30px;
-        border-radius: 25px;
-        border: 1px solid #555;
-      }
-
-      svg {
-        height: 22px;
-        margin: 0 10px -3px 25px;
-      }
-    }
-
-    .sign-in-btn,
-    .sign-up-btn {
-      outline: none;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      padding: 8px;
-      border-radius: 30px;
       font-weight: 700;
-      font-family: "Lato", sans-serif;
-      color: #fff;
-      text-align: center;
-      background: #24cfaa;
       transition: 0.5s;
-
-      &:hover {
-        background: #2fdbb6;
-      }
-      &:active {
-        background: #1da88a;
-      }
     }
     .link {
       padding-top: 20px;
@@ -198,7 +209,15 @@ export default {
         text-decoration: none;
         color: #aaa;
         font-size: 15px;
+        transition: 0.5s;
+        &:hover {
+          color: turquoise;
+        }
       }
+    }
+
+    .el-input {
+      margin-bottom: 10px;
     }
   }
 

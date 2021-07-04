@@ -3,7 +3,8 @@
 @font-face {
   font-family: "Main";
   src: url("Zcool-LengShuiXiaoQingKeTi-Regular.ttf") format("ttf"),
-       url('Zcool-LengShuiXiaoQingKeTi-Regular.woff2') format('woff2'),
+       /* url('Zcool-LengShuiXiaoQingKeTi-Regular.woff2') format('woff2'), */
+       url('Zcool-LengShuiXiaoQingKeTi-Regular.otf') format('otf'),
        url('Zcool-LengShuiXiaoQingKeTi-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;

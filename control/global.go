@@ -3,6 +3,7 @@ package control
 import (
 	"crypto/md5"
 	"encoding/hex"
+	"strconv"
 
 	"github.com/Coley48/server/model"
 )
@@ -33,4 +34,10 @@ func Fail(info string, data interface{}) respond {
 func Encrypt(str string) string {
 	buff := md5.Sum([]byte(str + model.Keys))
 	return hex.EncodeToString(buff[:])
+}
+
+// ToInt .
+func Number(str string) int {
+	i, _ := strconv.Atoi(str)
+	return i
 }

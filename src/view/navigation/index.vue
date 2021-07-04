@@ -91,15 +91,15 @@ export default {
           name: "album",
         },
         {
-          content: "你的位置",
-          name: "earth",
+          content: "交互社区",
+          name: "space",
         },
         {
           content: "分享推广",
           name: "share",
         },
         {
-          content: "用户登录",
+          content: "个人中心",
           name: "user",
         },
         {
@@ -144,10 +144,11 @@ export default {
   components: {
     MenuPart,
     AlbumPart: () => import("@/view/navigation/album-part.vue"),
-    EarthPart: () => import("@/view/navigation/earth-part.vue"),
+    // EarthPart: () => import("@/view/navigation/earth-part.vue"),
     SharePart: () => import("@/view/navigation/share-part.vue"),
     AboutPart: () => import("@/view/navigation/about-part.vue"),
     UserPart: () => import("@/view/navigation/user-part.vue"),
+    SpacePart: () => import("@/view/navigation/space-part.vue"),
   },
   mounted() {
     // this.$store.dispatch("getAsyncData");
@@ -236,6 +237,9 @@ export default {
       }
       &.user {
         background-image: url("../../assets/img/icon/user.svg");
+      }
+      &.space {
+        background-image: url("../../assets/img/icon/space.svg");
       }
     }
   }

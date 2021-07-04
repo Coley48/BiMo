@@ -23,7 +23,6 @@ func SignUpHandler(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 	email := c.FormValue("email")
-	addition := c.FormValue("addition")
 
 	_, err := model.GetUser(username)
 	if err == nil {
@@ -34,7 +33,6 @@ func SignUpHandler(c echo.Context) error {
 		Username: username,
 		Password: Encrypt(password),
 		Email:    email,
-		Addition: addition,
 	}
 	model.NewUser(nUser)
 
