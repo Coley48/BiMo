@@ -84,8 +84,8 @@ export default {
   data() {
     return {
       isLogin: true,
-      username: "",
-      password: "",
+      username: "admin",
+      password: "123456",
       email: "",
       confirm: "",
     };
@@ -107,7 +107,7 @@ export default {
         password: this.password,
       };
 
-      $.post("/api/sign-in", data, (res) => {
+      $.post("/api/sign/in", data, (res) => {
         if (res.code === 200) {
           this.message("success", res.info);
         } else {
@@ -140,7 +140,7 @@ export default {
         email: this.email,
       };
 
-      $.post("/api/sign-up", data, (res) => {
+      $.post("/api/sign/up", data, (res) => {
         if (res.code === 200) {
           this.message("success", res.info);
         } else {

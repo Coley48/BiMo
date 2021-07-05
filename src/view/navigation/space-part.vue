@@ -12,10 +12,6 @@
           :class="showArrow(item.cid)"
           @replyTo="setTarget"
         ></comment-item>
-        <comment-item></comment-item>
-        <comment-item></comment-item>
-        <comment-item></comment-item>
-        <comment-item></comment-item>
       </div>
       <div class="footer">
         <div class="control">
@@ -74,6 +70,8 @@ export default {
       target: "",
       comment: "",
       list: [],
+      page: 1,
+      limit: 10,
     };
   },
   computed: {
@@ -97,6 +95,16 @@ export default {
     setTarget(cid, username) {
       this.target = username;
     },
+  },
+  mounted() {
+    $.get(`/api/get/comment?page=${this.page}&limit=${this.limit}`, (res) => {
+      console.log(res);
+      if (res.code == 200) {
+        this.list = res.data;
+      } else {
+        console.log(res.info);
+      }
+    });
   },
 };
 </script>

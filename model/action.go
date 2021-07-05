@@ -48,12 +48,14 @@ func GetAvator(id int) (string, error) {
 	return avator, err
 }
 
-func GetComment(page, limit int) ([]Comment, error) {
-	list := make([]Comment, 0, limit)
-	err := DB.Select(&list, "select * from comment order by cid desc limit ?,?", (page-1)*limit, limit)
+// 获取评论
+func GetComment(page, limit int) ([]CommentA, error) {
+	list := make([]CommentA, 0, limit)
+	err := DB.Select(&list, "select `comment`.*,`user`.avator from `comment` INNER JOIN `user` on `comment`.uid = `user`.id order by cid desc limit ?,?", (page-1)*limit, limit)
 	return list, err
 }
 
+// 发布评论
 func PostComment(comment *Comment) error {
 	tx := DB.MustBegin()
 	result, err := DB.Exec("insert into comment (`cid`,`username`,`datetime`,`content`,`uid`) values(?,?,?,?,?)", comment.CID, comment.Username, comment.Datetime, comment.Content, comment.UID)
