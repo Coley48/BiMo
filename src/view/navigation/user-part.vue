@@ -80,6 +80,7 @@
 </template>
 
 <script>
+// import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -110,6 +111,7 @@ export default {
       $.post("/api/sign/in", data, (res) => {
         if (res.code === 200) {
           this.message("success", res.info);
+          this.$store.commit("setUserInfo", res.data);
         } else {
           this.message("error", res.info);
         }

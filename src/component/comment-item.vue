@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-item" :data-id="item.cid">
+  <div class="comment-item" :data-id="item.id">
     <div class="comment-header">
       <el-avatar
         class="avator"
@@ -18,10 +18,10 @@
     <div class="comment-footer">
       <span class="thumb"
         ><i class="el-icon-star-off" @click="thumbUp($event)"></i
-        >{{ item.thumb }}</span
+        >{{ item.likes }}</span
       >
       <span class="reply"
-        ><i class="el-icon-chat-line-square" @click="replyTo"></i
+        ><i class="el-icon-chat-square" @click="replyTo"></i
         >{{ item.reply }}</span
       >
     </div>
@@ -33,18 +33,6 @@ export default {
   props: {
     item: {
       type: Object,
-      default: () => {
-        return {
-          cid: 0,
-          avator: "",
-          username: "",
-          datetime: "",
-          content:
-            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa veritatis molestias impedit inventore sapiente similique iure deserunt tempore, quas suscipit nobis qui repellendus temporibus, dolorum, possimus ipsam. Obcaecati, sed aliquid.",
-          thumb: 0,
-          reply: 0,
-        };
-      },
     },
   },
   computed: {
@@ -62,14 +50,29 @@ export default {
     thumbUp(e) {
       if (e.target.className == "el-icon-star-off") {
         e.target.className = "el-icon-star-on";
-        this.item.thumb++;
+        this.item.likes++;
+        $.get("/api/like/comment?target=comment&cid=" + this.item.id, (res) => {
+          console.log(res);
+        });
       } else {
         e.target.className = "el-icon-star-off";
-        this.item.thumb--;
+        this.item.likes--;
+        $.get(
+          "/api/dislike/comment?target=comment&cid=" + this.item.id,
+          (res) => {
+            console.log(res);
+          }
+        );
       }
     },
-    replyTo() {
-      this.$emit("replyTo", this.item.cid, this.item.username);
+    replyTo(e) {
+      if (e.target.className == "el-icon-chat-square") {
+        this.$emit("replyTo", this.item.cid, this.item.username);
+        e.target.className = "el-icon-chat-line-square";
+      } else {
+        this.$emit("reset");
+        e.target.className = "el-icon-chat-square";
+      }
     },
   },
 };

@@ -11,6 +11,7 @@
           :item="item"
           :class="showArrow(item.cid)"
           @replyTo="setTarget"
+          @reset="resetTarget"
         ></comment-item>
       </div>
       <div class="footer">
@@ -68,6 +69,7 @@ export default {
   data() {
     return {
       target: "",
+      target_cid: -1,
       comment: "",
       list: [],
       page: 1,
@@ -87,13 +89,18 @@ export default {
       return n % 2 === 0 ? "left-arrow" : "right-arrow";
     },
     newComment() {
-      alert(1);
+      $.post("/api/post/comment", {
+        uid: this.uid,
+        cid: this.target_cid,
+      });
     },
     resetTarget() {
       this.target = "";
+      this.target_cid = -1;
     },
-    setTarget(cid, username) {
-      this.target = username;
+    setTarget(tcid, tuser) {
+      this.target = tuser;
+      this.target_cid = tcid;
     },
   },
   mounted() {

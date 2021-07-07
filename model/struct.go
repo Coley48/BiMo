@@ -5,38 +5,36 @@ type User struct {
 	Username string
 	Password string
 	Email    string
+	Avator   string
 	Addition string
+}
+
+type UserInfo struct {
+	ID       int
+	Username string
+	Email    string
 	Avator   string
 }
 
 type Comment struct {
-	CID      int
-	Username string
-	Datetime string
-	Content  string
-	Thumb    int
-	Reply    int
-	UID      int
-}
-
-type CommentA struct {
-	CID      int    `json:"cid,omitempty"`
-	Username string `json:"username,omitempty"`
-	Datetime string `json:"datetime,omitempty"`
-	Content  string `json:"content,omitempty"`
-	Thumb    int    `json:"thumb,omitempty"`
-	Reply    int    `json:"reply,omitempty"`
-	UID      int    `json:"uid,omitempty"`
-	Avator   string `json:"avator,omitempty"`
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Datetime string `json:"datetime"`
+	Content  string `json:"content"`
+	Likes    int    `json:"likes"`
+	Reply    int    `json:"reply"`
+	UID      int    `json:"uid"`
+	Avator   string `json:"avator"`
 }
 
 type Reply struct {
-	RID      int
-	Username string
-	Datetime string
-	Content  string
-	Thumb    int
-	Reply    int
-	UID      int
-	CID      int
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Datetime string `json:"datetime"`
+	Content  string `json:"content"`
+	Likes    int    `json:"likes"`
+	Reply    int    `json:"reply"`
+	UID      int    `json:"uid"`
+	Avator   string `json:"avator"`
+	CID      int    `json:"cid"`
 }

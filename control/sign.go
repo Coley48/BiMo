@@ -10,13 +10,21 @@ import (
 func SignInHandler(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
+	println(username, password)
 
 	user, err := model.GetUser(username)
 	if err != nil || user.Password != Encrypt(password) {
+		println(err.Error())
 		return c.JSON(http.StatusOK, Fail("账号或密码错误", ""))
 	}
 
-	return c.JSON(http.StatusOK, Succ("欢迎回来！"+username, ""))
+	var userinfo = model.UserInfo{
+		ID:       user.ID,
+		Username: user.Username,
+		Avator:   user.Avator,
+		Email:    user.Email,
+	}
+	return c.JSON(http.StatusOK, Succ("欢迎回来！"+username, userinfo))
 }
 
 func SignUpHandler(c echo.Context) error {
@@ -29,12 +37,12 @@ func SignUpHandler(c echo.Context) error {
 		return c.JSON(http.StatusOK, Fail("该用户名已被注册！", ""))
 	}
 
-	var nUser = &model.User{
+	var newUser = &model.User{
 		Username: username,
 		Password: Encrypt(password),
 		Email:    email,
 	}
-	model.NewUser(nUser)
+	model.NewUser(newUser)
 
 	return c.JSON(http.StatusOK, Succ("欢迎你！"+username, ""))
 }

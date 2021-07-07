@@ -11,7 +11,12 @@ export default new Vuex.Store({
     currentIndex: -1, // 页面索引号
     isLogoActive: true, // 导航栏激活状态
     isLogin: true, // 用户登录状态
-    userinfo: {}, // 用户信息
+    userinfo: {
+      id: -1,
+      username: "",
+      email: "",
+      avator: "",
+    }, // 用户信息
 
     chapters: [ // 章节导航路由对象
       { name: "Introduce" },
@@ -48,6 +53,9 @@ export default new Vuex.Store({
     // 切换导航栏
     toggleNavbar(state, bool) {
       state.isLogoActive = bool !== undefined ? bool : !state.isLogoActive;
+    },
+    setUserInfo(state, userinfo) {
+      state.userinfo = userinfo;
     },
   },
   actions: {
