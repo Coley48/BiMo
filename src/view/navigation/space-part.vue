@@ -4,7 +4,7 @@
       <div class="header">
         <h3 class="title">space part</h3>
       </div>
-      <div class="comments-list">
+      <div class="comments-list" v-loading="loading">
         <comment-item
           v-for="item of list"
           :key="item.cid"
@@ -51,7 +51,7 @@
           <el-input
             type="textarea"
             placeholder="请输入内容"
-            v-model="comment"
+            v-model="content"
             maxlength="100"
             autosize
             show-word-limit
@@ -65,21 +65,26 @@
 
 <script>
 import commentItem from "../../component/comment-item.vue";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       target: "",
       target_cid: -1,
-      comment: "",
+      content: "",
       list: [],
       page: 1,
       limit: 10,
+      loading: true,
     };
   },
   computed: {
     isReply() {
       return this.target !== "";
     },
+    ...mapState({
+      userinfo: (state) => state.userinfo,
+    }),
   },
   components: {
     commentItem,
@@ -89,9 +94,20 @@ export default {
       return n % 2 === 0 ? "left-arrow" : "right-arrow";
     },
     newComment() {
+      // console.log(this.$store.state.userinfo);
+      if (this.userinfo == null || sessionStorage.getItem("isLogin") == "") {
+        this.showMessage("error", "你还没有登录！");
+        return;
+      }
+      if (this.content == "") {
+        this.showMessage("warning", "你还没有输入任何内容");
+        return;
+      }
       $.post("/api/post/comment", {
-        uid: this.uid,
-        cid: this.target_cid,
+        uid: this.userinfo.id,
+        username: this.userinfo.username,
+        content: this.content,
+        datetime: new Date().getTime(),
       });
     },
     resetTarget() {
@@ -108,6 +124,7 @@ export default {
       console.log(res);
       if (res.code == 200) {
         this.list = res.data;
+        this.loading = false;
       } else {
         console.log(res.info);
       }
@@ -131,7 +148,6 @@ export default {
   .content {
     width: 80%;
     height: 100%;
-    // background: lightseagreen;
     overflow: hidden;
     position: relative;
     .header {
@@ -143,7 +159,7 @@ export default {
       top: 0;
       line-height: 4rem;
       height: 4rem;
-      z-index: 110;
+      z-index: 2110;
     }
     .comments-list {
       width: 100%;

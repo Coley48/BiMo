@@ -89,3 +89,9 @@ func Number(str string) int {
 	i, _ := strconv.Atoi(str)
 	return i
 }
+
+// ToInt .
+func Number64(str string) int64 {
+	i, _ := strconv.ParseInt(str, 10, 64)
+	return i
+}

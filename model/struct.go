@@ -10,16 +10,16 @@ type User struct {
 }
 
 type UserInfo struct {
-	ID       int
-	Username string
-	Email    string
-	Avator   string
+	ID       int    `json:"id"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Avator   string `json:"avator"`
 }
 
 type Comment struct {
 	ID       int    `json:"id"`
 	Username string `json:"username"`
-	Datetime string `json:"datetime"`
+	Datetime int64  `json:"datetime"`
 	Content  string `json:"content"`
 	Likes    int    `json:"likes"`
 	Reply    int    `json:"reply"`
@@ -30,7 +30,7 @@ type Comment struct {
 type Reply struct {
 	ID       int    `json:"id"`
 	Username string `json:"username"`
-	Datetime string `json:"datetime"`
+	Datetime int64  `json:"datetime"`
 	Content  string `json:"content"`
 	Likes    int    `json:"likes"`
 	Reply    int    `json:"reply"`

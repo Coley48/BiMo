@@ -40,7 +40,44 @@ export default {
       return this.item.username != "" ? this.item.username : "Author Unknown";
     },
     iDatetime() {
-      return this.item.datetime != "" ? this.item.datetime : "";
+      if (this.item.datetime == 0) {
+        return "";
+      }
+      let now = new Date();
+      let past = new Date(this.item.datetime);
+
+      switch (0) {
+        case 0:
+          let year = now.getFullYear() - past.getFullYear();
+          if (year > 0) {
+            return year + "年前";
+          }
+        case 1:
+          let month = now.getMonth() - past.getMonth();
+          if (month > 0) {
+            return month + "月前";
+          }
+        case 2:
+          let day = now.getDate() - past.getDate();
+          if (day > 0) {
+            return day + "天前";
+          }
+        case 3:
+          let hour = now.getHours() - past.getHours();
+          if (hour > 0) {
+            return hour + "小时前";
+          }
+        case 4:
+          let minute = now.getMinutes() - past.getMinutes();
+          if (minute > 0) {
+            return minute + "分钟前";
+          }
+        default:
+          let second = now.getSeconds() - past.getSeconds();
+          if (second > 0) {
+            return second + "秒钟前";
+          }
+      }
     },
   },
   methods: {

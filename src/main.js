@@ -11,7 +11,15 @@ import store from './store'
 
 Vue.config.productionTip = false;
 // 全局提示
-Vue.use(ElementUI);
+Vue.prototype.showMessage = function (type, info) {
+    this.$message({
+        type: type,
+        message: info,
+        showClose: true,
+    });
+},
+
+    Vue.use(ElementUI);
 new Vue({
     router,
     store,

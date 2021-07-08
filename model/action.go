@@ -58,9 +58,9 @@ func GetComment(page, limit int) ([]Comment, error) {
 }
 
 // 发布评论
-func PostComment(comment *Comment) error {
+func PostComment(com *Comment) error {
 	tx := DB.MustBegin()
-	result, err := DB.Exec("insert into comment (`cid`,`username`,`datetime`,`content`,`uid`) values(?,?,?,?,?)", comment.ID, comment.Username, comment.Datetime, comment.Content, comment.UID)
+	result, err := DB.Exec("insert into comment (`username`,`datetime`,`content`,`uid`) values(?,?,?,?)", com.Username, com.Datetime, com.Content, com.UID)
 	row, _ := result.RowsAffected()
 	if row != 1 {
 		tx.Rollback()
@@ -89,7 +89,7 @@ func LikeComment(target string, id int) error {
 	return nil
 }
 
-// 点赞评论
+// 取赞评论
 func DislikeComment(target string, id int) error {
 	tx := DB.MustBegin()
 	result, err := DB.Exec("update "+target+" set likes=likes-1 where id=?", id)

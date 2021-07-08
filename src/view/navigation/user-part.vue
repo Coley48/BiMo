@@ -46,7 +46,7 @@
             autocomplete="off"
             clearable
             placeholder="请输入邮箱"
-            prefix-icon="el-icon-message"
+            prefix-icon="el-icon-showMessage"
           ></el-input>
           <el-input
             type="password"
@@ -100,7 +100,7 @@ export default {
     // 登录
     signIn() {
       if (!this.couldSign()) {
-        this.message("warning", "请填写完整哦！");
+        this.showMessage("warning", "请填写完整哦！");
         return;
       }
       let data = {
@@ -110,10 +110,10 @@ export default {
 
       $.post("/api/sign/in", data, (res) => {
         if (res.code === 200) {
-          this.message("success", res.info);
-          this.$store.commit("setUserInfo", res.data);
+          this.showMessage("success", res.info);
+          this.$store.commit("userLogin", res.data);
         } else {
-          this.message("error", res.info);
+          this.showMessage("error", res.info);
         }
         console.log(res);
       });
@@ -121,17 +121,17 @@ export default {
     // 注册
     signUp() {
       if (!this.couldSign()) {
-        this.message("warning", "未填写完整！");
+        this.showMessage("warning", "未填写完整！");
         return;
       }
       if (this.password !== this.confirm) {
-        this.message("warning", "密码不一致！");
+        this.showMessage("warning", "密码不一致！");
         return;
       }
       let reg =
         /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/;
       if (!reg.test(this.email)) {
-        this.message("warning", "请输入正确的邮箱！");
+        this.showMessage("warning", "请输入正确的邮箱！");
         return;
       }
 
@@ -144,18 +144,11 @@ export default {
 
       $.post("/api/sign/up", data, (res) => {
         if (res.code === 200) {
-          this.message("success", res.info);
+          this.showMessage("success", res.info);
         } else {
-          this.message("error", res.info);
+          this.showMessage("error", res.info);
         }
         console.log(res);
-      });
-    },
-    message(type, info) {
-      this.$message({
-        type: type,
-        message: info,
-        showClose: true,
       });
     },
     // 登录注册条件判定

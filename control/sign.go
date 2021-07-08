@@ -10,7 +10,6 @@ import (
 func SignInHandler(c echo.Context) error {
 	username := c.FormValue("username")
 	password := c.FormValue("password")
-	println(username, password)
 
 	user, err := model.GetUser(username)
 	if err != nil || user.Password != Encrypt(password) {
