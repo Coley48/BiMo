@@ -7,9 +7,9 @@
       <div class="comments-list" v-loading="loading">
         <comment-item
           v-for="item of list"
-          :key="item.cid"
+          :key="item.id"
           :item="item"
-          :class="showArrow(item.cid)"
+          :class="showArrow(item.id, item.uid)"
           @replyTo="setTarget"
           @reset="resetTarget"
         ></comment-item>
@@ -76,6 +76,7 @@ export default {
       page: 1,
       limit: 10,
       loading: true,
+      arrow: 0,
     };
   },
   computed: {
@@ -90,7 +91,10 @@ export default {
     commentItem,
   },
   methods: {
-    showArrow(n) {
+    showArrow(id, uid) {
+      // if (n%2 !==0) {
+
+      // }
       return n % 2 === 0 ? "left-arrow" : "right-arrow";
     },
     newComment() {
@@ -100,14 +104,25 @@ export default {
         return;
       }
       if (this.content == "") {
-        this.showMessage("warning", "你还没有输入任何内容");
+        this.showMessage("warning", "你还没有输入任何内容！");
         return;
       }
-      $.post("/api/post/comment", {
+      let data = {
         uid: this.userinfo.id,
         username: this.userinfo.username,
         content: this.content,
         datetime: new Date().getTime(),
+      };
+      $.post("/api/post/comment", data, (res) => {
+        if (res.code == 200) {
+          data["avator"] = this.userinfo.avator;
+          data["likes"] = 0;
+          data["reply"] = 0;
+          data["id"] = res.data;
+          this.list.unshift(data);
+        } else {
+          this.showMessage("error", "评论失败，请稍候再试！");
+        }
       });
     },
     resetTarget() {

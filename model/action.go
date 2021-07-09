@@ -58,19 +58,19 @@ func GetComment(page, limit int) ([]Comment, error) {
 }
 
 // 发布评论
-func PostComment(com *Comment) error {
+func PostComment(com *Comment) (int64, error) {
 	tx := DB.MustBegin()
 	result, err := DB.Exec("insert into comment (`username`,`datetime`,`content`,`uid`) values(?,?,?,?)", com.Username, com.Datetime, com.Content, com.UID)
 	row, _ := result.RowsAffected()
 	if row != 1 {
 		tx.Rollback()
-		return errors.New("PostComment failed.")
+		return -1, errors.New("PostComment failed.")
 	}
 	if err != nil {
 		tx.Rollback()
-		return err
+		return -1, err
 	}
-	return nil
+	return result.LastInsertId()
 }
 
 // 点赞评论

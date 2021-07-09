@@ -1,7 +1,6 @@
 package control
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/Coley48/server/model"
@@ -30,13 +29,12 @@ func PostComment(c echo.Context) error {
 		UID:      Number(c.FormValue("uid")),
 	}
 
-	fmt.Println(comment)
-	err := model.PostComment(comment)
+	idx, err := model.PostComment(comment)
 	if err != nil {
-		return c.JSON(http.StatusOK, Fail("发布评论失败！", ""))
+		return c.JSON(http.StatusOK, Fail("发布评论失败！", "-1"))
 	}
 
-	return c.JSON(http.StatusOK, Succ("发布评论成功！", ""))
+	return c.JSON(http.StatusOK, Succ("发布评论成功！", idx))
 }
 
 func LikeComment(c echo.Context) error {

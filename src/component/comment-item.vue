@@ -41,7 +41,7 @@ export default {
     },
     iDatetime() {
       if (this.item.datetime == 0) {
-        return "";
+        return "1秒钟前";
       }
       let now = new Date();
       let past = new Date(this.item.datetime);
@@ -73,10 +73,8 @@ export default {
             return minute + "分钟前";
           }
         default:
-          let second = now.getSeconds() - past.getSeconds();
-          if (second > 0) {
-            return second + "秒钟前";
-          }
+          let second = now.getSeconds() - past.getSeconds() + 1;
+          return second + "秒钟前";
       }
     },
   },
