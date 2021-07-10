@@ -21,7 +21,7 @@
         >{{ item.likes }}</span
       >
       <span class="reply"
-        ><i class="el-icon-chat-square" @click="replyTo"></i
+        ><i class="el-icon-chat-square" @click="setTarget"></i
         >{{ item.reply }}</span
       >
     </div>
@@ -100,12 +100,12 @@ export default {
         );
       }
     },
-    replyTo(e) {
+    setTarget(e) {
       if (e.target.className == "el-icon-chat-square") {
-        this.$emit("replyTo", this.item.cid, this.item.username);
+        this.$emit("setTarget", this.item.cid, this.item.username);
         e.target.className = "el-icon-chat-line-square";
       } else {
-        this.$emit("reset");
+        this.$emit("resetTarget");
         e.target.className = "el-icon-chat-square";
       }
     },

@@ -4,15 +4,23 @@
       <div class="header">
         <h3 class="title">space part</h3>
       </div>
-      <div class="comments-list" v-loading="loading">
+      <div
+        class="comments-list"
+        @scroll.stop="!noMore && iShowMore()"
+        v-loading="loading"
+      >
         <comment-item
           v-for="item of list"
           :key="item.id"
           :item="item"
-          :class="showArrow(item.id, item.uid)"
-          @replyTo="setTarget"
-          @reset="resetTarget"
+          :class="showArrow(item.uid)"
+          @setTarget="setTarget"
+          @resetTarget="resetTarget"
         ></comment-item>
+        <div class="no-comments" v-if="this.list.length == 0">
+          来留下第一条评论，成为第一人吧！
+        </div>
+        <div class="no-more-comments" v-else>我也是有底线的！</div>
       </div>
       <div class="footer">
         <div class="control">
@@ -20,7 +28,7 @@
             <el-input
               class="target-ipt"
               placeholder="评论或回复"
-              v-model="target"
+              v-model="target.username"
               clearable
               size="mini"
               disabled
@@ -66,22 +74,27 @@
 <script>
 import commentItem from "../../component/comment-item.vue";
 import { mapState } from "vuex";
+
+let ArrowPoint = 0;
 export default {
   data() {
     return {
-      target: "",
-      target_cid: -1,
+      target: {
+        cid: -1,
+        username: "",
+      },
       content: "",
       list: [],
       page: 1,
-      limit: 10,
+      limit: 5,
       loading: true,
-      arrow: 0,
+      noMore: false,
+      timer: null,
     };
   },
   computed: {
     isReply() {
-      return this.target !== "";
+      return this.target.cid !== -1;
     },
     ...mapState({
       userinfo: (state) => state.userinfo,
@@ -91,11 +104,32 @@ export default {
     commentItem,
   },
   methods: {
-    showArrow(id, uid) {
-      // if (n%2 !==0) {
-
-      // }
-      return n % 2 === 0 ? "left-arrow" : "right-arrow";
+    showArrow(uid) {
+      if (ArrowPoint === uid) {
+        return uid % 2 === 0 ? "left-arrow" : "right-arrow";
+      } else {
+        ArrowPoint = uid;
+        return uid % 2 === 0 ? "left-arrow" : "right-arrow";
+      }
+    },
+    showMore() {
+      let listElement = document.querySelector(".comments-list");
+      if (
+        listElement.clientHeight + listElement.scrollTop >
+        listElement.scrollHeight - 80
+      ) {
+        console.log("get comments.");
+        this.getComment(++this.page);
+      }
+    },
+    iShowMore() {
+      if (this.timer || this.noMore) {
+        return;
+      }
+      this.timer = setTimeout(() => {
+        this.timer = null;
+        this.showMore();
+      }, 250);
     },
     newComment() {
       // console.log(this.$store.state.userinfo);
@@ -125,25 +159,40 @@ export default {
         }
       });
     },
+    getComment(page = 1) {
+      $.get(`/api/get/comment?page=${page}&limit=${this.limit}`, (res) => {
+        if (res.code == 200 && res.data.length != 0) {
+          this.list.push(...res.data);
+          this.loading = false;
+        } else {
+          this.noMore = true;
+        }
+      });
+    },
     resetTarget() {
-      this.target = "";
-      this.target_cid = -1;
+      this.target.username = "";
+      this.target.cid = -1;
     },
     setTarget(tcid, tuser) {
-      this.target = tuser;
-      this.target_cid = tcid;
+      this.target.username = tuser;
+      this.target.cid = tcid;
+    },
+    debounce(func, delay) {
+      let timer;
+      return function () {
+        let context = this;
+        let args = arguments;
+        if (!timer) {
+          timer = setTimeout(() => {
+            timer = null;
+            func.apply(context, args);
+          }, delay);
+        }
+      };
     },
   },
   mounted() {
-    $.get(`/api/get/comment?page=${this.page}&limit=${this.limit}`, (res) => {
-      console.log(res);
-      if (res.code == 200) {
-        this.list = res.data;
-        this.loading = false;
-      } else {
-        console.log(res.info);
-      }
-    });
+    this.getComment();
   },
 };
 </script>
@@ -179,9 +228,32 @@ export default {
     .comments-list {
       width: 100%;
       height: 100%;
-      padding: 4.5rem 0.5rem;
+      padding: 4.5rem 0.5rem 5rem;
       background-color: lightyellow;
       overflow: scroll;
+
+      .no-comments,
+      .no-more-comments {
+        text-align: center;
+        color: lightgray;
+      }
+
+      .no-more-comments {
+        position: relative;
+        padding: 0.5rem;
+
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: 100%;
+          margin-left: 15%;
+          left: 0;
+          display: block;
+          width: 70%;
+          height: 0.4px;
+          background: lightgray;
+        }
+      }
     }
     .footer {
       width: 100%;
