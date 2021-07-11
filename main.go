@@ -31,6 +31,7 @@ func main() {
 	e.POST("/api/post/comment", control.PostComment)
 	e.GET("/api/like/comment", control.LikeComment)
 	e.GET("/api/dislike/comment", control.DislikeComment)
+	e.GET("/api/get/reply", control.GetReply)
 
 	// 启动http server，并监听8080端口
 	e.Start(":8000")

@@ -104,3 +104,10 @@ func DislikeComment(target string, id int) error {
 	}
 	return nil
 }
+
+// 获取回复
+func GetReply(page, limit, cid int) ([]Reply, error) {
+	list := make([]Reply, 0, limit)
+	err := DB.Select(&list, "select `reply`.*,`user`.avator from `reply` INNER JOIN `user` on `reply`.uid = `user`.id where cid = ? order by id desc limit ?,?", cid, (page-1)*limit, limit)
+	return list, err
+}

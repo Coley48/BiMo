@@ -20,11 +20,13 @@
         <div class="no-comments" v-if="this.list.length == 0">
           来留下第一条评论，成为第一人吧！
         </div>
-        <div class="no-more-comments" v-else>我也是有底线的！</div>
+        <div class="no-more-comments" v-else>
+          {{ noMore ? "没有更多了！" : "正在加载..." }}
+        </div>
       </div>
       <div class="footer">
         <div class="control">
-          <div>
+          <div class="ipt-wrap">
             <el-input
               class="target-ipt"
               placeholder="评论或回复"
@@ -55,7 +57,7 @@
             >
           </div>
         </div>
-        <div>
+        <div class="content-textarea">
           <el-input
             type="textarea"
             placeholder="请输入内容"
@@ -162,6 +164,7 @@ export default {
     getComment(page = 1) {
       $.get(`/api/get/comment?page=${page}&limit=${this.limit}`, (res) => {
         if (res.code == 200 && res.data.length != 0) {
+          console.log(res.data);
           this.list.push(...res.data);
           this.loading = false;
         } else {
@@ -208,6 +211,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 
   .content {
     width: 80%;
@@ -261,6 +265,7 @@ export default {
       position: absolute;
       bottom: 0;
       padding: 0.5rem;
+
       .control {
         display: flex;
         justify-content: space-between;
@@ -270,6 +275,11 @@ export default {
 
       .target-ipt {
         width: auto;
+      }
+
+      .content-textarea {
+        max-height: 300px;
+        overflow: scroll;
       }
     }
   }

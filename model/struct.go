@@ -33,7 +33,6 @@ type Reply struct {
 	Datetime int64  `json:"datetime"`
 	Content  string `json:"content"`
 	Likes    int    `json:"likes"`
-	Reply    int    `json:"reply"`
 	UID      int    `json:"uid"`
 	Avator   string `json:"avator"`
 	CID      int    `json:"cid"`
