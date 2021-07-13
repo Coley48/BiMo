@@ -18,16 +18,28 @@
     <div class="comment-footer">
       <div class="control">
         <span class="thumb"
-          ><i class="el-icon-star-off" @click="thumbUp($event)"></i
+          ><i
+            :class="{
+              'el-icon-star-off': !isThumbUp,
+              'el-icon-star-on': isThumbUp,
+            }"
+            @click="thumbUp()"
+          ></i
           >{{ item.likes }}</span
         >
         <span class="reply"
-          ><i class="el-icon-chat-square" @click="showReply($event)"></i
+          ><i
+            :class="{
+              'el-icon-chat-square': !isShowReply,
+              'el-icon-chat-line-square': isShowReply,
+            }"
+            @click="showReply()"
+          ></i
           >{{ item.reply }}</span
         >
         <span class="new-reply" @click="newReply($event)">回复</span>
       </div>
-      <div class="reply-list" v-if="isShowReply" v-loading="iLoading">
+      <div class="reply-list" v-if="isShowReply" v-loading="isLoading">
         <div
           class="reply-item"
           v-for="(it, index) in replyList"
@@ -36,7 +48,7 @@
           <div class="reply-header">
             <el-avatar
               class="avator"
-              :size="40"
+              :size="35"
               :src="it.avator"
               @error="errorHandler()"
             >
@@ -44,12 +56,16 @@
             </el-avatar>
             <span class="user-info">{{ it.username }}</span>
             <span class="date-info">{{ toDatetime(it.datetime) }}</span>
-            <span class="thumb"
+          </div>
+          <div class="reply-content">
+            {{ it.content
+            }}<span class="like-count"
               ><i class="el-icon-star-off"></i>{{ it.likes }}</span
             >
-            <span class="reply"><i class="el-icon-chat-square"></i>艾特</span>
           </div>
-          <div class="reply-content">{{ it.content }}</div>
+          <div class="reply-footer" @click="showReply()">
+            {{ hasMoreReply ? "加载更多" : "没有了" }}
+          </div>
         </div>
       </div>
     </div>
@@ -60,10 +76,11 @@
 export default {
   data() {
     return {
-      isShowReply: true,
       iPage: 1,
       iLimit: 10,
-      iLoading: false,
+      isLoading: true,
+      isShowReply: false,
+      isThumbUp: false,
       replyList: [
         {
           id: 1,
@@ -84,6 +101,9 @@ export default {
     },
   },
   computed: {
+    hasMoreReply() {
+      return this.iPage * this.iLimit < this.item.reply;
+    },
     iUsername() {
       return this.item.username != "" ? this.item.username : "Author Unknown";
     },
@@ -134,14 +154,12 @@ export default {
       return true;
     },
     thumbUp(e) {
-      if (e.target.className == "el-icon-star-off") {
-        e.target.className = "el-icon-star-on";
+      if (!this.isThumbUp) {
         this.item.likes++;
         $.get(`/api/like/comment?target=comment&cid=${this.item.id}`, (res) => {
           console.log(res);
         });
       } else {
-        e.target.className = "el-icon-star-off";
         this.item.likes--;
         $.get(
           `/api/dislike/comment?target=comment&cid=${this.item.id}`,
@@ -150,18 +168,21 @@ export default {
           }
         );
       }
+      this.isThumbUp = !this.isThumbUp;
     },
-    showReply(e) {
-      if (e.target.className == "el-icon-chat-square") {
-        $.get(`/api/get/reply?page=1&limit=10&cid=${this.item.id}`, (res) => {
-          console.log(res);
-          this.isShowReply = true;
-          this.iLoading = false;
-        });
-        e.target.className = "el-icon-chat-line-square";
-      } else {
-        e.target.className = "el-icon-chat-square";
+    showReply() {
+      if (this.hasMoreReply) {
+        $.get(
+          `/api/get/reply?page=${this.iPage++}&limit=${this.iLimit}&cid=${
+            this.item.id
+          }`,
+          (res) => {
+            console.log(res);
+            this.isLoading = false;
+          }
+        );
       }
+      this.isShowReply = !this.isShowReply;
     },
     newReply(e) {
       if (e.target.className == "") {
@@ -185,6 +206,11 @@ export default {
   position: relative;
   &:not(:last-child) {
     margin-bottom: 1rem;
+  }
+
+  i {
+    cursor: pointer;
+    margin-right: 0.25rem;
   }
 
   .comment-header {
@@ -218,11 +244,6 @@ export default {
 
       span {
         padding: 0.2rem 0.4rem;
-
-        i {
-          cursor: pointer;
-          margin-right: 0.25rem;
-        }
       }
 
       .new-reply {
@@ -238,12 +259,35 @@ export default {
       background: lightgray;
       transition: 0.5s;
       margin-left: 1.5rem;
+      padding: 0 0.25rem;
 
       .reply-item {
-        span {
-          display: inline-block;
-          line-height: 40px;
-          padding: 0 4px;
+        .reply-header {
+          height: 35px;
+          padding: 0 0.25rem;
+          margin-bottom: 0.3rem;
+
+          .avator {
+            margin-right: 0.8rem;
+          }
+          span {
+            line-height: 35px;
+            float: left;
+            &.date-info {
+              float: right;
+              padding: 0 0.4rem;
+              font-style: italic;
+              color: #555;
+            }
+          }
+        }
+        .reply-content {
+          padding: 0.2rem 2.4rem 0.2rem 0.2rem;
+          text-indent: 2em;
+          .like-count {
+            margin-right: -2rem;
+            float: right;
+          }
         }
       }
     }
