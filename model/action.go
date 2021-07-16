@@ -75,28 +75,50 @@ func PostComment(com *Comment) (int64, error) {
 
 // 点赞评论
 func LikeComment(target string, id int) error {
-	tx := DB.MustBegin()
-	result, err := DB.Exec("update "+target+" set likes=likes+1 where id=?", id)
-	row, _ := result.RowsAffected()
-	if row != 1 {
-		tx.Rollback()
-		return errors.New("LikeComment failed.")
-	}
-	if err != nil {
-		tx.Rollback()
-		return err
-	}
-	return nil
+	return addOne(target, "likes", id)
 }
 
 // 取赞评论
 func DislikeComment(target string, id int) error {
+	return decOne(target, "likes", id)
+}
+
+// 获取回复
+func GetReply(page, limit, cid, start int) ([]Reply, error) {
+	list := make([]Reply, 0, limit)
+	err := DB.Select(&list, "select `reply`.*,`user`.avator from `reply` INNER JOIN `user` on `reply`.uid = `user`.id where cid = ? order by id desc limit ?,?", cid, (page-1)*limit+start, limit)
+	return list, err
+}
+
+// 发布回复
+func PostReply(rep *Reply) (int64, error) {
 	tx := DB.MustBegin()
-	result, err := DB.Exec("update "+target+" set likes=likes-1 where id=?", id)
+	result, err := DB.Exec("insert into reply (`username`,`datetime`,`content`,`uid`,`cid`) values(?,?,?,?,?)", rep.Username, rep.Datetime, rep.Content, rep.UID, rep.CID)
 	row, _ := result.RowsAffected()
 	if row != 1 {
 		tx.Rollback()
-		return errors.New("LikeComment failed.")
+		return -1, errors.New("PostReply failed.")
+	}
+	if err != nil {
+		tx.Rollback()
+		return -1, err
+	}
+	return result.LastInsertId()
+}
+
+// 评论加一
+func AddReply(id int) error {
+	return addOne("comment", "reply", id)
+}
+
+// 加一
+func addOne(target string, key string, id int) error {
+	tx := DB.MustBegin()
+	result, err := DB.Exec("update "+target+" set "+key+"="+key+"+1 where id=?", id)
+	row, _ := result.RowsAffected()
+	if row != 1 {
+		tx.Rollback()
+		return errors.New("addOne failed.")
 	}
 	if err != nil {
 		tx.Rollback()
@@ -105,9 +127,18 @@ func DislikeComment(target string, id int) error {
 	return nil
 }
 
-// 获取回复
-func GetReply(page, limit, cid int) ([]Reply, error) {
-	list := make([]Reply, 0, limit)
-	err := DB.Select(&list, "select `reply`.*,`user`.avator from `reply` INNER JOIN `user` on `reply`.uid = `user`.id where cid = ? order by id desc limit ?,?", cid, (page-1)*limit, limit)
-	return list, err
+// 减一
+func decOne(target string, key string, id int) error {
+	tx := DB.MustBegin()
+	result, err := DB.Exec("update "+target+" set "+key+"="+key+"-1 where id=?", id)
+	row, _ := result.RowsAffected()
+	if row != 1 {
+		tx.Rollback()
+		return errors.New("addOne failed.")
+	}
+	if err != nil {
+		tx.Rollback()
+		return err
+	}
+	return nil
 }

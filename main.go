@@ -27,8 +27,10 @@ func main() {
 	// 注册请求，并且绑定控制器函数
 	e.POST("/api/sign/in", control.SignInHandler)
 	e.POST("/api/sign/up", control.SignUpHandler)
-	e.GET("/api/get/comment", control.GetComment)
 	e.POST("/api/post/comment", control.PostComment)
+	e.POST("/api/post/reply", control.PostReply)
+
+	e.GET("/api/get/comment", control.GetComment)
 	e.GET("/api/like/comment", control.LikeComment)
 	e.GET("/api/dislike/comment", control.DislikeComment)
 	e.GET("/api/get/reply", control.GetReply)

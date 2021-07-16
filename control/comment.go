@@ -66,7 +66,8 @@ func GetReply(c echo.Context) error {
 	page := Number(c.QueryParam("page"))
 	limit := Number(c.QueryParam("limit"))
 	cid := Number(c.QueryParam("cid"))
-	list, err := model.GetReply(page, limit, cid)
+	start := Number(c.QueryParam("start"))
+	list, err := model.GetReply(page, limit, cid, start)
 	if err != nil {
 		println(err.Error())
 		return c.JSON(http.StatusOK, Fail("获取评论失败！", ""))
@@ -77,17 +78,19 @@ func GetReply(c echo.Context) error {
 
 // 发布回复
 func PostReply(c echo.Context) error {
-	var comment = &model.Comment{
+	var reply = &model.Reply{
 		Username: c.FormValue("username"),
 		Datetime: Number64(c.FormValue("datetime")),
 		Content:  c.FormValue("content"),
 		UID:      Number(c.FormValue("uid")),
+		CID:      Number(c.FormValue("cid")),
 	}
+	// return c.JSON(http.StatusOK, Succ("发布评论成功！", comment))
 
-	idx, err := model.PostComment(comment)
+	idx, err := model.PostReply(reply)
+	model.AddReply(reply.CID)
 	if err != nil {
-		return c.JSON(http.StatusOK, Fail("发布评论失败！", "-1"))
+		return c.JSON(http.StatusOK, Fail("回复失败！", "-1"))
 	}
-
-	return c.JSON(http.StatusOK, Succ("发布评论成功！", idx))
+	return c.JSON(http.StatusOK, Succ("回复成功！", idx))
 }

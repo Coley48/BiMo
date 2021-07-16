@@ -37,35 +37,39 @@
           ></i
           >{{ item.reply }}</span
         >
-        <span class="new-reply" @click="newReply($event)">回复</span>
+        <span class="new-reply" @click="showReplyInput()">回复</span>
       </div>
-      <div class="reply-list" v-if="isShowReply" v-loading="isLoading">
+      <div class="reply-wrap">
         <div
-          class="reply-item"
-          v-for="(it, index) in replyList"
-          :key="item.id + '-' + index"
+          class="reply-list"
+          v-show="isShowReply && !noReply"
+          v-loading="isLoading"
         >
-          <div class="reply-header">
-            <el-avatar
-              class="avator"
-              :size="35"
-              :src="it.avator"
-              @error="errorHandler()"
-            >
-              <img src="@/assets/img/default-avator.jpg" />
-            </el-avatar>
-            <span class="user-info">{{ it.username }}</span>
-            <span class="date-info">{{ toDatetime(it.datetime) }}</span>
+          <reply-item
+            v-for="(it, index) in replyList"
+            :key="item.id + '-' + index"
+            :item="it"
+          ></reply-item>
+          <div class="more-reply" v-if="hasMoreReply">
+            <span @click="getReply()">加载更多</span>
           </div>
-          <div class="reply-content">
-            {{ it.content
-            }}<span class="like-count"
-              ><i class="el-icon-star-off"></i>{{ it.likes }}</span
-            >
-          </div>
-          <div class="reply-footer" @click="showReply()">
-            {{ hasMoreReply ? "加载更多" : "没有了" }}
-          </div>
+        </div>
+        <div class="reply-input" v-show="isShowInput">
+          <el-input
+            type="text"
+            v-model="replyContent"
+            autocomplete="off"
+            clearable
+            placeholder="我的回复"
+            prefix-icon="el-icon-edit"
+            size="mini"
+          >
+            <template slot="append">
+              <el-button class="reply-btn" size="mini" @click="newReply()"
+                >评论</el-button
+              >
+            </template>
+          </el-input>
         </div>
       </div>
     </div>
@@ -73,27 +77,25 @@
 </template>
 
 <script>
+import replyItem from "./reply-item.vue";
+import { mapState } from "vuex";
+
 export default {
   data() {
     return {
-      iPage: 1,
-      iLimit: 10,
+      rPage: 1,
+      rLimit: 5,
       isLoading: true,
       isShowReply: false,
+      isShowInput: false,
       isThumbUp: false,
-      replyList: [
-        {
-          id: 1,
-          username: "test",
-          datetime: 1625989919981,
-          content: "这是测试回复；",
-          likes: 0,
-          uid: 8,
-          avator: "",
-          cid: 14,
-        },
-      ],
+      replyList: [],
+      replyContent: "",
+      mReply: 0,
     };
+  },
+  components: {
+    replyItem,
   },
   props: {
     item: {
@@ -102,7 +104,7 @@ export default {
   },
   computed: {
     hasMoreReply() {
-      return this.iPage * this.iLimit < this.item.reply;
+      return (this.rPage - 1) * this.rLimit + this.mReply < this.item.reply;
     },
     iUsername() {
       return this.item.username != "" ? this.item.username : "Author Unknown";
@@ -110,8 +112,15 @@ export default {
     iDatetime() {
       return this.toDatetime(this.item.datetime);
     },
+    noReply() {
+      return this.item.reply == 0;
+    },
+    ...mapState({
+      userinfo: (state) => state.userinfo,
+    }),
   },
   methods: {
+    // 时间戳转为时间差
     toDatetime(timestamp) {
       if (timestamp == 0) {
         return "1秒钟前";
@@ -153,7 +162,11 @@ export default {
     errorHandler() {
       return true;
     },
+    // 点赞评论
     thumbUp(e) {
+      if (!this.loginCheck()) {
+        return;
+      }
       if (!this.isThumbUp) {
         this.item.likes++;
         $.get(`/api/like/comment?target=comment&cid=${this.item.id}`, (res) => {
@@ -171,27 +184,67 @@ export default {
       this.isThumbUp = !this.isThumbUp;
     },
     showReply() {
-      if (this.hasMoreReply) {
-        $.get(
-          `/api/get/reply?page=${this.iPage++}&limit=${this.iLimit}&cid=${
-            this.item.id
-          }`,
-          (res) => {
-            console.log(res);
-            this.isLoading = false;
-          }
-        );
+      if (!this.loginCheck()) {
+        return;
+      }
+      if (this.isLoading) {
+        this.getReply();
       }
       this.isShowReply = !this.isShowReply;
     },
-    newReply(e) {
-      if (e.target.className == "") {
-        this.$emit("newReply", this.item.cid, this.item.username);
-        e.target.className = "el-icon-chat-line-square";
-      } else {
-        this.$emit("resetTarget");
-        e.target.className = "el-icon-chat-square";
+    getReply() {
+      if (!this.loginCheck()) {
+        return;
       }
+      if (this.hasMoreReply) {
+        $.get(
+          `/api/get/reply?page=${this.rPage++}&limit=${this.rLimit}&cid=${
+            this.item.id
+          }&start=${this.mReply}`,
+          (res) => {
+            this.replyList.push(...res.data);
+            this.isLoading = false;
+          }
+        );
+      } else if (this.noReply) {
+        this.isShowInput = !this.isShowInput;
+      }
+    },
+    showReplyInput() {
+      if (!this.loginCheck()) {
+        return;
+      }
+      this.isShowInput = !this.isShowInput;
+    },
+    newReply(e) {
+      if (!this.loginCheck()) {
+        return;
+      }
+      let data = {
+        uid: this.userinfo.id,
+        username: this.userinfo.username,
+        content: this.replyContent,
+        datetime: new Date().getTime(),
+        cid: this.item.id,
+      };
+      $.post("/api/post/reply", data, (res) => {
+        console.log(res);
+        this.mReply++;
+        this.replyContent = "";
+        this.isShowReply = true;
+        this.item.reply++;
+        data.likes = 0;
+        data.id = res.data;
+        data.avator = this.userinfo.avator;
+        this.replyList.unshift(data);
+      });
+    },
+    loginCheck() {
+      if (this.userinfo == null || sessionStorage.getItem("isLogin") == "") {
+        this.showMessage("error", "你还没有登录！");
+        return false;
+      }
+      return true;
     },
   },
 };
@@ -255,40 +308,32 @@ export default {
       }
     }
 
-    .reply-list {
+    .reply-wrap {
+      border-radius: 0.4rem;
       background: lightgray;
-      transition: 0.5s;
+      transition: 1s;
       margin-left: 1.5rem;
-      padding: 0 0.25rem;
+      .reply-list {
+        padding: 0.25rem;
+      }
 
-      .reply-item {
-        .reply-header {
-          height: 35px;
-          padding: 0 0.25rem;
-          margin-bottom: 0.3rem;
+      .more-reply {
+        text-align: center;
+        span {
+          cursor: pointer;
+        }
+      }
 
-          .avator {
-            margin-right: 0.8rem;
-          }
-          span {
-            line-height: 35px;
-            float: left;
-            &.date-info {
-              float: right;
-              padding: 0 0.4rem;
-              font-style: italic;
-              color: #555;
-            }
+      .reply-input {
+        .reply-btn {
+          transition: 0.5s;
+          &:hover {
+            color: white;
+            background: lightskyblue;
           }
         }
-        .reply-content {
-          padding: 0.2rem 2.4rem 0.2rem 0.2rem;
-          text-indent: 2em;
-          .like-count {
-            margin-right: -2rem;
-            float: right;
-          }
-        }
+        // display: flex;
+        // justify-content: centerr;
       }
     }
   }
